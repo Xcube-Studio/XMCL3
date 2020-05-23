@@ -1,0 +1,55 @@
+﻿<Page x:Class="XMCL.Pages.Set3"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:XMCL.Pages"
+      mc:Ignorable="d" 
+      d:DesignHeight="355" d:DesignWidth="580"
+      Title="Set3">
+
+    <Grid>
+        <ScrollViewer VerticalScrollBarVisibility="Auto">
+            <StackPanel>
+                <StackPanel.Effect>
+                    <DropShadowEffect BlurRadius="10" ShadowDepth="0" Color="Black" Opacity="0.50"/>
+                </StackPanel.Effect>
+                <Expander Header="主题色" Margin="20,20,20,0" Background="White" FontFamily="Microsoft YaHei UI Light">
+                    <Grid >
+                        <StackPanel Orientation="Horizontal" Height="150">
+                            <Grid Margin="10,10,0,10" Width="130">
+                                <Label Margin="5,5,5,100" Foreground="Black" FontFamily="Microsoft YaHei UI Light" >默认蓝</Label>
+                                <Rectangle Fill="#2196f3" Margin="5,25,5,45" />
+                                <StackPanel Margin="5,85.5,5,5" Orientation="Horizontal">
+                                    <Rectangle Fill="#6ec6ff" Margin="0,0,0,0" Width="59.5" />
+                                    <Rectangle Fill="#0069c0" Margin="1,0,0,0" Width="59.5" />
+                                </StackPanel>
+                                <Button Background="Transparent" Height="Auto" Click="Button_Click"/>
+                                <Label Foreground="White" Margin="5,25,5,84" FontFamily="Microsoft YaHei UI Light" Content="#2196f3"/>
+                                <Label Foreground="White" Margin="5,86,65,4" FontFamily="Microsoft YaHei UI Light" Content="#6ec6ff"/>
+                                <Label Foreground="White" Margin="65,86,5,4" FontFamily="Microsoft YaHei UI Light" Content="#0069c0"/>
+                            </Grid>
+                            <Grid Margin="10,10,0,10" Width="130">
+                                <Label Margin="5,5,5,100" Foreground="Black" FontFamily="Microsoft YaHei UI Light" >活力橙</Label>
+                                <Rectangle Fill="#ff8f00" Margin="5,25,5,45" />
+                                <StackPanel Margin="5,85.5,5,5" Orientation="Horizontal">
+                                    <Rectangle Fill="#ffc406" Margin="0,0,0,0" Width="59.5" />
+                                    <Rectangle Fill="#c56000" Margin="1,0,0,0" Width="59.5" />
+                                </StackPanel>
+                                <Button Background="Transparent" Height="Auto" Click="Button_Click1"/>
+                                <Label Foreground="White" Margin="5,25,5,84" FontFamily="Microsoft YaHei UI Light" Content="#ff8f00"/>
+                                <Label Foreground="White" Margin="5,86,65,4" FontFamily="Microsoft YaHei UI Light" Content="#ffc406"/>
+                                <Label Foreground="White" Margin="65,86,5,4" FontFamily="Microsoft YaHei UI Light" Content="#c56000"/>
+                            </Grid>
+
+                        </StackPanel>
+                    </Grid>
+                </Expander>
+                <Border Height="0.5" Background="Transparent" VerticalAlignment="Top" Margin="0"/>
+                <Grid Margin="20,0">
+                    
+                </Grid>
+            </StackPanel>
+        </ScrollViewer>
+    </Grid>
+</Page>
