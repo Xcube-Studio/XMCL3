@@ -33,7 +33,7 @@
                     </TreeViewItem>
                 </TreeView>
             </Grid>
-            <Frame x:Name="Frame" NavigationUIVisibility="Hidden" Content="" HorizontalAlignment="Left" Height="355" Margin="156,0,0,0" VerticalAlignment="Top" Width="580" Foreground="#00000000" />
+            <Frame x:Name="Frame" NavigationUIVisibility="Hidden" Content="" HorizontalAlignment="Left" Height="355" Margin="156,0,0,0" VerticalAlignment="Top" Width="580" Foreground="#00000000" Navigated="Frame_Navigated" />
         </Grid>
         <!--
         <materialDesign:Card.Triggers>

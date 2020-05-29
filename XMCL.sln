@@ -5,7 +5,7 @@ VisualStudioVersion = 16.0.30011.22
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XMCL", "XMCL\XMCL.csproj", "{9816EAD9-7D58-4BD8-B825-FA1EAF27B04E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XMCL.Core", "..\..\XMCL.Core\XMCL.Core\XMCL.Core.csproj", "{06C570B9-133B-4104-97F2-33C94CE15694}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XMCL.Core", "..\Core\XMCL.Core\XMCL.Core.csproj", "{06C570B9-133B-4104-97F2-33C94CE15694}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -22,7 +22,7 @@ namespace XMCL
     public partial class MainWindow : Window
     {
         public static Window Window;
-        public static Snackbar Snackbar;
+        static Snackbar Snackbar;
         Timer timer;
         #region 图形/控件
         public MainWindow()
@@ -235,7 +235,6 @@ namespace XMCL
             Window2 window2 = new Window2();
             window2.ShowDialog();
         }
-
         #endregion
         private void Timer_Elapsed(object sender, ElapsedEventArgs e)
         {
