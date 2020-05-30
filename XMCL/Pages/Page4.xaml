@@ -1,0 +1,21 @@
+﻿<Page x:Class="XMCL.Pages.Page4"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:XMCL.Pages"
+      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+      mc:Ignorable="d" 
+      d:DesignHeight="415" d:DesignWidth="796"
+      Title="Page4" Background="#99000000" Loaded="Page_Loaded">
+    <materialDesign:Card Margin="0,86,0,121.667">
+        <Grid  >
+            <Label Content="自动更新" FontSize="32" FontFamily="Microsoft YaHei UI Light" Margin="28,10,589,137.667" />
+            <Label Content="版本：" FontFamily="Microsoft YaHei UI Light" FontSize="24" Margin="61,52,644,111.667"/>
+            <Label x:Name="ver" Content="               →        " FontFamily="Microsoft YaHei UI Light" FontSize="24" Margin="133,57,407,111.667"/>
+            <Label x:Name="log" Content="更新日志：" FontFamily="Microsoft YaHei UI Light" FontSize="24" Margin="61,95,140,9.667" />
+            <Button x:Name="button1" Content="更新" Height="Auto" Margin="680,164,27,9.667" />
+
+        </Grid>
+    </materialDesign:Card>
+</Page>

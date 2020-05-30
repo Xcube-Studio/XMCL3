@@ -19,11 +19,14 @@ namespace XMCL
     /// <summary>
     /// MainWindow.xaml 的交互逻辑
     /// </summary>
+    
     public partial class MainWindow : Window
     {
+        string ver = "Debug3.001";
         public static Window Window;
         static Snackbar Snackbar;
         Timer timer;
+        
         #region 图形/控件
         public MainWindow()
         {
@@ -50,6 +53,22 @@ namespace XMCL
         {
             Frame.Visibility = Visibility.Collapsed;
             GC.Collect();
+            if(ver.Contains("Debug"))
+            {
+                string[] a =get_string("http://api.axing6.cn/debug.html");
+                if(a[0]!=ver)
+                {
+                    Frame.Navigate(new Page4());
+                }
+            }
+            else
+            {
+                string[] a = get_string("http://api.axing6.cn/api.html");
+                if (a[0] != ver)
+                {
+                    Frame.Navigate(new Page4());
+                }
+            }
             if (System.IO.File.Exists(System.IO.Directory.GetCurrentDirectory() + "\\XMCL.json"))
             { }
             else
@@ -437,5 +456,6 @@ namespace XMCL
                 Image_Loading.Visibility = Visibility.Collapsed;
             }
         }
+
     }
 }
