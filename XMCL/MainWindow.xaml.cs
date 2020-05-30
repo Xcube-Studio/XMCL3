@@ -24,6 +24,7 @@ namespace XMCL
     {
         public static Window Window;
         static Snackbar Snackbar;
+        public static ColorZone ColorZone;
         Timer timer;
         
         #region 图形/控件
@@ -31,6 +32,7 @@ namespace XMCL
         {
             InitializeComponent();
             Window = this;
+            ColorZone = CtrlPage;
             Snackbar = snackbar;
             string[] a = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString().Split('.');
             Text_Title.Text += " " + a[0] + "." + a[1] + a[2] + a[3];
@@ -51,6 +53,7 @@ namespace XMCL
         }
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
+            this.Activate();
             #region Update
             Task.Run(() =>
             {

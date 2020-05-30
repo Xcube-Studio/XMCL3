@@ -12,7 +12,7 @@ namespace XMCL
     /// </summary>
     public partial class App : Application
     {
-        public static string version = "Pre-"+System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString();
+        public static string version = "Pre"+System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString();
         private void Application_Startup(object sender, StartupEventArgs e)
         {
             if (Directory.Exists(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\.XMCL"))
@@ -38,9 +38,12 @@ namespace XMCL
             if (HasUpdated)
             {
                 List<string> vs = new List<string>();
-                vs.Add("del " + Directory.GetCurrentDirectory() + "\\XMCL.exe");
-                vs.Add("move " + Folder_XMCL + "\\Download\\XMCL.exe " + Directory.GetCurrentDirectory() + "\\XMCL.exe");
+                vs.Add("TIMEOUT /T 3");
+                vs.Add("del \"" + Directory.GetCurrentDirectory() + "\\XMCL.exe\"");
+                vs.Add("move \"" + Folder_XMCL + "\\Download\\XMCL.exe\" \"" + Directory.GetCurrentDirectory() + "\\XMCL.exe\"");
+                vs.Add("TIMEOUT /T 1");
                 vs.Add("start /d \"" + Directory.GetCurrentDirectory() + "\" XMCL.exe");
+                vs.Add("del \"" + Directory.GetCurrentDirectory() + "\\Update.bat\"");
                 File.WriteAllLines(Directory.GetCurrentDirectory() + "\\Update.bat", vs.ToArray());
                 WinExec(Directory.GetCurrentDirectory() + "\\Update.bat", 0);
             }

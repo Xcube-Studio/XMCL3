@@ -78,7 +78,7 @@
                 </Grid>
                 <Frame x:Name="Frame" Content="" NavigationUIVisibility="Hidden" VerticalAlignment="Stretch" Margin="0,0,0,0" d:IsHidden="True" Navigated="Frame_Navigated">
                 </Frame>
-                <materialDesign:ColorZone Mode="PrimaryMid" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="30,0,0,3" Background="{x:Null}">
+                <materialDesign:ColorZone x:Name="CtrlPage" Mode="PrimaryMid" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="30,0,0,3" Background="{x:Null}">
                     <StackPanel  Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Top">
                         <RadioButton x:Name="RadioButton1" Style="{StaticResource MaterialDesignTabRadioButton}" IsChecked="False"
                             Content="游戏管理" Height="Auto" BorderBrush="White" FontSize="13" FontFamily="Microsoft YaHei UI Light" Click="RadioButton1_Click" />
