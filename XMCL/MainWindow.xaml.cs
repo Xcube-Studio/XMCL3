@@ -77,31 +77,25 @@ namespace XMCL
             }
             System.GC.Collect();
             Image_Change();
-            if (Convert.ToBoolean(Json.Read("Files", "UseDefaultDirectory")))
-                C1.ItemsSource = Tools.GetVersions(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\.minecraft");
-            else C1.ItemsSource = Tools.GetVersions(Json.Read("Files", "GamePath"));
-            GC.Collect();
-            if (Json.Read("Game", "LatestVerison").Length > 0)
+            try
             {
-                if (Json.Read("Game", "LatestVerison").Contains(" "))
+                if (Convert.ToBoolean(Json.Read("Files", "UseDefaultDirectory")))
+                    C1.ItemsSource = Tools.GetVersions(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\.minecraft");
+                else
                 {
-                    string[] vs = Json.Read("Game", "LatestVerison").Split(' ');
-                    if (vs[0] == Json.Read("Files", "GamePath"))
-                    {
-                        string[] vs1 = Tools.GetVersions(Json.Read("Files", "GamePath"));
-                        for (int i = 0; i < vs1.Length; i++)
+                    if (Json.Read("Game", "LatestVerison").Length > 0)
+                        if (Json.Read("Game", "LatestVerison").Contains(" "))
                         {
-                            if (vs[1] == vs1[i])
+                            string[] vs = Json.Read("Game", "LatestVerison").Split(' ');
+                            if (vs[0] == Json.Read("Files", "GamePath"))
                             {
-                                this.Dispatcher.BeginInvoke(new Action(() =>
-                                {
-                                    C1.SelectedItem = vs[1];
-                                }));
+                                C1.ItemsSource = Tools.GetVersions(Json.Read("Files", "GamePath"));
                             }
                         }
-                    }
                 }
-            }
+            } catch { ShowTip("未能正确获取版本列表,请检查设置",1); }
+            GC.Collect();
+            
             Task.Run(() =>
             {
                 Tools.Performance();
@@ -132,11 +126,13 @@ namespace XMCL
             game.WindowStartupLocation = WindowStartupLocation.CenterOwner;
             game.ShowDialog();
             if (game.process == null)
+            { }
+            else
             {
+                game.process.Exited += Process_Exited;
                 button.IsEnabled = false;
                 button.Content = "游戏已启动";
             }
-            else game.process.Exited += Process_Exited;
             Task.Delay(1000);
             try
             {

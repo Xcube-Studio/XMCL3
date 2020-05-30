@@ -43,7 +43,7 @@ namespace XMCL.Pages
                 All.Children.Clear();
                 Task.Run(() =>
                 {
-                    string[] a = Tools.GetLatestVersion("BMCLAPI").Split(';');
+                    string[] a = Tools.GetLatestVersion(Json.Read("Files", "DownloadSource")).Split(';');
                     this.Dispatcher.BeginInvoke(new Action(() =>
                     {
                         ListBoxItem listBoxItem = new ListBoxItem();
@@ -63,7 +63,7 @@ namespace XMCL.Pages
                 });
                 Task.Run(() =>
                 {
-                    List<string> vs = XMCL.Core.Tools.GetVersionsListAll("BMCLAPI");
+                    List<string> vs = Tools.GetVersionsListAll(Json.Read("Files", "DownloadSource"));
                     this.Dispatcher.Invoke(new Action(() =>
                     {
                         for (int i = 0; i < vs.Count; i++)

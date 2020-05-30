@@ -38,7 +38,6 @@ namespace XMCL
                 PasswordBox.Visibility = Visibility.Visible;
             else PasswordBox.Visibility = Visibility.Hidden;
         }
-
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             Loading.Visibility = Visibility.Visible;
@@ -56,7 +55,7 @@ namespace XMCL
                             email = NameTextBox.Text;
                             password = PasswordBox.Password;
                         }));
-                        if (Authenticate.Login(email, password))
+                        if (Authenticate.Login(email, password, false))
                         {
                             this.Dispatcher.BeginInvoke(new Action(() =>
                             {
@@ -64,6 +63,7 @@ namespace XMCL
                                 this.Close();
                             }));
                         }
+                        else MainWindow.ShowTip("登陆失败,请检查密码.[或多次重复被服务器禁止登录]",1);
                         this.Dispatcher.BeginInvoke(new Action(() =>
                         {
                             PasswordBox.IsEnabled = NameTextBox.IsEnabled = ComboBox.IsEnabled = button.IsEnabled = true;
