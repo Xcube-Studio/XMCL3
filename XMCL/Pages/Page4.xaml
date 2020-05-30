@@ -7,20 +7,18 @@
       xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
       mc:Ignorable="d" 
       d:DesignHeight="415" d:DesignWidth="796"
-      Title="Page4" Background="#99000000" Loaded="Page_Loaded">
-    <materialDesign:Card Margin="0,86,0,121.667">
-        <Grid  >
-            <Label Content="自动更新" FontSize="32" FontFamily="Microsoft YaHei UI Light" Margin="28,10,589,137.667" />
-            <Label Content="版本：" FontFamily="Microsoft YaHei UI Light" FontSize="24" Margin="61,52,644,111.667"/>
-            <Label x:Name="ver" Content="               →        " FontFamily="Microsoft YaHei UI Light" FontSize="24" Margin="133,57,407,111.667"/>
-            <Label x:Name="log" Content="更新日志：" FontFamily="Microsoft YaHei UI Light" FontSize="24" Margin="61,95,140,9.667" />
-            <Button x:Name="button1" Content="更新" Height="Auto" Margin="680,164,27,9.667" Click="Button1_Click"/>
-            <ProgressBar
-                x:Name="ProgressBar1"
-  Style="{StaticResource MaterialDesignCircularProgressBar}"
-  Value="0"
-  IsIndeterminate="True" Height="Auto" Margin="729,149,27,9.667" Width="Auto" />
-
+      Title="Page4" Background="Transparent" Loaded="Page_Loaded">
+    <Grid>
+        <Grid.Effect>
+            <DropShadowEffect BlurRadius="10" ShadowDepth="0" Color="Black" Opacity="0.50"/>
+        </Grid.Effect>
+        <Grid Margin="0,85,0,120" Background="White">
+            <Label Content="更新-XMCL" FontSize="28" FontFamily="Microsoft YaHei UI Light" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="20,10,0,0"/>
+            <Label x:Name="LV" Content="版本:" FontFamily="Microsoft YaHei UI Light" FontSize="16" Margin="40,54,0,0" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+            <RadioButton x:Name="Button_Update" Style="{StaticResource MaterialDesignTabRadioButton}" Margin="703,163,10,15" Content="Update" IsChecked="True" Background="#FF2196F3" BorderBrush="#FF6ec6ff" Foreground="White" FontFamily="Microsoft YaHei UI Light" Click="RadioButton_Click" />
+            <ProgressBar x:Name="ProgressBar1" Style="{StaticResource MaterialDesignCircularProgressBar}" Value="0" IsIndeterminate="True" Height="25" Margin="670,167,101,18" Width="25" />
+            <Label Content="日志:" FontFamily="Microsoft YaHei UI Light" FontSize="16" Margin="40,87,0,0" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+            <TextBox HorizontalAlignment="Left" Height="108" Margin="98,87,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="543" VerticalScrollBarVisibility="Auto" IsReadOnly="True"/>
         </Grid>
-    </materialDesign:Card>
+    </Grid>
 </Page>

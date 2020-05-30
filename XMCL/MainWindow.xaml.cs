@@ -22,7 +22,6 @@ namespace XMCL
     
     public partial class MainWindow : Window
     {
-        string ver = "Debug3.001";
         public static Window Window;
         static Snackbar Snackbar;
         Timer timer;
@@ -35,6 +34,7 @@ namespace XMCL
             Snackbar = snackbar;
             string[] a = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString().Split('.');
             Text_Title.Text += " " + a[0] + "." + a[1] + a[2] + a[3];
+            Frame.Visibility = Visibility.Collapsed;
         }
         private void Window_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
@@ -51,24 +51,24 @@ namespace XMCL
         }
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            Frame.Visibility = Visibility.Collapsed;
-            GC.Collect();
-            if(ver.Contains("Debug"))
+            #region Update
+            Task.Run(() =>
             {
-                string[] a =get_string("http://api.axing6.cn/debug.html");
-                if(a[0]!=ver)
-                {
-                    Frame.Navigate(new Page4());
-                }
-            }
-            else
-            {
-                string[] a = get_string("http://api.axing6.cn/api.html");
-                if (a[0] != ver)
-                {
-                    Frame.Navigate(new Page4());
-                }
-            }
+                WebClient webClient = new WebClient();
+                string[] a;
+                if (App.version.Contains("Pre"))
+                    a = Encoding.UTF8.GetString(webClient.DownloadData("http://api.axing6.cn/debug.html")).Split('#');
+                else a = Encoding.UTF8.GetString(webClient.DownloadData("http://api.axing6.cn/api.html")).Split('#');
+                if (a[0] != App.version)
+                    this.Dispatcher.BeginInvoke(new Action(() =>
+                    {
+                        Frame.Visibility = Visibility.Visible;
+                        Frame.Navigate(new Page4());
+                    }));
+                webClient.Dispose();
+            });
+            #endregion
+            #region JSON
             if (System.IO.File.Exists(System.IO.Directory.GetCurrentDirectory() + "\\XMCL.json"))
             { }
             else
@@ -85,7 +85,6 @@ namespace XMCL
                     throw ex;
                 }
             }
-            login();
             if (Json.Read("Files", "JavaPath").Length > 0)
             { }
             else
@@ -94,8 +93,6 @@ namespace XMCL
                 if (vs != null)
                     Json.Write("Files", "JavaPath", vs[0]);
             }
-            System.GC.Collect();
-            Image_Change();
             try
             {
                 if (Convert.ToBoolean(Json.Read("Files", "UseDefaultDirectory")))
@@ -112,9 +109,14 @@ namespace XMCL
                             }
                         }
                 }
-            } catch { ShowTip("未能正确获取版本列表,请检查设置",1); }
-            GC.Collect();
-            
+            }
+            catch { ShowTip("未能正确获取版本列表,请检查设置", 1); }
+            #endregion
+            #region Login/Iamge
+            login();
+            Image_Change();
+            #endregion
+            #region Timer
             Task.Run(() =>
             {
                 Tools.Performance();
@@ -124,6 +126,8 @@ namespace XMCL
                 timer.Elapsed += Timer_Elapsed;
                 timer.Start();
             });
+            #endregion
+            GC.Collect();
         }
         public static void ShowTip(string text, int second) => Snackbar.MessageQueue.Enqueue(text, null, null, null, false, false, TimeSpan.FromSeconds(second));
         private void Button_Click_Start(object sender, RoutedEventArgs e)
@@ -379,16 +383,6 @@ namespace XMCL
 
             return bitmapImage;
         }
-        public static string[] get_string(string url)
-        {
-            WebClient MyWebClient = new WebClient();
-            MyWebClient.Credentials = CredentialCache.DefaultCredentials;//获取或设置用于向Internet资源的请求进行身份验证的网络凭据
-            Byte[] pageData = MyWebClient.DownloadData(url); //从指定网站下载数据
-            string pageHtml = Encoding.UTF8.GetString(pageData); //如果获取网站页面采用的是UTF-8，则使用这句
-            string[] a = pageHtml.Split('#');
-
-            return a;
-        }
         private static int intSuijishu(int a, int b)
         {
             Random r = new Random(GetRandomSeed());
@@ -425,7 +419,9 @@ namespace XMCL
                 int suiji = intSuijishu(1, 6);
                 Task.Run(() =>
                 {
-                    a = get_string("http://106.14.64.250/api/" + suiji + ".html");
+                    WebClient webClient = new WebClient();
+                    a = Encoding.UTF8.GetString(webClient.DownloadData("http://106.14.64.250/api/" + suiji + ".html")).Split('#');
+                    webClient.Dispose();
                     b = a[1].Split('|');
                     System.Net.WebRequest webreq = System.Net.WebRequest.Create("http://106.14.64.250/api/" + b[1]);
                     System.Net.WebResponse webres = webreq.GetResponse();

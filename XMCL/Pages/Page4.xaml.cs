@@ -21,57 +21,94 @@ namespace XMCL.Pages
     /// </summary>
     public partial class Page4 : Page
     {
+        string[] a;
         public Page4()
         {
             InitializeComponent();
         }
-        string ver1 = "Debug3.001";
         private void Page_Loaded(object sender, RoutedEventArgs e)
-        {
-            if (ver1.Contains("Debug"))
+         {
+            Task.Run(() =>
             {
-               string[] a = MainWindow.get_string("http://api.axing6.cn/debug.html");
-              ver.Content=ver1+"    →"+a[0];
-            }
-            else
-            {
-                string[] a = MainWindow.get_string("http://api.axing6.cn/api.html");
-                ver.Content = ver1 + "    →" + a[0];
-            }
-            ProgressBar1.Visibility = Visibility.Collapsed;
+                WebClient webClient = new WebClient();
+                if (App.version.Contains("Pre"))
+                    a = Encoding.UTF8.GetString(webClient.DownloadData("http://api.axing6.cn/debug.html")).Split('#');
+                else a = Encoding.UTF8.GetString(webClient.DownloadData("http://api.axing6.cn/api.html")).Split('#');
+                this.Dispatcher.BeginInvoke(new Action(() =>
+                {
+                    ProgressBar1.Visibility = Visibility.Collapsed;
+                    LV.Content += App.version + "    →" + a[0];
+                }));
+            });
         }
 
-        private void Button1_Click(object sender, RoutedEventArgs e)
+        private void RadioButton_Click(object sender, RoutedEventArgs e)
         {
-            button1.Visibility = Visibility.Collapsed;
+            Button_Update.IsChecked = true;
+            Button_Update.IsEnabled = false;
             ProgressBar1.Visibility = Visibility.Visible;
-            if (ver1.Contains("Debug"))
+            if (a[0] != App.version)
             {
                 try
                 {
-                    string[] a = MainWindow.get_string("http://api.axing6.cn/debug.html");
-                    if (a[0] != ver1)
+                    Task.Run(delegate
                     {
-
-                        WebClient myWebClient = new WebClient();
-                        myWebClient.DownloadFile(a[1], "DebugXMCL.exe");
-                    }
+                        if (!System.IO.Directory.Exists(App.Folder_XMCL + "\\Download\\"))
+                            System.IO.Directory.CreateDirectory(App.Folder_XMCL + "\\Download\\");
+                        DownloadFile(a[1], App.Folder_XMCL + "\\Download\\XMCL.exe", ProgressBar1);
+                    });
                 }
-                catch { MessageBox.Show("下载发生问题！请重启XMCL "); }
+                catch 
+                { 
+                    MainWindow.ShowTip("下载发生问题！请重试", 1);
+                    Button_Update.IsEnabled = true; ProgressBar1.Visibility = Visibility.Collapsed;
+                }
             }
-            else
+        }
+        public void DownloadFile(string URL, string filename, ProgressBar prog)
+        {
+            this.Dispatcher.Invoke(new Action(() =>
             {
-                string[] a = MainWindow.get_string("http://api.axing6.cn/api.html");
-                if (a[0] != ver1)
+                prog.IsIndeterminate = false;
+            }));
+            ServicePointManager.SecurityProtocol = SecurityProtocolType.Ssl3 | SecurityProtocolType.Tls12 | SecurityProtocolType.Tls11 | SecurityProtocolType.Tls;
+            System.Net.HttpWebRequest Myrq = (System.Net.HttpWebRequest)System.Net.HttpWebRequest.Create(URL);
+            System.Net.HttpWebResponse myrp = (System.Net.HttpWebResponse)Myrq.GetResponse();
+            long totalBytes = myrp.ContentLength;
+            this.Dispatcher.BeginInvoke(new Action(() =>
+            {
+                if (prog != null)
                 {
-                    try
-                    {
-                        WebClient myWebClient = new WebClient();
-                        myWebClient.DownloadFile(a[1], "XMCL.exe");
-                    }
-                    catch { MessageBox.Show("下载发生问题！请重启XMCL "); }
+                    prog.Maximum = (int)totalBytes;
                 }
+            }));
+
+            System.IO.Stream st = myrp.GetResponseStream();
+            System.IO.Stream so = new System.IO.FileStream(filename, System.IO.FileMode.Create);
+            long totalDownloadedByte = 0;
+            byte[] by = new byte[1024];
+            int osize = st.Read(by, 0, (int)by.Length);
+            while (osize > 0)
+            {
+                totalDownloadedByte = osize + totalDownloadedByte;
+                so.Write(by, 0, osize);
+                this.Dispatcher.BeginInvoke(new Action(() =>
+                {
+                    if (prog != null)
+                    {
+                        prog.Value = (int)totalDownloadedByte;
+                    }
+                }));
+                osize = st.Read(by, 0, (int)by.Length);
             }
+            myrp.Dispose();
+            so.Close();
+            st.Close();
+            this.Dispatcher.Invoke(new Action(() =>
+            {
+                App.HasUpdated = true;
+                Application.Current.Shutdown();
+            }));
         }
     }
 }
