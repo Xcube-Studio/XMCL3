@@ -14,7 +14,12 @@
             <Label Content="版本：" FontFamily="Microsoft YaHei UI Light" FontSize="24" Margin="61,52,644,111.667"/>
             <Label x:Name="ver" Content="               →        " FontFamily="Microsoft YaHei UI Light" FontSize="24" Margin="133,57,407,111.667"/>
             <Label x:Name="log" Content="更新日志：" FontFamily="Microsoft YaHei UI Light" FontSize="24" Margin="61,95,140,9.667" />
-            <Button x:Name="button1" Content="更新" Height="Auto" Margin="680,164,27,9.667" />
+            <Button x:Name="button1" Content="更新" Height="Auto" Margin="680,164,27,9.667" Click="Button1_Click"/>
+            <ProgressBar
+                x:Name="ProgressBar1"
+  Style="{StaticResource MaterialDesignCircularProgressBar}"
+  Value="0"
+  IsIndeterminate="True" Height="Auto" Margin="729,149,27,9.667" Width="Auto" />
 
         </Grid>
     </materialDesign:Card>

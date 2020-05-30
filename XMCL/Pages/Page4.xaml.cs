@@ -30,6 +30,23 @@ namespace XMCL.Pages
         {
             if (ver1.Contains("Debug"))
             {
+               string[] a = MainWindow.get_string("http://api.axing6.cn/debug.html");
+              ver.Content=ver1+"    →"+a[0];
+            }
+            else
+            {
+                string[] a = MainWindow.get_string("http://api.axing6.cn/api.html");
+                ver.Content = ver1 + "    →" + a[0];
+            }
+            ProgressBar1.Visibility = Visibility.Collapsed;
+        }
+
+        private void Button1_Click(object sender, RoutedEventArgs e)
+        {
+            button1.Visibility = Visibility.Collapsed;
+            ProgressBar1.Visibility = Visibility.Visible;
+            if (ver1.Contains("Debug"))
+            {
                 try
                 {
                     string[] a = MainWindow.get_string("http://api.axing6.cn/debug.html");
@@ -40,7 +57,7 @@ namespace XMCL.Pages
                         myWebClient.DownloadFile(a[1], "DebugXMCL.exe");
                     }
                 }
-                catch { MessageBox.Show("下载发生问题！请重启XMCL ");  }
+                catch { MessageBox.Show("下载发生问题！请重启XMCL "); }
             }
             else
             {
