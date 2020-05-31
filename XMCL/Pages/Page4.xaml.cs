@@ -84,7 +84,9 @@ namespace XMCL.Pages
                 prog.IsIndeterminate = false;
             }));
             HttpWebRequest request = WebRequest.Create(URL) as HttpWebRequest;
+            request.Timeout = 3000;
             HttpWebResponse response = request.GetResponse() as HttpWebResponse;
+            
             this.Dispatcher.Invoke(new Action(() =>
             {
                 prog.Maximum = response.ContentLength;
@@ -103,6 +105,7 @@ namespace XMCL.Pages
                     prog.Value += size;
                 }));
             }
+            request.Abort();
             stream.Dispose();
             responseStream.Dispose();
             response.Dispose();
