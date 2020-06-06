@@ -18,8 +18,10 @@
                         <TreeViewItem   Header="下载" Foreground="#DDFFFFFF" PreviewMouseUp="Set2" FontFamily="Microsoft YaHei UI Light"/>
                     </TreeViewItem>
                     <TreeViewItem   Header="启动器设置" Foreground="#DDFFFFFF" IsExpanded="True" FontFamily="Microsoft YaHei UI Light">
+                        <TreeViewItem       Header="反馈" Foreground="#DDFFFFFF" FontFamily="Microsoft YaHei UI Light" PreviewMouseUp="Set5" />
                         <TreeViewItem    Header="个性化" Foreground="#DDFFFFFF" FontFamily="Microsoft YaHei UI Light"  PreviewMouseUp="Set3"/>
                         <TreeViewItem       Header="关于" Foreground="#DDFFFFFF" FontFamily="Microsoft YaHei UI Light" PreviewMouseUp="About" />
+                        
                     </TreeViewItem>
                 </TreeView>
             </Grid>

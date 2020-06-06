@@ -1,0 +1,34 @@
+﻿<Page x:Class="XMCL.Pages.SubPage2"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+      xmlns:local="clr-namespace:XMCL.Pages"
+      mc:Ignorable="d" 
+      d:DesignHeight="355" d:DesignWidth="580"
+      Title="SubPage2">
+
+    <Grid>
+        <ScrollViewer  VerticalScrollBarVisibility="Auto">
+            <StackPanel Orientation="Vertical" >
+                <TextBox x:Name="Title" materialDesign:HintAssist.HelperText="标题/Title （可以将你遇到的问题写出来 e.g:游戏无法加载）" />
+                <TextBox x:Name="Name" materialDesign:HintAssist.HelperText="如何称呼您？您的网名 （e.g:xingxing）" HorizontalAlignment="Left" Width="213" Margin="0,19,0,0"  />
+                <ToggleButton
+  Style="{StaticResource MaterialDesignSwitchLightToggleButton}"
+  ToolTip="MaterialDesignSwitchLightToggleButton"
+  IsChecked="True" Margin="138,-9,30,17" Height="32" Width="84"   >
+                    <ToggleButton.RenderTransform>
+                        <TransformGroup>
+                            <ScaleTransform/>
+                            <SkewTransform/>
+                            <RotateTransform Angle="0.383"/>
+                            <TranslateTransform/>
+                        </TransformGroup>
+                    </ToggleButton.RenderTransform>
+                </ToggleButton>
+         
+            </StackPanel>
+        </ScrollViewer>
+    </Grid>
+</Page>

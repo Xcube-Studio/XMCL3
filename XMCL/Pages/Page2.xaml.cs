@@ -20,6 +20,10 @@ namespace XMCL.Pages
         {
             Frame.Navigate(new Set1());
         }
+        private void Set5(object sender, MouseButtonEventArgs e)
+        {
+            Frame.Navigate(new Set5());
+        }
         private void Set2(object sender, MouseButtonEventArgs e)
         {
             Frame.Navigate(new Set2());
