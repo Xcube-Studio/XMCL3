@@ -1,19 +1,8 @@
 ﻿using MySql.Data.MySqlClient;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using XMCL.Core;
 
 namespace XMCL.Pages
 {
@@ -32,9 +21,9 @@ namespace XMCL.Pages
             Frame.Visibility = Visibility.Collapsed;
             try
             {
-               
+
                 Latest.Children.Clear();
-                
+
                 Task.Run(() =>
                 {
                     string strcon = "server=106.14.64.250;User Id=User;password=User20202020server;Database=User";
@@ -67,21 +56,21 @@ namespace XMCL.Pages
                     }
                     this.Dispatcher.BeginInvoke(new Action(() =>
                     {
-                        
+
                         for (int f = 1; f < i; f++)
                         {
-                
+
                             ListBoxItem listBoxItem = new ListBoxItem();
                             ListBoxItem listBoxItem1 = new ListBoxItem();
                             listBoxItem.Margin = listBoxItem1.Margin = new Thickness(20, 0, 20, 0);
-                            listBoxItem.Content ="(XMCL-"+id[f].ToString()+") "+title[f] + "  By：" + by[f];
-                            listBoxItem.Tag = "XMCL"+id[f].ToString();
+                            listBoxItem.Content = "(XMCL-" + id[f].ToString() + ") " + title[f] + "  By：" + by[f];
+                            listBoxItem.Tag = "XMCL" + id[f].ToString();
                             Latest.Children.Add(listBoxItem);
-                            
+
                         }
-                          
+
                         pb1.Visibility = Visibility.Collapsed;
-                        
+
 
                     }));
                 });

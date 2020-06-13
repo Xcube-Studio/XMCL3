@@ -15,10 +15,13 @@
                 <RowDefinition Height="8*"/>
                 <RowDefinition Height="63*"/>
             </Grid.RowDefinitions>
+            <Border Margin="0,39,0,0" Height="1">
+                <Border.Background>
+                    <SolidColorBrush Color="{DynamicResource {x:Static SystemColors.ActiveBorderColorKey}}"/>
+                </Border.Background>
+            </Border>
             <Label Content="最近的下载项" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
-            <StackPanel Orientation="Vertical">
-                
-            </StackPanel>
+            <StackPanel Orientation="Vertical" x:Name="List" Margin="0" Grid.Row="1"/>
         </Grid>
     </materialDesign:Card>
 </Page>

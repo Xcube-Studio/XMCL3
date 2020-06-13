@@ -1,10 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Media;
-using System.IO;
-using System.Collections.Generic;
-using System.Runtime.InteropServices;
-
+using System.Windows.Media.Animation;
 namespace XMCL
 {
     /// <summary>
@@ -12,15 +12,19 @@ namespace XMCL
     /// </summary>
     public partial class App : Application
     {
-        public static string version = "Pre"+System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString();
+        public static string version = "Pre" + System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString();
         private void Application_Startup(object sender, StartupEventArgs e)
         {
+            Timeline.DesiredFrameRateProperty.OverrideMetadata(
+               typeof(Timeline),
+               new FrameworkPropertyMetadata { DefaultValue = 65 }
+               );
             if (Directory.Exists(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\.XMCL"))
             { }
             else Directory.CreateDirectory(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\.XMCL");
         }
         public static string Folder_XMCL = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\.XMCL";
-        public static void Thems(string color1,string color2,string color3)
+        public static void Thems(string color1, string color2, string color3)
         {
             XMCL.MainWindow.Window.Resources.Remove("PrimaryHueMidBrush");
             XMCL.MainWindow.Window.Resources.Add("PrimaryHueMidBrush", new SolidColorBrush((Color)ColorConverter.ConvertFromString(color1)));

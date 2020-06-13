@@ -1,18 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using XMCL.Core;
 
 namespace XMCL.Pages
@@ -52,6 +43,8 @@ namespace XMCL.Pages
                         listBoxItem.Content = a[0].Split(',')[0];
                         listBoxItem.Tag = a[0].Split(',')[1];
                         Latest.Children.Add(listBoxItem);
+                        listBoxItem.MouseDoubleClick += ListBoxItem_MouseDoubleClick;
+                        listBoxItem1.MouseDoubleClick += ListBoxItem_MouseDoubleClick;
                         if (ShowSnapshot.IsChecked == true)
                         {
                             listBoxItem1.Content = a[1].Split(',')[0];
@@ -90,6 +83,14 @@ namespace XMCL.Pages
             {
                 MainWindow.ShowTip("从远程服务器拉取版本失败,请重试", 1);
             }
+        }
+        private void ListBoxItem_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            MainWindow.ShowTip("开始下载", 1);
+            ListBoxItem listBoxItem = (ListBoxItem)sender;
+            if (MainWindow.DownloadPage == null)
+                MainWindow.DownloadPage = new Page3();
+            Page3.AddDownloadTask(listBoxItem.Tag.ToString());
         }
     }
 }

@@ -3,30 +3,31 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
+using System.Net;
+using System.Text;
 using System.Threading.Tasks;
 using System.Timers;
-using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media.Imaging;
 using XMCL.Core;
 using XMCL.Pages;
-using System.Net;
 
 namespace XMCL
 {
     /// <summary>
     /// MainWindow.xaml 的交互逻辑
     /// </summary>
-    
+
     public partial class MainWindow : Window
     {
         public static Window Window;
         static Snackbar Snackbar;
         public static ColorZone ColorZone;
+        public static Page DownloadPage;
         Timer timer;
-        
+
         #region 图形/控件
         public MainWindow()
         {
@@ -36,7 +37,6 @@ namespace XMCL
             Snackbar = snackbar;
             string[] a = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString().Split('.');
             Text_Title.Text += " " + a[0] + "." + a[1] + a[2] + a[3];
-            Frame.Visibility = Visibility.Collapsed;
         }
         private void Window_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
@@ -109,6 +109,11 @@ namespace XMCL
                             if (vs[0] == Json.Read("Files", "GamePath"))
                             {
                                 C1.ItemsSource = Tools.GetVersions(Json.Read("Files", "GamePath"));
+                                for (int i = 0; i < C1.Items.Count; i++)
+                                {
+                                    if (C1.Items[i].ToString() == vs[1])
+                                        C1.SelectedIndex = i;
+                                }
                             }
                         }
                 }
@@ -194,36 +199,28 @@ namespace XMCL
                 C1.ItemsSource = Tools.GetVersions(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\.minecraft");
             else C1.ItemsSource = Tools.GetVersions(Json.Read("Files", "GamePath"));
         }
-        private void RadioButton1_Click(object sender, RoutedEventArgs e)
+        private void RadioButton1_PreviewMouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
-            if (Frame.Visibility == Visibility.Visible)
-            {
-                RadioButton1.IsChecked = false;
-                Frame.Navigate(null);
-            }
-            else
-            {
-                Frame.Visibility = Visibility.Visible;
-                Frame.Navigate(new Page1());
-            }
+            RadioButton1.IsChecked = false;
+            Frame.Navigate(new Page1());
         }
-        private void RadioButton2_Click(object sender, RoutedEventArgs e)
+        private void RadioButton2_PreviewMouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
-            if (Frame.Visibility == Visibility.Visible)
-            {
-                RadioButton2.IsChecked = false;
-                Frame.Navigate(null);
-            }
-            else
-            {
-                Frame.Visibility = Visibility.Visible;
-                Frame.Navigate(new Page2());
-            }
+            RadioButton2.IsChecked = false;
+            Frame.Navigate(new Page2());
         }
         private void Frame_Navigated(object sender, System.Windows.Navigation.NavigationEventArgs e)
         {
             if (Frame.Content == null)
+            {
                 Frame.Visibility = Visibility.Collapsed;
+                Main.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                Frame.Visibility = Visibility.Visible;
+                Main.Visibility = Visibility.Collapsed;
+            }
             try { Frame.RemoveBackEntry(); } catch { }
             GC.Collect();
         }
@@ -299,12 +296,12 @@ namespace XMCL
             Load.Visibility = Visibility.Visible;
             head1.Source = BitmapToBitmapImage(Properties.Resources.steve);
             string x = Json.Read("Login", "choose");
-            if (Json.Read("Login","choose").Length > 0)
+            if (Json.Read("Login", "choose").Length > 0)
             {
                 Label_Name2.Content = Json.ReadUser(x, "userName");
                 Task.Run(() =>
                 {
-                    if (Json.ReadUser(x,"LoginMode") == "正版")
+                    if (Json.ReadUser(x, "LoginMode") == "正版")
                     {
                         Tools.GetSkins(x, App.Folder_XMCL);
                         this.Dispatcher.BeginInvoke(new Action(() =>
@@ -324,7 +321,7 @@ namespace XMCL
                     }
                     else
                     {
-                        if (Authenticate.Refresh(Json.ReadUser(x, "accessToken"),Json.Read("Login", "clientToken")))
+                        if (Authenticate.Refresh(Json.ReadUser(x, "accessToken"), Json.Read("Login", "clientToken")))
                         {
                             this.Dispatcher.BeginInvoke(new Action(() =>
                             {

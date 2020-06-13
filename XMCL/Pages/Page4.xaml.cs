@@ -1,20 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+using System.IO;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
-using System.IO;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using System.Security.RightsManagement;
 
 namespace XMCL.Pages
 {
@@ -44,7 +34,6 @@ namespace XMCL.Pages
                 }));
             });
         }
-
         private void RadioButton_Click(object sender, RoutedEventArgs e)
         {
             Button_Update.IsChecked = true;
@@ -70,7 +59,7 @@ namespace XMCL.Pages
                         }));
                     });
                 }
-                catch 
+                catch
                 {
                     MainWindow.ShowTip("下载发生问题！请重试", 1);
                     Button_Update.IsEnabled = true; ProgressBar1.Visibility = Visibility.Collapsed;
@@ -86,7 +75,7 @@ namespace XMCL.Pages
             HttpWebRequest request = WebRequest.Create(URL) as HttpWebRequest;
             request.Timeout = 3000;
             HttpWebResponse response = request.GetResponse() as HttpWebResponse;
-            
+
             this.Dispatcher.Invoke(new Action(() =>
             {
                 prog.Maximum = response.ContentLength;

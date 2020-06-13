@@ -1,18 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Newtonsoft.Json.Linq;
+using System;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 using XMCL.Core;
-using Newtonsoft.Json.Linq;
 
 namespace XMCL
 {
@@ -54,7 +46,7 @@ namespace XMCL
         {
             G1.Visibility = Visibility.Collapsed; G2.Visibility = Visibility.Visible;
             JArray jArray = JArray.Parse(Json.ReadUsers());
-            for (int i=0;i<jArray.Count;i++)
+            for (int i = 0; i < jArray.Count; i++)
             {
                 JObject jObject = JObject.Parse(jArray[i].ToString());
                 Grid grid = new Grid();

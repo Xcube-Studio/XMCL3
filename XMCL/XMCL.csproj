@@ -259,6 +259,21 @@
       <Name>XMCL.Core</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Bookshelf.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Crafting_Table.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Chest.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Grass_Block.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Furnace.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>

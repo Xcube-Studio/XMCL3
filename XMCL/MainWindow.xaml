@@ -31,18 +31,18 @@
         </Image>
         <GroupBox Style="{DynamicResource MaterialDesignGroupBox}" materialDesign:ShadowAssist.ShadowDepth="Depth3" BorderThickness="2" Background="#00000000">
             <Grid Margin="-7,-9,-7,-7">
-                <Grid>
+                <Grid x:Name="Main">
                     <Grid.Effect>
                         <DropShadowEffect BlurRadius="10" ShadowDepth="0" Color="Black" Opacity="0.50"/>
                     </Grid.Effect>
-                    <ComboBox materialDesign:ShadowAssist.ShadowDepth="Depth0" x:Name="C1" ToolTip="选择版本" HorizontalAlignment="Right" Margin="0,0,245,10" VerticalAlignment="Bottom" Width="212" Height="34" BorderBrush="#89FFFFFF" DropDownOpened="ComboBox_DropDownOpened" Foreground="White" Background="#00000000" DropDownClosed="C1_DropDownClosed" FontFamily="Microsoft YaHei UI Light" VerticalContentAlignment="Center" HorizontalContentAlignment="Left"/>
+                    <ComboBox x:Name="C1" ToolTip="选择版本" HorizontalAlignment="Right" Margin="0,0,245,10" VerticalAlignment="Bottom" Width="212" Height="34" BorderBrush="#89FFFFFF" DropDownOpened="ComboBox_DropDownOpened" Foreground="White" Background="#00000000" DropDownClosed="C1_DropDownClosed" FontFamily="Microsoft YaHei UI Light" VerticalContentAlignment="Center" HorizontalContentAlignment="Left"/>
                     <Button materialDesign:ShadowAssist.ShadowDepth="Depth0" x:Name="button" Style="{StaticResource MaterialDesignRaisedButton}" ToolTip="Lauch Minecraft!" Margin="0,0,10,10" Height="34" Content="启动游戏" Click="Button_Click_Start" FontFamily="Microsoft YaHei UI Light" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="221"/>
-                    <Grid Background="White" materialDesign:ShadowAssist.ShadowDepth="Depth5"  Margin="10,35,595,130">
+                    <Grid Background="White" Margin="206,36,399,0" Height="81" VerticalAlignment="Top">
                         <TextBlock
-      Margin="10,10,8,170"
+      Margin="10,10,0,0"
       FontSize="16" Text="XMCL界面大更新" FontFamily="Microsoft YaHei UI Light" HorizontalAlignment="Left" VerticalAlignment="Top" Foreground="#CC000000"/>
                     </Grid>
-                    <Grid materialDesign:ShadowAssist.ShadowDepth="Depth5" Margin="206,135,399,130" Background="White">
+                    <Grid Margin="10,160,595,130" Background="White">
                         <TextBlock Text="CPU占用" HorizontalAlignment="Left" Margin="31,14,0,0" VerticalAlignment="Top" FontSize="10" Foreground="#CC000000"/>
                         <materialDesign:PackIcon Kind="Cpu64Bit" Margin="10,10,0,0" Height="21" Width="21" />
                         <ProgressBar x:Name="CPU_PB" Margin="10,31,10,43" Height="3" VerticalAlignment="Top"/>
@@ -52,22 +52,22 @@
                         <ProgressBar x:Name="RAM_PB" Margin="10,61,10,13" Height="3" Maximum="1" VerticalAlignment="Top"/>
                         <Label x:Name="RAM_" HorizontalAlignment="Left" Margin="56,40,0,0" VerticalAlignment="Top" FontSize="10" Width="111" Height="21" HorizontalContentAlignment="Right" VerticalContentAlignment="Center" Foreground="#CC000000"/>
                     </Grid>
-                    <Grid materialDesign:ShadowAssist.ShadowDepth="Depth5" x:Name="Card_Login" Margin="206,35,399,285" Background="White">
+                    <Grid x:Name="Card_Login" Margin="10,35,595,260" Background="White">
                         <ProgressBar x:Name="Load"
   Style="{StaticResource MaterialDesignCircularProgressBar}"
   Value="0"
-  IsIndeterminate="True" Height="Auto" Width="Auto" Margin="115,33,59,44" />
-                        <Label x:Name="Label_Name2" Content="Steve" HorizontalAlignment="Left" Margin="57,10,0,0" VerticalAlignment="Top" Width="110" MouseEnter="Label_Name2_MouseEnter" MouseLeave="Label_Name2_MouseLeave" Background="#99FFFFFF" MouseLeftButtonDown="Label_Name2_MouseLeftButtonDown">
+  IsIndeterminate="True" Height="18" Width="18" Margin="131,52,42,50" Foreground="{DynamicResource PrimaryHueMidBrush}" />
+                        <Label x:Name="Label_Name2" Content="Steve" HorizontalAlignment="Left" Margin="74,20,0,0" VerticalAlignment="Top" MouseEnter="Label_Name2_MouseEnter" MouseLeave="Label_Name2_MouseLeave" Background="#99FFFFFF" MouseLeftButtonDown="Label_Name2_MouseLeftButtonDown" FontSize="16">
                             <Label.Foreground>
                                 <SolidColorBrush Color="#CC000000"/>
                             </Label.Foreground>
                         </Label>
-                        <Label x:Name="Label_Logined" Content="正在登录" ToolTip="" HorizontalAlignment="Left" Margin="57,29,0,0" VerticalAlignment="Top" Foreground="#CC000000" MouseEnter="Label_Logined_MouseEnter" MouseLeftButtonDown="Label_Logined_MouseLeftButtonDown"/>
-                        <Label Content="欢迎回来" HorizontalAlignment="Left" Margin="10,59,0,0" VerticalAlignment="Top" Foreground="#CC000000"/>
-                        <Image x:Name="head1" HorizontalAlignment="Left" RenderOptions.BitmapScalingMode="NearestNeighbor" RenderOptions.ClearTypeHint="Enabled" Height="38" Margin="12,12,0,0" VerticalAlignment="Top" Width="38" />
-                        <Image x:Name="head2" HorizontalAlignment="Left" RenderOptions.BitmapScalingMode="NearestNeighbor" RenderOptions.ClearTypeHint="Enabled" Height="42" Margin="10,10,0,0" VerticalAlignment="Top" Width="42"/>
+                        <Label x:Name="Label_Logined" Content="正在登录" ToolTip="" HorizontalAlignment="Left" Margin="74,48,0,0" VerticalAlignment="Top" Foreground="#CC000000" MouseEnter="Label_Logined_MouseEnter" MouseLeftButtonDown="Label_Logined_MouseLeftButtonDown"/>
+                        <Label Content="欢迎回来" HorizontalAlignment="Left" Margin="10,79,0,0" VerticalAlignment="Top" Foreground="#CC000000" Width="171" Height="31" FontSize="16" FontFamily="Microsoft YaHei UI Light" />
+                        <Image x:Name="head1" HorizontalAlignment="Left" RenderOptions.BitmapScalingMode="NearestNeighbor" RenderOptions.ClearTypeHint="Enabled" Height="50" Margin="19,20,0,0" VerticalAlignment="Top" Width="50" />
+                        <Image x:Name="head2" RenderOptions.BitmapScalingMode="NearestNeighbor" RenderOptions.ClearTypeHint="Enabled" Height="56" Margin="16,17,0,0" Width="56" HorizontalAlignment="Left" VerticalAlignment="Top"/>
                     </Grid>
-                    <Grid materialDesign:ShadowAssist.ShadowDepth="Depth5"  Margin="402,35,10,130" Background="#FCFFFFFF">
+                    <Grid Margin="402,35,10,130" Background="#FCFFFFFF">
                         <Image x:Name="Image" Stretch="UniformToFill"/>
                         <ProgressBar x:Name="Image_Loading" Style="{StaticResource MaterialDesignCircularProgressBar}" Value="0" IsIndeterminate="True" HorizontalAlignment="Center" Height="30" Width="30" VerticalAlignment="Center"/>
                         <Grid Margin="0,184,0,0" Background="#66000000">
@@ -75,17 +75,18 @@
                             <Label x:Name="ImageLabel1" Margin="0,0,0,37" Background="{x:Null}" FontSize="16" Foreground="White" FontWeight="Bold" FontFamily="Microsoft YaHei Light" VerticalContentAlignment="Bottom"/>
                         </Grid>
                     </Grid>
+                    <Grid Background="White" Margin="206,122,399,0" Height="163" VerticalAlignment="Top">
+                    </Grid>
+                    <materialDesign:ColorZone x:Name="CtrlPage" Mode="PrimaryMid" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="30,0,0,3" Background="{x:Null}">
+                        <StackPanel  Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Top">
+                            <RadioButton x:Name="RadioButton1" Style="{StaticResource MaterialDesignTabRadioButton}" IsChecked="False"
+                            Content="游戏管理" Height="Auto" BorderBrush="White" FontSize="13" FontFamily="Microsoft YaHei UI Light" PreviewMouseLeftButtonUp="RadioButton1_PreviewMouseLeftButtonUp" />
+                            <RadioButton x:Name="RadioButton2" Style="{StaticResource MaterialDesignTabRadioButton}" IsChecked="False"
+                            Content="设置" Height="Auto" BorderBrush="White" FontSize="13" FontFamily="Microsoft YaHei UI Light" PreviewMouseLeftButtonUp="RadioButton2_PreviewMouseLeftButtonUp" />
+                        </StackPanel>
+                    </materialDesign:ColorZone>
                 </Grid>
-                <Frame x:Name="Frame" Content="" NavigationUIVisibility="Hidden" VerticalAlignment="Stretch" Margin="0,0,0,0" d:IsHidden="True" Navigated="Frame_Navigated">
-                </Frame>
-                <materialDesign:ColorZone x:Name="CtrlPage" Mode="PrimaryMid" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="30,0,0,3" Background="{x:Null}">
-                    <StackPanel  Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Top">
-                        <RadioButton x:Name="RadioButton1" Style="{StaticResource MaterialDesignTabRadioButton}" IsChecked="False"
-                            Content="游戏管理" Height="Auto" BorderBrush="White" FontSize="13" FontFamily="Microsoft YaHei UI Light" Click="RadioButton1_Click" />
-                        <RadioButton x:Name="RadioButton2" Style="{StaticResource MaterialDesignTabRadioButton}" IsChecked="False"
-                            Content="设置" Height="Auto" BorderBrush="White" FontSize="13" FontFamily="Microsoft YaHei UI Light" Click="RadioButton2_Click" />
-                    </StackPanel>
-                </materialDesign:ColorZone>
+                <Frame x:Name="Frame" Content="{x:Null}" NavigationUIVisibility="Hidden" VerticalAlignment="Stretch" Margin="0,0,0,0" Navigated="Frame_Navigated" d:IsHidden="True" Visibility="Collapsed" Foreground="{x:Null}"/>
             </Grid>
             <GroupBox.Header>
                 <TextBlock x:Name="Text_Title" Text="XMCL" Foreground="White" Margin="20,0,-8,0" >
@@ -101,7 +102,6 @@
         <Button Style="{DynamicResource MaterialDesignFlatMidBgButton}" ToolTip="Minimize" Margin="0,4,57,0" HorizontalAlignment="Right" VerticalAlignment="Top" Width="48" Height="25" Foreground="White" Click="Button_Mini">
             <materialDesign:PackIcon Kind="WindowMinimize" />
         </Button>
-
         <materialDesign:Snackbar x:Name="snackbar" IsActive="{Binding IsActive}" MessageQueue="{materialDesign:MessageQueue}" FontFamily="Microsoft YaHei UI Light" d:IsHidden="True" />
     </Grid>
 </Window>

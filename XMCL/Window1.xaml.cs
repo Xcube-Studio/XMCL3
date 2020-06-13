@@ -1,16 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 using XMCL.Core;
 
 namespace XMCL
@@ -63,7 +54,7 @@ namespace XMCL
                                 this.Close();
                             }));
                         }
-                        else MainWindow.ShowTip("登陆失败,请检查密码.[或多次重复被服务器禁止登录]",1);
+                        else MainWindow.ShowTip("登陆失败,请检查密码.[或多次重复被服务器禁止登录]", 1);
                         this.Dispatcher.BeginInvoke(new Action(() =>
                         {
                             PasswordBox.IsEnabled = NameTextBox.IsEnabled = ComboBox.IsEnabled = button.IsEnabled = true;
