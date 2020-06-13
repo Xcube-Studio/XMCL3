@@ -5,6 +5,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 
 namespace XMCL.Pages
 {
@@ -131,7 +132,9 @@ namespace XMCL.Pages
                             listBoxItem.Margin = listBoxItem1.Margin = new Thickness(20, 0, 20, 0);
                             listBoxItem.Content = "(XMCL-" + id[f].ToString() + ") " + title[f] + "  By：" + by[f];
                             listBoxItem.Tag = "XMCL" + id[f].ToString();
+                            listBoxItem.MouseDoubleClick += ListBoxItem_MouseDoubleClick;
                             Latest.Children.Add(listBoxItem);
+                            
 
                         }
 
@@ -151,15 +154,67 @@ namespace XMCL.Pages
             string str = AppDomain.CurrentDomain.BaseDirectory;
             Frame.Visibility = Visibility.Visible;
             Frame.Navigate(new SubPage2());
-            FileStream fs = new FileStream(str+"tmp1001.tmp", FileMode.OpenOrCreate, FileAccess.ReadWrite); //可以指定盘符，也可以指定任意文件名，还可以为word等文件
+            FileStream fs = new FileStream(str + "tmp1001.tmp", FileMode.OpenOrCreate, FileAccess.ReadWrite); //可以指定盘符，也可以指定任意文件名，还可以为word等文件
             StreamWriter sw = new StreamWriter(fs); // 创建写入流
-            sw.WriteLine("tmp"); // 写入Hello World
+            sw.WriteLine("tmp"); 
             sw.Close();
             Task.Run(() =>
             {
                 while (true)
                 {
-                    if (!File.Exists(str+"tmp1001.tmp"))
+                    if (!File.Exists(str + "tmp1001.tmp"))
+                    {
+                        break;
+                    }
+                    Thread.Sleep(1000);
+                }
+                Dispatcher.BeginInvoke(new Action(() =>
+                {
+                    Frame.Visibility = Visibility.Collapsed;
+                    Loaded_();
+                }));
+
+
+            });
+
+        }
+        private void ListBoxItem_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+
+        }
+        /*不会分辨id，所以现在这写注释
+         System.Threading.Tasks.Task.Run(() =>
+            {
+                string ConString = "server=106.14.64.250;User Id=User;password=User20202020server;Database=User";
+                MySqlConnection conn = new MySqlConnection(ConString);//连接数据库 
+                conn.Open();  
+                string sql = "select * from issues where id='" + id + "'";
+                MySqlCommand cmd = new MySqlCommand(sql, conn);
+                MySqlDataReader reader = cmd.ExecuteReader();
+                string issues , by, reply , replied_by , title ;
+                reader.Read();       
+                state = (int)reader[5];
+                issues = (string)reader[1];
+                reply = (string)reader[2];
+                replied_by = (string)reader[3];
+                by = (string)reader[4];
+                title = (string)reader[6];
+                string str = AppDomain.CurrentDomain.BaseDirectory;
+                Frame.Visibility = Visibility.Visible;
+                Frame.Navigate(new SubPage2());
+                FileStream fs = new FileStream(str + "tmp1002.tmp", FileMode.OpenOrCreate, FileAccess.ReadWrite); //可以指定盘符，也可以指定任意文件名，还可以为word等文件
+                StreamWriter sw = new StreamWriter(fs); // 创建写入流
+                sw.WriteLine(id.Tostring()+"|"+issues+"|"+reply+"|"+reply_by+"|"+by+"|"+title+"|"+state.Tostring()); 
+                sw.Close();
+                Dispatcher.BeginInvoke(new Action(() =>
+                {
+                    Frame.Visibility = Visibility.Visible;
+                    Frame.Navigate(new SubPage3());
+                }));
+                
+                while (true)
+                {
+                    if (!File.Exists(str + "tmp1002.tmp"))
                     {
                         break;
                     }
@@ -172,10 +227,8 @@ namespace XMCL.Pages
                 }));
                 
                 
-            });
-            
-        }
-        //保留List的点击事件 SubPage3.xaml
-
+                
+        });
+         */
     }
 }
