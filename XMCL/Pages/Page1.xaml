@@ -17,7 +17,7 @@
                     <Border Height="1" Background="#CC000000"/>
                 </StackPanel>
                 <Grid Margin="0,5,0,0">
-                    <ListBoxItem Height="50" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Foreground="#CC000000" FontSize="14" FontFamily="Microsoft YaHei UI Light" PreviewMouseLeftButtonUp="ListBoxItem_PreviewMouseLeftButtonUp">
+                    <ListBoxItem Height="50" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Foreground="#CC000000" FontSize="14" FontFamily="Microsoft YaHei UI Light" PreviewMouseLeftButtonDown="ListBoxItem_PreviewMouseLeftButton">
                         <StackPanel Orientation="Horizontal">
                             <Image SnapsToDevicePixels="True" RenderOptions.BitmapScalingMode="HighQuality" UseLayoutRounding="True" Source="/XMCL;component/Resources/Crafting_Table.png" Width="34" />
                             <Label Content="游戏列表" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
@@ -45,7 +45,7 @@
                     </ListBoxItem>
                 </Grid>
                 <Grid Margin="0,153,0,0">
-                    <ListBoxItem Height="50" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Foreground="#CC000000" FontSize="14" FontFamily="Microsoft YaHei UI Light" PreviewMouseLeftButtonUp="Back">
+                    <ListBoxItem Height="50" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Foreground="#CC000000" FontSize="14" FontFamily="Microsoft YaHei UI Light" PreviewMouseLeftButtonDown="Back">
                         <StackPanel Orientation="Horizontal">
                             <materialDesign:PackIcon Kind="HamburgerMenuBack" Width="34" Height="34" />
                             <Label Content="返回" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Width="64"/>

@@ -3,25 +3,22 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
       xmlns:local="clr-namespace:XMCL.Pages"
+      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
       mc:Ignorable="d" 
       d:DesignHeight="415" d:DesignWidth="796"
-      Title="Page3" Background="#99000000">
-
-    <materialDesign:Card Margin="30">
-        <Grid>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="8*"/>
-                <RowDefinition Height="63*"/>
-            </Grid.RowDefinitions>
-            <Border Margin="0,39,0,0" Height="1">
-                <Border.Background>
-                    <SolidColorBrush Color="{DynamicResource {x:Static SystemColors.ActiveBorderColorKey}}"/>
-                </Border.Background>
-            </Border>
-            <Label Content="最近的下载项" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
-            <StackPanel Orientation="Vertical" x:Name="List" Margin="0" Grid.Row="1"/>
+      Title="Page4" Background="Transparent" Loaded="Page_Loaded">
+    <Grid>
+        <Grid.Effect>
+            <DropShadowEffect BlurRadius="10" ShadowDepth="0" Color="Black" Opacity="0.50"/>
+        </Grid.Effect>
+        <Grid Margin="0,85,0,120" Background="White">
+            <Label Content="更新-XMCL" FontSize="28" FontFamily="Microsoft YaHei UI Light" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="20,10,0,0"/>
+            <Label x:Name="LV" Content="版本:" FontFamily="Microsoft YaHei UI Light" FontSize="16" Margin="40,54,0,0" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+            <RadioButton x:Name="Button_Update" Style="{StaticResource MaterialDesignTabRadioButton}" Margin="703,163,10,15" Content="Update" IsChecked="True" Background="#FF2196F3" BorderBrush="#FF6ec6ff" Foreground="White" FontFamily="Microsoft YaHei UI Light" Click="RadioButton_Click" />
+            <ProgressBar x:Name="ProgressBar1" IsIndeterminate="True" Value="0" Height="2" Margin="703,193,10,15" />
+            <Label Content="日志:" FontFamily="Microsoft YaHei UI Light" FontSize="16" Margin="40,87,0,0" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+            <TextBox HorizontalAlignment="Left" Height="108" Margin="98,87,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="576" VerticalScrollBarVisibility="Auto" IsReadOnly="True"/>
         </Grid>
-    </materialDesign:Card>
+    </Grid>
 </Page>

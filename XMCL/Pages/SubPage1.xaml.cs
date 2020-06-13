@@ -86,11 +86,7 @@ namespace XMCL.Pages
         }
         private void ListBoxItem_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            MainWindow.ShowTip("开始下载", 1);
-            ListBoxItem listBoxItem = (ListBoxItem)sender;
-            if (MainWindow.DownloadPage == null)
-                MainWindow.DownloadPage = new Page3();
-            Page3.AddDownloadTask(listBoxItem.Tag.ToString());
+
         }
     }
 }

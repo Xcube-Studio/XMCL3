@@ -80,9 +80,9 @@
                     <materialDesign:ColorZone x:Name="CtrlPage" Mode="PrimaryMid" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="30,0,0,3" Background="{x:Null}">
                         <StackPanel  Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Top">
                             <RadioButton x:Name="RadioButton1" Style="{StaticResource MaterialDesignTabRadioButton}" IsChecked="False"
-                            Content="游戏管理" Height="Auto" BorderBrush="White" FontSize="13" FontFamily="Microsoft YaHei UI Light" PreviewMouseLeftButtonUp="RadioButton1_PreviewMouseLeftButtonUp" />
+                            Content="游戏管理" Height="Auto" BorderBrush="White" FontSize="13" FontFamily="Microsoft YaHei UI Light" PreviewMouseLeftButtonDown="RadioButton1_PreviewMouseLeftButton" />
                             <RadioButton x:Name="RadioButton2" Style="{StaticResource MaterialDesignTabRadioButton}" IsChecked="False"
-                            Content="设置" Height="Auto" BorderBrush="White" FontSize="13" FontFamily="Microsoft YaHei UI Light" PreviewMouseLeftButtonUp="RadioButton2_PreviewMouseLeftButtonUp" />
+                            Content="设置" Height="Auto" BorderBrush="White" FontSize="13" FontFamily="Microsoft YaHei UI Light" PreviewMouseLeftButtonDown="RadioButton2_PreviewMouseLeftButton" />
                         </StackPanel>
                     </materialDesign:ColorZone>
                 </Grid>

@@ -4,29 +4,249 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+      xmlns:System="clr-namespace:System;assembly=mscorlib"
       xmlns:local="clr-namespace:XMCL.Pages"
       mc:Ignorable="d" 
       d:DesignHeight="415" d:DesignWidth="796"
-      Title="Page3" Background="#99000000">
+      Title="Page3" Background="#7FFFFFFF" Loaded="Page_Loaded" Unloaded="Page_Unloaded">
 
-    <materialDesign:Card Margin="30" Background="Transparent">
-        <Grid Background="{DynamicResource MaterialDesignBackground}">
-            <Grid Width="156" Background="#B2000000" HorizontalAlignment="Left">
-                <TreeView  MinWidth="156" Background="{StaticResource PrimaryHueDarkBrush}" >
-                    <TreeViewItem    Header="游戏设置" Foreground="#DDFFFFFF" IsExpanded="True" FontFamily="Microsoft YaHei UI Light">
-                        <TreeViewItem     Header="全局设置" Foreground="#DDFFFFFF" PreviewMouseUp="Set1" FontFamily="Microsoft YaHei UI Light" />
-                        <TreeViewItem   Header="下载" Foreground="#DDFFFFFF" PreviewMouseUp="Set2" FontFamily="Microsoft YaHei UI Light"/>
-                    </TreeViewItem>
-                    <TreeViewItem   Header="启动器设置" Foreground="#DDFFFFFF" IsExpanded="True" FontFamily="Microsoft YaHei UI Light">
-                        <TreeViewItem       Header="反馈" Foreground="#DDFFFFFF" FontFamily="Microsoft YaHei UI Light" PreviewMouseUp="Set5" />
-                        <TreeViewItem    Header="个性化" Foreground="#DDFFFFFF" FontFamily="Microsoft YaHei UI Light"  PreviewMouseUp="Set3"/>
-                        <TreeViewItem       Header="关于" Foreground="#DDFFFFFF" FontFamily="Microsoft YaHei UI Light" PreviewMouseUp="About" />
-                        
-                    </TreeViewItem>
-                </TreeView>
-            </Grid>
-            <Frame x:Name="Frame" NavigationUIVisibility="Hidden" Content="" HorizontalAlignment="Left" Height="355" Margin="156,0,0,0" VerticalAlignment="Top" Width="580" Foreground="#00000000" Navigated="Frame_Navigated">
-            </Frame>
+    <Grid>
+        <StackPanel Width="156" Margin="0,10,0,0" Orientation="Horizontal" HorizontalAlignment="Left">
+            <StackPanel Width="155">
+                <StackPanel Margin="10,0,0,0">
+                    <TextBlock Foreground="#CC000000"><Run Text="游戏"/><Run Text="设置"/></TextBlock>
+                    <Border Height="1" Background="#CC000000"/>
+                </StackPanel>
+                <Grid Margin="0,5,0,0">
+                    <ListBoxItem Height="50" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Foreground="#CC000000" FontSize="14" FontFamily="Microsoft YaHei UI Light" PreviewMouseLeftButtonDown="ListBoxItem_PreviewMouseLeftButton" >
+                        <StackPanel Orientation="Horizontal">
+                            <Image SnapsToDevicePixels="True" RenderOptions.BitmapScalingMode="HighQuality" UseLayoutRounding="True" Source="/XMCL;component/Resources/Iron_Pickaxe.png" Width="34" />
+                            <Label Content="全局设置" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+                        </StackPanel>
+                    </ListBoxItem>
+                </Grid>
+                <Grid Margin="0,5,0,0">
+                    <ListBoxItem Height="50" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Foreground="#CC000000" FontSize="14" FontFamily="Microsoft YaHei UI Light" PreviewMouseLeftButtonDown="ListBoxItem_PreviewMouseLeftButton_1">
+                        <StackPanel Orientation="Horizontal">
+                            <Image SnapsToDevicePixels="True" RenderOptions.BitmapScalingMode="HighQuality" UseLayoutRounding="True" Source="/XMCL;component/Resources/Beacon.png" Width="34" />
+                            <Label Content="下载" VerticalContentAlignment="Center" Width="64" HorizontalContentAlignment="Center"/>
+                        </StackPanel>
+                    </ListBoxItem>
+                </Grid>
+                <StackPanel Margin="10,0,0,0">
+                    <TextBlock Foreground="#CC000000" Margin="0,5,0,0" Text="启动器设置"/>
+                    <Border Height="1" Background="#CC000000"/>
+                </StackPanel>
+                <Grid Margin="0,5,0,0">
+                    <ListBoxItem Height="50" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Foreground="#CC000000" FontSize="14" FontFamily="Microsoft YaHei UI Light" PreviewMouseLeftButtonDown="ListBoxItem_PreviewMouseLeftButton_2">
+                        <StackPanel Orientation="Horizontal">
+                            <Image SnapsToDevicePixels="True" RenderOptions.BitmapScalingMode="HighQuality" UseLayoutRounding="True" Source="/XMCL;component/Resources/Book_and_Quill.png" Width="34" />
+                            <Label Content="反馈" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Width="64"/>
+                        </StackPanel>
+                    </ListBoxItem>
+                </Grid>
+                <Grid Margin="0,5,0,0">
+                    <ListBoxItem Height="50" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Foreground="#CC000000" FontSize="14" FontFamily="Microsoft YaHei UI Light" PreviewMouseLeftButtonDown="ListBoxItem_PreviewMouseLeftButton_3">
+                        <StackPanel Orientation="Horizontal">
+                            <Image SnapsToDevicePixels="True" RenderOptions.BitmapScalingMode="HighQuality" UseLayoutRounding="True" Source="/XMCL;component/Resources/Light_Blue_Wool.png" Width="34" />
+                            <Label Content="个性化" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Width="64"/>
+                        </StackPanel>
+                    </ListBoxItem>
+                </Grid>
+                <Grid Margin="0,5,0,0">
+                    <ListBoxItem Height="50" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Foreground="#CC000000" FontSize="14" FontFamily="Microsoft YaHei UI Light" PreviewMouseLeftButtonDown="ListBoxItem_PreviewMouseLeftButton_4">
+                        <StackPanel Orientation="Horizontal">
+                            <Image SnapsToDevicePixels="True" RenderOptions.BitmapScalingMode="HighQuality" UseLayoutRounding="True" Source="/XMCL;component/Resources/Enchanting_Table.png" Width="34" />
+                            <Label Content="关于" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Width="64"/>
+                        </StackPanel>
+                    </ListBoxItem>
+                </Grid>
+                <Grid Margin="0,43,0,0">
+                    <ListBoxItem Height="50" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Foreground="#CC000000" FontSize="14" FontFamily="Microsoft YaHei UI Light" PreviewMouseLeftButtonDown="Back">
+                        <StackPanel Orientation="Horizontal">
+                            <materialDesign:PackIcon Kind="HamburgerMenuBack" Width="34" Height="34" />
+                            <Label Content="返回" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Width="64"/>
+                        </StackPanel>
+                    </ListBoxItem>
+                </Grid>
+            </StackPanel>
+            <Border Background="#7F000000" Width="1" />
+        </StackPanel>
+        <Grid Margin="156,0,0,0">
+            <ScrollViewer x:Name="Set1" Margin="10" VerticalScrollBarVisibility="Auto">
+                <StackPanel>
+                    <StackPanel.Effect>
+                        <DropShadowEffect BlurRadius="10" ShadowDepth="0" Color="Black" Opacity="0.50"/>
+                    </StackPanel.Effect>
+                    <Expander Header="运行路径 (.minecraft目录)" FontFamily="Microsoft YaHei UI Light" Background="White" VerticalAlignment="Top" Margin="5,5,5,0" >
+                        <Grid Height="70">
+                            <RadioButton x:Name="R2" Content="自定义" Margin="25,37,0,16" Height="17" Checked="R2_Checked" HorizontalAlignment="Left" Width="77"/>
+                            <TextBox x:Name="TextBox_GamePath" Margin="107,30,95,12" RenderTransformOrigin="0,1" FontFamily="Microsoft YaHei UI Light" Height="28" VerticalContentAlignment="Bottom" HorizontalContentAlignment="Left"/>
+                            <Button x:Name="Button_OpenGame" Content="打开" Width="64" Height="24" FontSize="12" Margin="0,0,20,12" Click="Button_OpenGame_Click" RenderTransformOrigin="0.516,0.333" HorizontalAlignment="Right" VerticalAlignment="Bottom"/>
+                            <RadioButton x:Name="R1" Content="默认" Margin="25,10,0,43" Height="17" Checked="R1_Checked" HorizontalAlignment="Left" Width="77"/>
+                        </Grid>
+                    </Expander>
+                    <Border Height="0.5" Background="Transparent" VerticalAlignment="Top" Margin="5,0"/>
+                    <Expander Header="Java路径" FontFamily="Microsoft YaHei UI Light" Background="White" Margin="5,0">
+                        <Grid Height="48">
+                            <Label Content="选择javaw.exe目录:" VerticalAlignment="Center" Height="24" Margin="26,14,0,10" HorizontalAlignment="Left" Width="114"/>
+                            <TextBox x:Name="TextBox_JavaPath" Margin="140,0,98,10" RenderTransformOrigin="0,1" HorizontalContentAlignment="Left" VerticalContentAlignment="Bottom" VerticalAlignment="Bottom" Height="28"/>
+                            <Button Content="打开" Width="64" Height="24" FontSize="12" Click="Button_OpenJava_Click" Margin="0,0,20,10" HorizontalContentAlignment="Center" HorizontalAlignment="Right" VerticalAlignment="Bottom" VerticalContentAlignment="Center"/>
+                        </Grid>
+                    </Expander>
+                    <Border Height="0.5" Background="Transparent" VerticalAlignment="Top" Margin="5,0"/>
+                    <Grid Margin="5,0">
+                        <Label Height="48" Background="White" Content="     最大内存 (MB)" Foreground="Black" VerticalContentAlignment="Center" FontSize="14" FontFamily="Microsoft YaHei UI Light" Margin="0"/>
+                        <Label Content="自动分配内存" Height="auto" Width="auto" Foreground="Black" Margin="0,10,66,10" FontSize="14" HorizontalContentAlignment="Right" VerticalContentAlignment="Bottom" FontFamily="Microsoft YaHei UI Light" HorizontalAlignment="Right" RenderTransformOrigin="0.333,0.484"/>
+                        <TextBox x:Name="TextBox_Memory" HorizontalAlignment="Right" Margin="0,10,191,0" TextWrapping="Wrap" Width="96" RenderTransformOrigin="0,1" FontFamily="Microsoft YaHei UI Light" VerticalAlignment="Top" Height="28" VerticalContentAlignment="Bottom" HorizontalContentAlignment="Left"/>
+                        <ToggleButton x:Name="ToggleButton3" Style="{StaticResource MaterialDesignSwitchLightToggleButton}" ToolTip="自动分配内存" IsChecked="False" Margin="0,10,10,10" HorizontalAlignment="Right" Width="45" Click="ToggleButton3_Click" HorizontalContentAlignment="Right" VerticalContentAlignment="Bottom" Checked="ToggleButton3_Checked" />
+                    </Grid>
+                    <Grid Height="20" Margin="5,0"/>
+                    <Expander Header="高级" FontFamily="Microsoft YaHei UI Light" Background="White" VerticalAlignment="Top" Margin="5,0,5,20">
+                        <StackPanel>
+                            <StackPanel.Effect>
+                                <DropShadowEffect BlurRadius="0" ShadowDepth="0" Color="Transparent" Opacity="0"/>
+                            </StackPanel.Effect>
+                            <Border Height="1" Background="#1F000000" VerticalAlignment="Top"/>
+                            <Grid>
+                                <Label Height="48" Background="#FFFAFAFA" Content="     分辨率" Foreground="Black" VerticalContentAlignment="Center" FontSize="14" FontFamily="Microsoft YaHei UI Light"/>
+                                <TextBox x:Name="TextBox_Width" HorizontalAlignment="Right" Margin="0,10,241,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="78" RenderTransformOrigin="0,1" FontFamily="Microsoft YaHei UI Light" Height="28" VerticalContentAlignment="Bottom" HorizontalContentAlignment="Left"/>
+                                <TextBox x:Name="TextBox_Height" HorizontalAlignment="Right" Margin="0,10,135,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="78" RenderTransformOrigin="0,1" FontFamily="Microsoft YaHei UI Light" Height="28" VerticalContentAlignment="Bottom" HorizontalContentAlignment="Left"/>
+                                <Label Content="╳" Height="auto" Width="18" Foreground="Black" Margin="0,17,218,8" FontSize="14" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Right"/>
+                                <ToggleButton x:Name="ToggleButton" Style="{StaticResource MaterialDesignSwitchLightToggleButton}" ToolTip="全屏" Margin="0,10,10,10" HorizontalAlignment="Right" Width="45" />
+                                <Label Content="全屏" Height="auto" Width="auto" Foreground="Black" Margin="0,10,60,10" FontSize="14" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontFamily="Microsoft YaHei UI Light" HorizontalAlignment="Right" RenderTransformOrigin="0.333,0.484"/>
+                            </Grid>
+                            <Border Height="1" Background="#1F000000" VerticalAlignment="Top"/>
+                            <Grid>
+                                <Label Height="48" Background="#FFFAFAFA" Content="     直入ip" Foreground="Black" VerticalContentAlignment="Center" FontSize="14" FontFamily="Microsoft YaHei UI Light"/>
+                                <TextBox x:Name="TextBox_ServerIP" materialDesign:HintAssist.Hint="不必填写 可以留空" VerticalAlignment="Top" Margin="0,10,10,0" RenderTransformOrigin="0,1" FontFamily="Microsoft YaHei UI Light" HorizontalAlignment="Right" Width="422" Height="28" VerticalContentAlignment="Bottom" HorizontalContentAlignment="Left"  />
+                            </Grid>
+                            <Border Height="1" Background="#1F000000" VerticalAlignment="Top"/>
+                            <Grid>
+                                <Label Height="48" Background="#FFFAFAFA" Content="     Demo（演示模式）" Foreground="Black" VerticalContentAlignment="Center" FontSize="14" FontFamily="Microsoft YaHei UI Light"/>
+                                <ToggleButton x:Name="ToggleButton1" Style="{StaticResource MaterialDesignSwitchLightToggleButton}" ToolTip="演示模式" Margin="0,10,10,10" HorizontalAlignment="Right" Width="45" />
+                            </Grid>
+                            <Border Height="1" Background="#1F000000" VerticalAlignment="Top"/>
+                            <Grid>
+                                <Label Height="48" Background="#FFFAFAFA" Content="     游戏启动后隐藏启动器窗口" Foreground="Black" VerticalContentAlignment="Center" FontSize="14" FontFamily="Microsoft YaHei UI Light"/>
+                                <ToggleButton x:Name="ToggleButton2" Style="{StaticResource MaterialDesignSwitchLightToggleButton}" ToolTip="隐藏窗口" Margin="0,10,10,10" HorizontalAlignment="Right" Width="45" />
+                            </Grid>
+                            <Border Height="1" Background="#1F000000" VerticalAlignment="Top"/>
+                            <Grid>
+                                <Label Height="48" Background="#FFFAFAFA" Content="     Java虚拟机参数" Foreground="Black" VerticalContentAlignment="Center" FontSize="14" FontFamily="Microsoft YaHei UI Light"/>
+                                <TextBox x:Name="TextBox_JVM_Value" VerticalAlignment="Top" Margin="0,10,10,0" RenderTransformOrigin="0,1" FontFamily="Microsoft YaHei UI Light" HorizontalAlignment="Right" Width="353" Height="28" VerticalContentAlignment="Bottom" HorizontalContentAlignment="Left"  />
+                            </Grid>
+                        </StackPanel>
+                    </Expander>
+                </StackPanel>
+            </ScrollViewer>
+            <ScrollViewer x:Name="Set2" Margin="10" VerticalScrollBarVisibility="Auto" d:IsHidden="True" Visibility="Collapsed">
+                <StackPanel>
+                    <StackPanel.Effect>
+                        <DropShadowEffect BlurRadius="10" ShadowDepth="0" Color="Black" Opacity="0.50"/>
+                    </StackPanel.Effect>
+                    <Grid Margin="5,5,5,0">
+                        <Label Height="48" Background="White" Content="     下载源" Foreground="Black" VerticalContentAlignment="Center" FontSize="14" FontFamily="Microsoft YaHei UI Light"/>
+                        <ComboBox  x:Name="C1" HorizontalAlignment="Right" Margin="0,10,10,0" VerticalAlignment="Top" Width="171" SelectedIndex="0" Height="28" FontFamily="Microsoft YaHei UI Light">
+                            <System:String>Mojang</System:String>
+                            <System:String>BMCLAPI</System:String>
+                            <System:String>McbbsAPI</System:String>
+                        </ComboBox>
+                    </Grid>
+                    <Border Height="0.5" Background="#FFC7C7C7" VerticalAlignment="Top" Margin="5,0"/>
+                    <Grid Margin="5,0">
+                        <Label Height="48" Background="White" Content="     补全游戏资源文件" Foreground="Black" VerticalContentAlignment="Center" FontSize="14" FontFamily="Microsoft YaHei UI Light"/>
+                        <ToggleButton x:Name="ToggleButton4" ToolTip="自动分配内存" IsChecked="False" Margin="0,10,10,10" HorizontalAlignment="Right" Width="45" HorizontalContentAlignment="Right" VerticalContentAlignment="Bottom" />
+                    </Grid>
+                    <Grid Margin="5,20,5,0">
+                        <Label Height="48" Background="White" Content="     该选项会影响你游戏启动的速度,以及版本下载速度,赞助BMCL及Mcbbs以获得更快速度" Foreground="Black" VerticalContentAlignment="Center" FontFamily="Microsoft YaHei UI Light" VerticalAlignment="Bottom"/>
+                    </Grid>
+                </StackPanel>
+            </ScrollViewer>
+            <ScrollViewer x:Name="Set3" Margin="10" VerticalScrollBarVisibility="Auto" d:IsHidden="True" Visibility="Collapsed">
+                <StackPanel>
+                    <StackPanel.Effect>
+                        <DropShadowEffect BlurRadius="10" ShadowDepth="0" Color="Black" Opacity="0.50"/>
+                    </StackPanel.Effect>
+                    <Expander Header="主题色" Margin="5,5,5,0" Background="White" FontFamily="Microsoft YaHei UI Light">
+                        <Grid >
+                            <StackPanel Orientation="Horizontal" Height="150">
+                                <Grid Margin="10,10,0,10" Width="130">
+                                    <Label Margin="5,5,5,100" Foreground="Black" FontFamily="Microsoft YaHei UI Light" >默认蓝</Label>
+                                    <Rectangle Fill="#2196f3" Margin="5,25,5,45" />
+                                    <StackPanel Margin="5,85.5,5,5" Orientation="Horizontal">
+                                        <Rectangle Fill="#6ec6ff" Margin="0,0,0,0" Width="59.5" />
+                                        <Rectangle Fill="#0069c0" Margin="1,0,0,0" Width="59.5" />
+                                    </StackPanel>
+                                    <Button Background="Transparent" Height="Auto" Click="Button_Click"/>
+                                    <Label Foreground="White" Margin="5,25,5,84" FontFamily="Microsoft YaHei UI Light" Content="#2196f3"/>
+                                    <Label Foreground="White" Margin="5,86,65,4" FontFamily="Microsoft YaHei UI Light" Content="#6ec6ff"/>
+                                    <Label Foreground="White" Margin="65,86,5,4" FontFamily="Microsoft YaHei UI Light" Content="#0069c0"/>
+                                </Grid>
+                                <Grid Margin="10,10,0,10" Width="130">
+                                    <Label Margin="5,5,5,100" Foreground="Black" FontFamily="Microsoft YaHei UI Light" >活力橙</Label>
+                                    <Rectangle Fill="#ff8f00" Margin="5,25,5,45" />
+                                    <StackPanel Margin="5,85.5,5,5" Orientation="Horizontal">
+                                        <Rectangle Fill="#ffc406" Margin="0,0,0,0" Width="59.5" />
+                                        <Rectangle Fill="#c56000" Margin="1,0,0,0" Width="59.5" />
+                                    </StackPanel>
+                                    <Button Background="Transparent" Height="Auto" Click="Button_Click1"/>
+                                    <Label Foreground="White" Margin="5,25,5,84" FontFamily="Microsoft YaHei UI Light" Content="#ff8f00"/>
+                                    <Label Foreground="White" Margin="5,86,65,4" FontFamily="Microsoft YaHei UI Light" Content="#ffc406"/>
+                                    <Label Foreground="White" Margin="65,86,5,4" FontFamily="Microsoft YaHei UI Light" Content="#c56000"/>
+                                </Grid>
+
+                            </StackPanel>
+                        </Grid>
+                    </Expander>
+                    <Border Height="0.5" Background="Transparent" VerticalAlignment="Top" Margin="0"/>
+                    <Grid Margin="20,0">
+
+                    </Grid>
+                </StackPanel>
+            </ScrollViewer>
+            <ScrollViewer x:Name="Set4" Margin="10" VerticalScrollBarVisibility="Disabled" d:IsHidden="True" Visibility="Collapsed">
+                <StackPanel>
+                    <StackPanel.Effect>
+                        <DropShadowEffect BlurRadius="10" ShadowDepth="0" Color="Black" Opacity="0.50"/>
+                    </StackPanel.Effect>
+                    <Grid Margin="5,5,5,0" Background="White">
+                        <TextBlock Margin="10" TextWrapping="Wrap" FontFamily="Microsoft YaHei UI Light">
+                        xuan2006's Minecraft Laucher 是一个简单的、开源的Minecraft启动器。能够使玩家更方便的启动游戏、下载游戏端、管理游戏以及其资源。我们不需要您的赞助，但更希望能够得到您对我们启动器的支持
+                        </TextBlock>
+                    </Grid>
+                    <Grid Margin="5,10,5,20" Background="White">
+                        <StackPanel>
+                            <TextBlock Margin="15,15,15,0" Text="版权             Xcube Studio Copyright ©  2020" FontFamily="Microsoft YaHei UI Light"/>
+                            <TextBlock Margin="15,8,15,0" Text="作者             xuan2006" FontFamily="Microsoft YaHei UI Light"/>
+                            <TextBlock Margin="15,8,15,0" Text="开发             xuan2006、gxh2004、xingxing520" FontFamily="Microsoft YaHei UI Light" />
+                            <TextBlock Margin="15,8,15,0" FontFamily="Microsoft YaHei UI Light"><Run Text="鸣谢             bangbang93 (BMCLAPI下载源,https://bmclapi2.bangbang93.com)"/><LineBreak/><Run Text="                    Mcbbs (Mcbbs下载源) "/><LineBreak/><Run Text="                    Minecraft Wiki (Minecraft元素的图标)"/><LineBreak/><Run Text="                    其他一些提议者及贡献者"/></TextBlock>
+                            <TextBlock Margin="15,8,15,0" FontFamily="Microsoft YaHei UI Light"><Run Text="引用             Newtonsoft.Json  (James Newton-King)"/><LineBreak/><Run Text="                    Costura.Fody  (https://github.com/Fody/Costura/graphs/contributors)"/><LineBreak/><Run Text="                    MaterialDesignColors  (James Willock)"/><LineBreak/><Run Text="                    MaterialDesignThemes.Wpf  (James Willock)"/><LineBreak/><Run Text="                    MySql.Data"/><Run Text=" (Oracle)"/><LineBreak/><Run Text="                    XMCL"/><Run Text="."/><Run Text="Core"/><Run Text=" (Xcube Studio"/><Run Text=" - xuan2006"/><Run Text=")"/></TextBlock>
+                            <TextBlock Margin="15,8,15,0" FontFamily="Microsoft YaHei UI Light"><Run Text="声明             Minecraft 版权归 Mojang AB 所有，使用本软件产生的版权问题，软件制作方概不负责，请支持"/><LineBreak/><Run Text="                    正版"/></TextBlock>
+                            <TextBlock Margin="15,8,15,15" Text="开源             开发版本暂时未发布代码" FontFamily="Microsoft YaHei UI Light"/>
+                        </StackPanel>
+                    </Grid>
+
+                </StackPanel>
+            </ScrollViewer>
+            <ScrollViewer x:Name="Set5" Margin="10" VerticalScrollBarVisibility="Auto" d:IsHidden="True" Visibility="Collapsed">
+                <Grid>
+                    <StackPanel Orientation="Vertical" >
+                        <StackPanel.Effect>
+                            <DropShadowEffect BlurRadius="10" ShadowDepth="0" Color="Black" Opacity="0.50"/>
+                        </StackPanel.Effect>
+                        <Expander Header="反馈" Background="White" Margin="5,5,5,0" FontFamily="Microsoft YaHei UI Light">
+                            <StackPanel Orientation="Vertical">
+                                <StackPanel x:Name="Latest" Orientation="Vertical"/>
+                                <ProgressBar x:Name="pb1" IsIndeterminate="True" ></ProgressBar>
+                            </StackPanel>
+                        </Expander>
+                        <Button Content="我要反馈" materialDesign:ShadowAssist.ShadowDepth="Depth0" x:Name="ToIssues" Height="Auto" Margin="5,10,475,0" FontFamily="Microsoft JhengHei UI Light" Click="Toissues_Click"/>
+                    </StackPanel>
+                    <Frame x:Name="Frame" NavigationUIVisibility="Hidden" Foreground="{x:Null}" Visibility="Collapsed" Navigated="Frame_Navigated" />
+                </Grid>
+            </ScrollViewer>
         </Grid>
-    </materialDesign:Card>
+
+    </Grid>
 </Page>

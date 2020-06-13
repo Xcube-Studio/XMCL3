@@ -66,7 +66,7 @@ namespace XMCL
                     this.Dispatcher.BeginInvoke(new Action(() =>
                     {
                         Frame.Visibility = Visibility.Visible;
-                        Frame.Navigate(new Page4());
+                        Frame.Navigate(new Page3());
                     }));
                 webClient.Dispose();
             });
@@ -199,15 +199,15 @@ namespace XMCL
                 C1.ItemsSource = Tools.GetVersions(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\.minecraft");
             else C1.ItemsSource = Tools.GetVersions(Json.Read("Files", "GamePath"));
         }
-        private void RadioButton1_PreviewMouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        private void RadioButton1_PreviewMouseLeftButton(object sender, MouseButtonEventArgs e)
         {
-            RadioButton1.IsChecked = false;
             Frame.Navigate(new Page1());
+            RadioButton1.IsChecked = false;
         }
-        private void RadioButton2_PreviewMouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        private void RadioButton2_PreviewMouseLeftButton(object sender, MouseButtonEventArgs e)
         {
-            RadioButton2.IsChecked = false;
             Frame.Navigate(new Page2());
+            RadioButton2.IsChecked = false;
         }
         private void Frame_Navigated(object sender, System.Windows.Navigation.NavigationEventArgs e)
         {
@@ -301,27 +301,18 @@ namespace XMCL
                 Label_Name2.Content = Json.ReadUser(x, "userName");
                 Task.Run(() =>
                 {
-                    if (Json.ReadUser(x, "LoginMode") == "正版")
+                    try
                     {
-                        Tools.GetSkins(x, App.Folder_XMCL);
-                        this.Dispatcher.BeginInvoke(new Action(() =>
+                        if (Json.ReadUser(x, "LoginMode") == "正版")
                         {
-                            head1.Source = new BitmapImage(new Uri(App.Folder_XMCL + "\\user\\" + Json.ReadUser(x, "userName") + "\\head1.png"));
-                            head2.Source = new BitmapImage(new Uri(App.Folder_XMCL + "\\user\\" + Json.ReadUser(x, "userName") + "\\head2.png"));
-                        }));
-                    }
-                    if (Authenticate.validate(Json.ReadUser(x, "accessToken")))
-                    {
-                        this.Dispatcher.BeginInvoke(new Action(() =>
-                        {
-                            Label_Name2.Content = Json.ReadUser(x, "userName");
-                            Label_Logined.Content = "正版登录";
-                            Load.Visibility = Visibility.Collapsed;
-                        }));
-                    }
-                    else
-                    {
-                        if (Authenticate.Refresh(Json.ReadUser(x, "accessToken"), Json.Read("Login", "clientToken")))
+                            Tools.GetSkins(x, App.Folder_XMCL);
+                            this.Dispatcher.BeginInvoke(new Action(() =>
+                            {
+                                head1.Source = new BitmapImage(new Uri(App.Folder_XMCL + "\\user\\" + Json.ReadUser(x, "userName") + "\\head1.png"));
+                                head2.Source = new BitmapImage(new Uri(App.Folder_XMCL + "\\user\\" + Json.ReadUser(x, "userName") + "\\head2.png"));
+                            }));
+                        }
+                        if (Authenticate.validate(Json.ReadUser(x, "accessToken")))
                         {
                             this.Dispatcher.BeginInvoke(new Action(() =>
                             {
@@ -332,26 +323,42 @@ namespace XMCL
                         }
                         else
                         {
-                            bool a = false;
-                            if (Json.ReadUser(x, "uuid").Length > 0)
-                                if (Json.ReadUser(x, "userName").Length > 0)
-                                    if (Json.ReadUser(x, "accessToken").Length > 0)
-                                        a = true;
-                            if (a == false)
-                            {
-                                System.Windows.MessageBox.Show("当前账户不可用,已删除");
-                                Json.ReMoveUsers(x);
-                                Json.Write("Login", "choose", "");
-                            }
-                            else
+                            if (Authenticate.Refresh(Json.ReadUser(x, "accessToken"), Json.Read("Login", "clientToken")))
                             {
                                 this.Dispatcher.BeginInvoke(new Action(() =>
                                 {
-                                    Label_Logined.Content = "离线登录";
+                                    Label_Name2.Content = Json.ReadUser(x, "userName");
+                                    Label_Logined.Content = "正版登录";
                                     Load.Visibility = Visibility.Collapsed;
                                 }));
                             }
+                            else
+                            {
+                                bool a = false;
+                                if (Json.ReadUser(x, "uuid").Length > 0)
+                                    if (Json.ReadUser(x, "userName").Length > 0)
+                                        if (Json.ReadUser(x, "accessToken").Length > 0)
+                                            a = true;
+                                if (a == false)
+                                {
+                                    System.Windows.MessageBox.Show("当前账户不可用,已删除");
+                                    Json.ReMoveUsers(x);
+                                    Json.Write("Login", "choose", "");
+                                }
+                                else
+                                {
+                                    this.Dispatcher.BeginInvoke(new Action(() =>
+                                    {
+                                        Label_Logined.Content = "离线登录";
+                                        Load.Visibility = Visibility.Collapsed;
+                                    }));
+                                }
+                            }
                         }
+                    }
+                    catch
+                    {
+                        throw;
                     }
                 });
             }

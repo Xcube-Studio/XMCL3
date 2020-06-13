@@ -26,7 +26,7 @@ namespace XMCL.Pages
         {
             try { this.NavigationService.Navigate(null); } catch { }
         }
-        private void ListBoxItem_PreviewMouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        private void ListBoxItem_PreviewMouseLeftButton(object sender, MouseButtonEventArgs e)
         {
             List.Children.Clear();
             Task.Run(() =>

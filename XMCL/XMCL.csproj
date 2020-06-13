@@ -112,24 +112,6 @@
     <Compile Include="Pages\Page3.xaml.cs">
       <DependentUpon>Page3.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\Page4.xaml.cs">
-      <DependentUpon>Page4.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Pages\Set1.xaml.cs">
-      <DependentUpon>Set1.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Pages\Set2.xaml.cs">
-      <DependentUpon>Set2.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Pages\Set3.xaml.cs">
-      <DependentUpon>Set3.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Pages\Set4.xaml.cs">
-      <DependentUpon>Set4.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Pages\Set5.xaml.cs">
-      <DependentUpon>Set5.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Pages\SubPage1.xaml.cs">
       <DependentUpon>SubPage1.xaml</DependentUpon>
     </Compile>
@@ -166,30 +148,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Pages\Page3.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Pages\Page4.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Pages\Set1.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Pages\Set2.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Pages\Set3.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Pages\Set4.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Pages\Set5.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -273,6 +231,21 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\Furnace.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Iron_Pickaxe.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Light_Blue_Wool.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Book_and_Quill.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Enchanting_Table.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Beacon.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

@@ -1,111 +1,106 @@
 ﻿using System;
 using System.IO;
 using System.Net;
+using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using XMCL.Core;
 
 namespace XMCL.Pages
 {
     /// <summary>
-    /// Page3.xaml 的交互逻辑
+    /// Page4.xaml 的交互逻辑
     /// </summary>
     public partial class Page3 : Page
     {
-        static StackPanel StackPanel;
-        static Page Page;
+        string[] a;
         public Page3()
         {
             InitializeComponent();
-            StackPanel = List;
-            Page = this;
         }
-        public static void AddDownloadTask(string url)
+        private void Page_Loaded(object sender, RoutedEventArgs e)
         {
+            MainWindow.ColorZone.Visibility = Visibility.Collapsed;
             Task.Run(() =>
             {
-                ProgressBar progressBar = null;
-                Label label1 = null;
-                string Filename = System.IO.Path.GetFileName(url);
-                Page.Dispatcher.Invoke(new Action(() =>
+                WebClient webClient = new WebClient();
+                if (App.version.Contains("Pre"))
+                    a = Encoding.UTF8.GetString(webClient.DownloadData("http://api.axing6.cn/debug.html")).Split('#');
+                else a = Encoding.UTF8.GetString(webClient.DownloadData("http://api.axing6.cn/api.html")).Split('#');
+                this.Dispatcher.BeginInvoke(new Action(() =>
                 {
-                    ListBoxItem listBoxItem = new ListBoxItem();
-                    Grid grid = new Grid();
-                    grid.Margin = new Thickness(0, 5, 0, 5);
-                    grid.Width = 721;
-                    Label label = new Label();
-                    label.Margin = new Thickness(10, 0, 10, 10);
-                    label.Content = Filename;
-                    progressBar = new ProgressBar();
-                    progressBar.Margin = new Thickness(5, 25, 5, 4);
-                    label1 = new Label();
-                    label1.HorizontalContentAlignment = HorizontalAlignment.Right;
-                    grid.Children.Add(label);
-                    grid.Children.Add(label1);
-                    grid.Children.Add(progressBar);
-                    listBoxItem.Content = grid;
-                    StackPanel.Children.Add(listBoxItem);
-                    if (Filename.Contains(".json"))
-                    {
-                        string GamePath;
-                        if (Convert.ToBoolean(Json.Read("Files", "UseDefaultDirectory")))
-                            GamePath = (Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\.minecraft");
-                        else GamePath = Json.Read("Files", "GamePath");
-                        if (!(Directory.Exists(GamePath + "\\versions\\" + Filename.Replace(".json", "") + "\\")))
-                            Directory.CreateDirectory(GamePath + "\\versions\\" + Filename.Replace(".json", "") + "\\");
-                        Filename = GamePath + "\\versions\\" + Filename.Replace(".json", "") + "\\" + Filename;
-                    }
-                    else Filename = App.Folder_XMCL + "\\Download\\" + Filename;
+                    ProgressBar1.Visibility = Visibility.Collapsed;
+                    LV.Content += App.version + "    →" + a[0];
                 }));
-                DownloadFile(url, Filename, progressBar, label1);
             });
         }
-        public static void DownloadFile(string URL, string filename, ProgressBar prog, Label label)
+        private void RadioButton_Click(object sender, RoutedEventArgs e)
         {
-            ServicePointManager.SecurityProtocol = SecurityProtocolType.Ssl3 | SecurityProtocolType.Tls12 | SecurityProtocolType.Tls11 | SecurityProtocolType.Tls;
-            float percent = 0;
-            System.Net.HttpWebRequest Myrq = (System.Net.HttpWebRequest)System.Net.HttpWebRequest.Create(URL);
-            System.Net.HttpWebResponse myrp = (System.Net.HttpWebResponse)Myrq.GetResponse();
-            long totalBytes = myrp.ContentLength;
-            Page.Dispatcher.BeginInvoke(new Action(() =>
+            Button_Update.IsChecked = true;
+            Button_Update.IsEnabled = false;
+            ProgressBar1.Visibility = Visibility.Visible;
+            if (a[0] != App.version)
             {
-                if (prog != null)
+                try
                 {
-                    prog.Maximum = (int)totalBytes;
-                }
-            }));
-
-            System.IO.Stream st = myrp.GetResponseStream();
-            System.IO.Stream so = new System.IO.FileStream(filename, System.IO.FileMode.Create);
-            long totalDownloadedByte = 0;
-            byte[] by = new byte[1024];
-            int osize = st.Read(by, 0, (int)by.Length);
-            while (osize > 0)
-            {
-                totalDownloadedByte = osize + totalDownloadedByte;
-                so.Write(by, 0, osize);
-                Page.Dispatcher.BeginInvoke(new Action(() =>
-                {
-                    if (prog != null)
+                    Task.Run(async delegate
                     {
-                        prog.Value = (int)totalDownloadedByte;
-                    }
-                }));
-                osize = st.Read(by, 0, (int)by.Length);
-                percent = (float)totalDownloadedByte / (float)totalBytes * 100;
-                Page.Dispatcher.BeginInvoke(new Action(() =>
+                        if (!System.IO.Directory.Exists(App.Folder_XMCL + "\\Download\\"))
+                            System.IO.Directory.CreateDirectory(App.Folder_XMCL + "\\Download\\");
+                        DownloadFile(a[1], App.Folder_XMCL + "\\Download\\XMCL.exe", ProgressBar1);
+                        this.Dispatcher.Invoke(new Action(() =>
+                        {
+                            ProgressBar1.IsIndeterminate = true;
+                        }));
+                        await Task.Delay(1500);
+                        this.Dispatcher.Invoke(new Action(() =>
+                        {
+                            Application.Current.Shutdown();
+                        }));
+                    });
+                }
+                catch
                 {
-                    label.Content = "正在下载..." + percent.ToString() + "%";
+                    MainWindow.ShowTip("下载发生问题！请重试", 1);
+                    Button_Update.IsEnabled = true; ProgressBar1.Visibility = Visibility.Collapsed;
+                }
+            }
+        }
+        public void DownloadFile(string URL, string filename, ProgressBar prog)
+        {
+            this.Dispatcher.Invoke(new Action(() =>
+            {
+                prog.IsIndeterminate = false;
+            }));
+            HttpWebRequest request = WebRequest.Create(URL) as HttpWebRequest;
+            request.Timeout = 3000;
+            HttpWebResponse response = request.GetResponse() as HttpWebResponse;
+
+            this.Dispatcher.Invoke(new Action(() =>
+            {
+                prog.Maximum = response.ContentLength;
+            }));
+            Stream responseStream = response.GetResponseStream();
+            Stream stream = new FileStream(filename, FileMode.Create);
+
+            byte[] bArr = new byte[1024];
+            int size = responseStream.Read(bArr, 0, (int)bArr.Length);
+            while (size > 0)
+            {
+                stream.Write(bArr, 0, size);
+                size = responseStream.Read(bArr, 0, (int)bArr.Length);
+                this.Dispatcher.Invoke(new Action(() =>
+                {
+                    prog.Value += size;
                 }));
             }
-            myrp.Dispose();
-            so.Close();
-            st.Close();
-            Page.Dispatcher.BeginInvoke(new Action(() =>
+            request.Abort();
+            stream.Dispose();
+            responseStream.Dispose();
+            response.Dispose();
+            this.Dispatcher.Invoke(new Action(() =>
             {
-                label.Content = "下载完成";
-                MainWindow.ShowTip("下载完成   " + filename, 1);
+                App.HasUpdated = true;
             }));
         }
     }
