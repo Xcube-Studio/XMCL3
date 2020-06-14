@@ -10,7 +10,7 @@
       Title="SubPage2" Loaded="Page_Loaded">
 
     <Grid Background="White">
-        <Grid x:Name="write">
+        <Grid x:Name="write" d:IsHidden="True">
             <TextBox x:Name="Title" materialDesign:HintAssist.HelperText="标题/Title （可以将你遇到的问题写出来 e.g:游戏无法加载）" Margin="10,10,211,360" Height="25" Background="{x:Null}" FontFamily="Microsoft YaHei UI Light" />
             <TextBox x:Name="Name" materialDesign:HintAssist.HelperText="如何称呼您？您的网名 （e.g:xingxing）" HorizontalAlignment="Right" Width="182" Margin="0,10,10,360" Height="25" Background="{x:Null}" FontFamily="Microsoft YaHei UI Light"  />
             <ToggleButton IsChecked="True" Click="ToggleButton_Click" x:Name="state_button" Content="" Foreground="#DD000000" HorizontalContentAlignment="Left" VerticalContentAlignment="Top" Margin="10,355,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Height="30"/>
@@ -20,10 +20,19 @@
         </Grid>
         <Grid x:Name="Get" d:IsHidden="True">
             <ProgressBar Style="{StaticResource MaterialDesignCircularProgressBar}" Value="0" IsIndeterminate="True" Height="164" Margin="235,78,235,153" Width="150" HorizontalAlignment="Center" VerticalAlignment="Center" />
-            <ProgressBar Style="{StaticResource MaterialDesignCircularProgressBar}" Value="0" IsIndeterminate="True" Height="115" Margin="0,75,0,162.667" Width="115" HorizontalAlignment="Center" VerticalAlignment="Center" />
+            <ProgressBar Style="{StaticResource MaterialDesignCircularProgressBar}" Value="0" IsIndeterminate="True" Height="115" Margin="0,75,0,162.667" Width="115" HorizontalAlignment="Center" VerticalAlignment="Center" RenderTransformOrigin="0.5,0.5" >
+                <ProgressBar.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform/>
+                        <SkewTransform/>
+                        <RotateTransform Angle="89.729"/>
+                        <TranslateTransform/>
+                    </TransformGroup>
+                </ProgressBar.RenderTransform>
+            </ProgressBar>
             <Label Content="正在提交服务器......" FontFamily="Microsoft YaHei UI Light" Margin="0,230,0,75" FontSize="22" HorizontalAlignment="Center" VerticalAlignment="Center"/>
         </Grid>
-        <Grid x:Name="OK" d:IsHidden="True">
+        <Grid x:Name="OK">
             <materialDesign:PackIcon Kind="CheckAll" Height="135" Width="179" Margin="0" HorizontalAlignment="Center" VerticalAlignment="Center" />
             <Label Content="成功提交到服务器" FontFamily="Microsoft YaHei UI Light" Margin="0,231,0,78.667" FontSize="22" HorizontalAlignment="Center" VerticalAlignment="Center"/>
             <Button Style="{StaticResource MaterialDesignFlatButton}" Margin="0,276,0,46.667" Width="184" Click="Button_Click" HorizontalAlignment="Center" VerticalAlignment="Center">

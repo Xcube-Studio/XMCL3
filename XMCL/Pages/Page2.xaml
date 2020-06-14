@@ -230,7 +230,7 @@
 
                 </StackPanel>
             </ScrollViewer>
-            <ScrollViewer x:Name="Set5" Margin="10" VerticalScrollBarVisibility="Auto" d:IsHidden="True" Visibility="Collapsed">
+            <ScrollViewer x:Name="Set5" Margin="10" VerticalScrollBarVisibility="Auto" Visibility="Collapsed">
                 <Grid>
                     <StackPanel Orientation="Vertical" >
                         <StackPanel.Effect>
