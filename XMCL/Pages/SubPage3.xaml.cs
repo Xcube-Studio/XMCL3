@@ -1,4 +1,7 @@
 ﻿using System.Windows.Controls;
+using MySql.Data.MySqlClient;
+using System.Windows;
+using System.Threading.Tasks;
 
 namespace XMCL.Pages
 {
@@ -10,6 +13,50 @@ namespace XMCL.Pages
         public SubPage3()
         {
             InitializeComponent();
+        }
+        int id;
+
+        private void Page_Loaded(object sender, System.Windows.RoutedEventArgs e)
+        {
+            Task.Run(() =>
+            {
+                string strcon = "server=106.14.64.250;User Id=User;password=User20202020server;Database=User";
+                string sql = $"select * from issues where id‘" + id.ToString() + "'";
+                MySqlConnection conn = new MySqlConnection(strcon);
+                conn.Open();
+                MySqlCommand cmd = new MySqlCommand(sql, conn);
+                MySqlDataReader reader = cmd.ExecuteReader();
+                string issues, by, reply, replied_by, title;
+                int state;
+                reader.Read();
+
+                state = (int)reader[5];
+                issues = (string)reader[1];
+                reply = (string)reader[2];
+                replied_by = (string)reader[3];
+                by = (string)reader[4];
+                title = (string)reader[6];
+                Title.Content = issues;
+                By.Content = by;
+                if (state >= 1 || state < 10)
+                    state1.Content = "反馈类型：BUG";
+                else
+                    state1.Content = "反馈类型：建议";
+                Text.Content = issues;
+                if (state >= 2 & state < 10 | state > 10)
+                {
+                    state2.Content = "开发者已经回应";
+                    reply_by.Content = "回复：" + replied_by;
+                    reply_.Content = "回复 \n " + reply;
+                }
+                else
+                {
+                    state2.Content = "开发者暂未查看";
+                    reply_by.Visibility = Visibility.Collapsed;
+                    reply_.Visibility = Visibility.Collapsed;
+
+                }
+            });
         }
     }
 }
