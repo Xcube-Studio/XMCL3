@@ -8,11 +8,14 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Timers;
 using System.Windows;
+using System.Windows.Data;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using XMCL.Core;
 using XMCL.Pages;
+using SourceChord.FluentWPF;
 
 namespace XMCL
 {
@@ -37,6 +40,7 @@ namespace XMCL
             Snackbar = snackbar;
             string[] a = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString().Split('.');
             Text_Title.Text += " " + a[0] + "." + a[1] + a[2] + a[3];
+            Card_Login.ClipToBounds = true;
         }
         private void Window_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
@@ -134,6 +138,28 @@ namespace XMCL
                 timer.Elapsed += Timer_Elapsed;
                 timer.Start();
             });
+            #endregion
+            #region Acrylic
+            if (Convert.ToBoolean(Json.Read("Individualization", "AcrylicCard")))
+            {
+                Grid[] grids = new Grid[] { Card_Login, G2, G3, G4 };
+                for (int i=0;i<grids.Length;i++)
+                {
+                    AcrylicPanel acrylic = new AcrylicPanel();
+                    acrylic.NoiseOpacity = 0.02;
+                    acrylic.SetBinding(AcrylicPanel.TargetProperty, new Binding() { ElementName = "MainImage" });
+                    grids[i].Background = new SolidColorBrush((System.Windows.Media.Color)System.Windows.Media.ColorConverter.ConvertFromString("#26FFFFFF"));
+                    grids[i].Children.Add(acrylic);
+                    Panel.SetZIndex(acrylic, 0);
+                    Label_Name2.Foreground = Label_Logined.Foreground = new SolidColorBrush((System.Windows.Media.Color)System.Windows.Media.ColorConverter.ConvertFromString("#CCFFFFFF"));
+                    for (int i1=0;i1<grids[i].Children.Count; i1++)
+                    {
+                        if (!(grids[i].Children[i1] == acrylic))
+                            Panel.SetZIndex(grids[i].Children[i1], 1);
+                    }
+                }
+
+            }
             #endregion
             GC.Collect();
         }
@@ -247,7 +273,7 @@ namespace XMCL
         }
         private void Label_Name2_MouseLeave(object sender, MouseEventArgs e)
         {
-            Label_Name2.Foreground = new System.Windows.Media.SolidColorBrush(System.Windows.Media.Color.FromArgb(225, 0, 0, 0));
+            Label_Name2.Foreground = new System.Windows.Media.SolidColorBrush(System.Windows.Media.Colors.White);
         }
         private void Label_Name2_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {

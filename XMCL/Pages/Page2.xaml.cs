@@ -163,6 +163,11 @@ namespace XMCL.Pages
                 ToggleButton4.IsChecked = true;
             else ToggleButton4.IsChecked = false;
             #endregion
+            #region Set3
+            if (Convert.ToBoolean(Json.Read("Individualization", "AcrylicCard")))
+                ToggleButton5.IsChecked = true;
+            else ToggleButton5.IsChecked = false;
+            #endregion
             #region Set5
             MySQL_Loaded();
             #endregion
@@ -199,6 +204,11 @@ namespace XMCL.Pages
             if (ToggleButton4.IsChecked == true)
                 Json.Write("Files", "CompleteResource", "true");
             else Json.Write("Files", "CompleteResource", "false");
+            #endregion
+            #region Set3
+            if (ToggleButton5.IsChecked == true)
+                Json.Write("Individualization", "AcrylicCard", "true");
+            else Json.Write("Individualization", "AcrylicCard", "false");
             #endregion
         }
         private void ListBoxItem_PreviewMouseLeftButton(object sender, MouseButtonEventArgs e)

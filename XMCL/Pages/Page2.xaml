@@ -73,7 +73,7 @@
             <Border Background="#7F000000" Width="1" />
         </StackPanel>
         <Grid Margin="156,0,0,0">
-            <ScrollViewer x:Name="Set1" Margin="10" VerticalScrollBarVisibility="Auto">
+            <ScrollViewer x:Name="Set1" Margin="10" VerticalScrollBarVisibility="Auto" d:IsHidden="True">
                 <StackPanel>
                     <StackPanel.Effect>
                         <DropShadowEffect BlurRadius="10" ShadowDepth="0" Color="Black" Opacity="0.50"/>
@@ -163,7 +163,7 @@
                     </Grid>
                 </StackPanel>
             </ScrollViewer>
-            <ScrollViewer x:Name="Set3" Margin="10" VerticalScrollBarVisibility="Auto" d:IsHidden="True" Visibility="Collapsed">
+            <ScrollViewer x:Name="Set3" Margin="10" VerticalScrollBarVisibility="Auto">
                 <StackPanel>
                     <StackPanel.Effect>
                         <DropShadowEffect BlurRadius="10" ShadowDepth="0" Color="Black" Opacity="0.50"/>
@@ -200,8 +200,9 @@
                         </Grid>
                     </Expander>
                     <Border Height="0.5" Background="Transparent" VerticalAlignment="Top" Margin="0"/>
-                    <Grid Margin="20,0">
-
+                    <Grid Margin="5,0">
+                        <Label Height="48" Background="White" Content="     启用亚力克卡片（测试）" Foreground="Black" VerticalContentAlignment="Center" FontSize="14" FontFamily="Microsoft YaHei UI Light" Margin="0"/>
+                        <ToggleButton x:Name="ToggleButton5" Style="{StaticResource MaterialDesignSwitchLightToggleButton}" ToolTip="自动分配内存" IsChecked="False" Margin="0,10,10,10" HorizontalAlignment="Right" Width="45" Click="ToggleButton3_Click" HorizontalContentAlignment="Right" VerticalContentAlignment="Bottom" Checked="ToggleButton3_Checked" />
                     </Grid>
                 </StackPanel>
             </ScrollViewer>

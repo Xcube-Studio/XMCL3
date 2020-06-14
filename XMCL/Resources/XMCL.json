@@ -27,7 +27,8 @@
 	"PrimaryHueLightBrush":"",
 	"PrimaryHueDarkBrush":"",
     "Background": "None",
-    "AutoHideLaucher": "true"
+    "AutoHideLaucher": "true",
+	"AcrylicCard":"false"
   },
   "Game": {
     "Demo": "false",
