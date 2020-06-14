@@ -13,7 +13,7 @@
         <MD:Card Margin="58,41,48,41.667" >
             <ScrollViewer  VerticalScrollBarVisibility="Auto">
                 <StackPanel>
-                    <Label Content="Title" x:Name="Title" FontFamily="Microsoft YaHei UI Light" FontSize="24" Margin="18,6,0,11" Width="490" />
+                    <Label Content="Title" x:Name="Title1" FontFamily="Microsoft YaHei UI Light" FontSize="24" Margin="18,6,0,11" Width="490" />
                     <Label Content="By:" x:Name="By" FontFamily="Microsoft YaHei UI Light" FontSize="16" Margin="-230,-8,0,11" Width="236" Height="30" />
                     <Label Content="反馈：" x:Name="state1" FontFamily="Microsoft YaHei UI Light" FontSize="16" Margin="263,-42,0,11" Width="236" Height="30" />
                     <Label Content="正文部分" x:Name="Text"  FontFamily="Microsoft YaHei UI Light" FontSize="16" Margin="13,-6,0,11" Width="auto" Height="auto" />

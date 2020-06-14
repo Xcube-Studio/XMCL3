@@ -163,7 +163,7 @@
                     </Grid>
                 </StackPanel>
             </ScrollViewer>
-            <ScrollViewer x:Name="Set3" Margin="10" VerticalScrollBarVisibility="Auto">
+            <ScrollViewer x:Name="Set3" Margin="10" VerticalScrollBarVisibility="Auto" d:IsHidden="True" Visibility="Collapsed">
                 <StackPanel>
                     <StackPanel.Effect>
                         <DropShadowEffect BlurRadius="10" ShadowDepth="0" Color="Black" Opacity="0.50"/>

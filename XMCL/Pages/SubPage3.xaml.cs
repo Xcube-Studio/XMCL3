@@ -14,8 +14,7 @@ namespace XMCL.Pages
         {
             InitializeComponent();
         }
-        int id;
-
+        int id = 0;
         private void Page_Loaded(object sender, System.Windows.RoutedEventArgs e)
         {
             Task.Run(() =>
@@ -36,7 +35,7 @@ namespace XMCL.Pages
                 replied_by = (string)reader[3];
                 by = (string)reader[4];
                 title = (string)reader[6];
-                Title.Content = issues;
+                Title1.Content = issues;
                 By.Content = by;
                 if (state >= 1 || state < 10)
                     state1.Content = "反馈类型：BUG";
@@ -54,7 +53,6 @@ namespace XMCL.Pages
                     state2.Content = "开发者暂未查看";
                     reply_by.Visibility = Visibility.Collapsed;
                     reply_.Visibility = Visibility.Collapsed;
-
                 }
             });
         }

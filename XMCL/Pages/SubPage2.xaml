@@ -11,8 +11,8 @@
 
     <Grid Background="White">
         <Grid x:Name="write" d:IsHidden="True">
-            <TextBox x:Name="Title" materialDesign:HintAssist.HelperText="标题/Title （可以将你遇到的问题写出来 e.g:游戏无法加载）" Margin="10,10,211,360" Height="25" Background="{x:Null}" FontFamily="Microsoft YaHei UI Light" />
-            <TextBox x:Name="Name" materialDesign:HintAssist.HelperText="如何称呼您？您的网名 （e.g:xingxing）" HorizontalAlignment="Right" Width="182" Margin="0,10,10,360" Height="25" Background="{x:Null}" FontFamily="Microsoft YaHei UI Light"  />
+            <TextBox x:Name="Title1" materialDesign:HintAssist.HelperText="标题/Title （可以将你遇到的问题写出来 e.g:游戏无法加载）" Margin="10,10,211,360" Height="25" Background="{x:Null}" FontFamily="Microsoft YaHei UI Light" />
+            <TextBox x:Name="Name1" materialDesign:HintAssist.HelperText="如何称呼您？您的网名 （e.g:xingxing）" HorizontalAlignment="Right" Width="182" Margin="0,10,10,360" Height="25" Background="{x:Null}" FontFamily="Microsoft YaHei UI Light"  />
             <ToggleButton IsChecked="True" Click="ToggleButton_Click" x:Name="state_button" Content="" Foreground="#DD000000" HorizontalContentAlignment="Left" VerticalContentAlignment="Top" Margin="10,355,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Height="30"/>
             <TextBox x:Name="text" materialDesign:HintAssist.HelperText="正文内容" HorizontalAlignment="Left" Width="600" Margin="10,56,0,58" Background="#0C000000" FontFamily="Microsoft YaHei UI Light"  />
             <Button Style="{StaticResource MaterialDesignFlatButton}" x:Name="button1" Content="提交" Height="30" Width="81" Margin="529,355,10,10" Click="button1_Click"/>

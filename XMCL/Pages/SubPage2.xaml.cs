@@ -54,7 +54,7 @@ namespace XMCL.Pages
                 }
                 Dispatcher.Invoke(new Action(() =>
                 {
-                      sql = "Insert Into issues(id, text,reply,replied_by,_by,state,title)Values('" + id + "','" + text.Text + "','null','null','" + Name.Text + "','" + state + "','" + Title.Text + "')";
+                      sql = "Insert Into issues(id, text,reply,replied_by,_by,state,title)Values('" + id + "','" + text.Text + "','null','null','" + Name1.Text + "','" + state + "','" + Title1.Text + "')";
                       cmd.CommandText = sql;
                 }));
                 i = Convert.ToInt32(cmd.ExecuteNonQuery());
