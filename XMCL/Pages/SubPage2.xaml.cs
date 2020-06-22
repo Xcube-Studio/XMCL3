@@ -2,7 +2,7 @@
 using System;
 using System.Windows.Controls;
 using System.Windows;
-using System.IO;
+using System.Windows.Media;
 
 namespace XMCL.Pages
 {
@@ -11,9 +11,11 @@ namespace XMCL.Pages
     /// </summary>
     public partial class SubPage2 : Page
     {
+        public static Page Page;
         public SubPage2()
         {
             InitializeComponent();
+            Page = this;
         }
         int state;
         private void ToggleButton_Click(object sender, System.Windows.RoutedEventArgs e)
@@ -73,6 +75,13 @@ namespace XMCL.Pages
         }
         private void Page_Loaded(object sender, System.Windows.RoutedEventArgs e)
         {
+            Resources.Remove("PrimaryHueMidBrush");
+            Resources.Add("PrimaryHueMidBrush", new SolidColorBrush((System.Windows.Media.Color)System.Windows.Media.ColorConverter.ConvertFromString(Settings.PrimaryHueMidBrush)));
+            Resources.Remove("PrimaryHueLightBrush");
+            Resources.Add("PrimaryHueLightBrush", new SolidColorBrush((System.Windows.Media.Color)System.Windows.Media.ColorConverter.ConvertFromString(Settings.PrimaryHueLightBrush)));
+            Resources.Remove("PrimaryHueDarkBrush");
+            Resources.Add("PrimaryHueDarkBrush", new SolidColorBrush((System.Windows.Media.Color)System.Windows.Media.ColorConverter.ConvertFromString(Settings.PrimaryHueDarkBrush)));
+
             OK.Visibility = Visibility.Collapsed;
             Get.Visibility = Visibility.Collapsed;
             state_text.Content = "反馈选中：BUG(请选择反馈类型)";

@@ -22,7 +22,7 @@ namespace XMCL.Pages
             InitializeComponent();
             Page = this;
         }
-        private void Back(object sender, MouseButtonEventArgs e)
+        private void Back(object sender, RoutedEventArgs e)
         {
             try { this.NavigationService.Navigate(null); } catch { }
         }
@@ -31,18 +31,14 @@ namespace XMCL.Pages
             List.Children.Clear();
             Task.Run(() =>
             {
-                string GamePath;
-                if (Convert.ToBoolean(Json.Read("Files", "UseDefaultDirectory")))
-                    GamePath = (Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\.minecraft");
-                else GamePath = Json.Read("Files", "GamePath");
 
-                if (Directory.Exists(GamePath + "\\versions"))
+                if (Directory.Exists(Settings.GamePath() + "\\versions"))
                 { }
-                else { Directory.CreateDirectory(GamePath + "\\versions"); }
-                string[] b = Directory.GetDirectories(GamePath + "\\versions");
+                else { Directory.CreateDirectory(Settings.GamePath() + "\\versions"); }
+                string[] b = Directory.GetDirectories(Settings.GamePath() + "\\versions");
                 for (int i = 0; i < b.Length; i++)
                 {
-                    int c = (GamePath + "\\versions\\").Length;
+                    int c = (Settings.GamePath() + "\\versions\\").Length;
                     string d = b[i].Substring(c, b[i].Length - c);
                     string json = b[i] + "\\" + d + ".json";
                     if (File.Exists(json))
@@ -107,6 +103,15 @@ namespace XMCL.Pages
                     }
                 }
             });
+        }
+        private void Page_Loaded(object sender, RoutedEventArgs e)
+        {
+            Resources.Remove("PrimaryHueMidBrush");
+            Resources.Add("PrimaryHueMidBrush", new SolidColorBrush((System.Windows.Media.Color)System.Windows.Media.ColorConverter.ConvertFromString(Settings.PrimaryHueMidBrush)));
+            Resources.Remove("PrimaryHueLightBrush");
+            Resources.Add("PrimaryHueLightBrush", new SolidColorBrush((System.Windows.Media.Color)System.Windows.Media.ColorConverter.ConvertFromString(Settings.PrimaryHueLightBrush)));
+            Resources.Remove("PrimaryHueDarkBrush");
+            Resources.Add("PrimaryHueDarkBrush", new SolidColorBrush((System.Windows.Media.Color)System.Windows.Media.ColorConverter.ConvertFromString(Settings.PrimaryHueDarkBrush)));
         }
     }
 }

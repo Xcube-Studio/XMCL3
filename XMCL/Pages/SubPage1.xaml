@@ -8,7 +8,11 @@
       mc:Ignorable="d" 
       d:DesignHeight="355" d:DesignWidth="580"
       Title="SubPage1" Loaded="Page_Loaded">
-
+    <Page.Resources>
+        <SolidColorBrush x:Key="PrimaryHueLightBrush" Color="#6ec6ff"/>
+        <SolidColorBrush x:Key="PrimaryHueDarkBrush" Color="#0069c0"/>
+        <SolidColorBrush x:Key="PrimaryHueMidBrush" Color="#2196f3"/>
+    </Page.Resources>
     <Grid>
         <ScrollViewer  VerticalScrollBarVisibility="Auto">
             <StackPanel Orientation="Vertical" >

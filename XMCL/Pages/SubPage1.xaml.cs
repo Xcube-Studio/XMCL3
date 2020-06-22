@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Media;
 using System.Windows.Controls;
 using System.Windows.Input;
 using XMCL.Core;
@@ -13,12 +14,21 @@ namespace XMCL.Pages
     /// </summary>
     public partial class SubPage1 : Page
     {
+        public static Page Page;
         public SubPage1()
         {
             InitializeComponent();
+            Page = this;
         }
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
+            Resources.Remove("PrimaryHueMidBrush");
+            Resources.Add("PrimaryHueMidBrush", new SolidColorBrush((System.Windows.Media.Color)System.Windows.Media.ColorConverter.ConvertFromString(Settings.PrimaryHueMidBrush)));
+            Resources.Remove("PrimaryHueLightBrush");
+            Resources.Add("PrimaryHueLightBrush", new SolidColorBrush((System.Windows.Media.Color)System.Windows.Media.ColorConverter.ConvertFromString(Settings.PrimaryHueLightBrush)));
+            Resources.Remove("PrimaryHueDarkBrush");
+            Resources.Add("PrimaryHueDarkBrush", new SolidColorBrush((System.Windows.Media.Color)System.Windows.Media.ColorConverter.ConvertFromString(Settings.PrimaryHueDarkBrush)));
+
             load();
         }
         private void ShowSnapshot_Click(object sender, RoutedEventArgs e)
@@ -34,7 +44,7 @@ namespace XMCL.Pages
                 All.Children.Clear();
                 Task.Run(() =>
                 {
-                    string[] a = Tools.GetLatestVersion(Json.Read("Files", "DownloadSource")).Split(';');
+                    string[] a = Tools.GetLatestVersion(Settings.DownloadSource).Split(';');
                     this.Dispatcher.BeginInvoke(new Action(() =>
                     {
                         ListBoxItem listBoxItem = new ListBoxItem();
@@ -56,7 +66,7 @@ namespace XMCL.Pages
                 });
                 Task.Run(() =>
                 {
-                    List<string> vs = Tools.GetVersionsListAll(Json.Read("Files", "DownloadSource"));
+                    List<string> vs = Tools.GetVersionsListAll(Settings.DownloadSource);
                     this.Dispatcher.Invoke(new Action(() =>
                     {
                         for (int i = 0; i < vs.Count; i++)

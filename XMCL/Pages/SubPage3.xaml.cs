@@ -1,6 +1,7 @@
 ﻿using System.Windows.Controls;
 using MySql.Data.MySqlClient;
 using System.Windows;
+using System.Windows.Media;
 using System.Threading.Tasks;
 
 namespace XMCL.Pages
@@ -10,13 +11,22 @@ namespace XMCL.Pages
     /// </summary>
     public partial class SubPage3 : Page
     {
+        public static Page Page;
         public SubPage3()
         {
             InitializeComponent();
+            Page = this;
         }
         int id = 0;
         private void Page_Loaded(object sender, System.Windows.RoutedEventArgs e)
         {
+            Resources.Remove("PrimaryHueMidBrush");
+            Resources.Add("PrimaryHueMidBrush", new SolidColorBrush((System.Windows.Media.Color)System.Windows.Media.ColorConverter.ConvertFromString(Settings.PrimaryHueMidBrush)));
+            Resources.Remove("PrimaryHueLightBrush");
+            Resources.Add("PrimaryHueLightBrush", new SolidColorBrush((System.Windows.Media.Color)System.Windows.Media.ColorConverter.ConvertFromString(Settings.PrimaryHueLightBrush)));
+            Resources.Remove("PrimaryHueDarkBrush");
+            Resources.Add("PrimaryHueDarkBrush", new SolidColorBrush((System.Windows.Media.Color)System.Windows.Media.ColorConverter.ConvertFromString(Settings.PrimaryHueDarkBrush)));
+
             Task.Run(() =>
             {
                 string strcon = "server=106.14.64.250;User Id=User;password=User20202020server;Database=User";

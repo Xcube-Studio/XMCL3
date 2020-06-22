@@ -6,18 +6,13 @@
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/FluentWPF;component/Styles/Controls.xaml" />
+
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Light.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Defaults.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Primary/MaterialDesignColor.DeepPurple.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Accent/MaterialDesignColor.Lime.xaml" />
             </ResourceDictionary.MergedDictionaries>
-            <!-- primary -->
-            <SolidColorBrush x:Key="PrimaryHueLightBrush" Color="#6ec6ff"/>
-            <SolidColorBrush x:Key="PrimaryHueDarkBrush" Color="#0069c0"/>
-            <SolidColorBrush x:Key="PrimaryHueMidBrush" Color="#2196f3"/>
-            <!-- accent -->
-            <SolidColorBrush x:Key="SecondaryAccentBrush" Color="#00e676"/>
-            <SolidColorBrush x:Key="SecondaryAccentForegroundBrush" Color="#FFFFFF"/>
         </ResourceDictionary>
     </Application.Resources>
 </Application>

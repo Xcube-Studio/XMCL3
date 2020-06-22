@@ -8,6 +8,11 @@
       mc:Ignorable="d" 
       d:DesignHeight="415" d:DesignWidth="796"
       Title="Page4" Background="Transparent" Loaded="Page_Loaded">
+    <Page.Resources>
+        <SolidColorBrush x:Key="PrimaryHueLightBrush" Color="#6ec6ff"/>
+        <SolidColorBrush x:Key="PrimaryHueDarkBrush" Color="#0069c0"/>
+        <SolidColorBrush x:Key="PrimaryHueMidBrush" Color="#2196f3"/>
+    </Page.Resources>
     <Grid>
         <Grid.Effect>
             <DropShadowEffect BlurRadius="10" ShadowDepth="0" Color="Black" Opacity="0.50"/>

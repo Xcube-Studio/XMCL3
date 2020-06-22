@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Windows;
+using System.Windows.Media;
 using System.Windows.Controls;
 using System.Windows.Input;
 using WinForm = System.Windows.Forms;
@@ -21,7 +22,7 @@ namespace XMCL.Pages
             InitializeComponent();
             Page = this;
         }
-        private void Back(object sender, MouseButtonEventArgs e)
+        private void Back(object sender, RoutedEventArgs e)
         {
             try { this.NavigationService.Navigate(null); } catch { }
         }
@@ -61,11 +62,11 @@ namespace XMCL.Pages
         }
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            App.Thems("#2196f3", "#6ec6ff", "#0069c0");
+            App.Thems("#2196f3");
         }
         private void Button_Click1(object sender, RoutedEventArgs e)
         {
-            App.Thems("#ff8f00", "#ffc406", "#c56000");
+            App.Thems("#ff8f00");
         }
         private void Toissues_Click(object sender, RoutedEventArgs e)
         {
@@ -130,41 +131,48 @@ namespace XMCL.Pages
         }
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
+            Resources.Remove("PrimaryHueMidBrush");
+            Resources.Add("PrimaryHueMidBrush", new SolidColorBrush((System.Windows.Media.Color)System.Windows.Media.ColorConverter.ConvertFromString(Settings.PrimaryHueMidBrush)));
+            Resources.Remove("PrimaryHueLightBrush");
+            Resources.Add("PrimaryHueLightBrush", new SolidColorBrush((System.Windows.Media.Color)System.Windows.Media.ColorConverter.ConvertFromString(Settings.PrimaryHueLightBrush)));
+            Resources.Remove("PrimaryHueDarkBrush");
+            Resources.Add("PrimaryHueDarkBrush", new SolidColorBrush((System.Windows.Media.Color)System.Windows.Media.ColorConverter.ConvertFromString(Settings.PrimaryHueDarkBrush)));
+
             #region Set1
-            if (Convert.ToBoolean(Json.Read("Video", "IsFullScreen")))
+            if (Settings.IsFullScreen)
                 ToggleButton.IsChecked = true;
-            if (Convert.ToBoolean(Json.Read("Game", "Demo")))
+            if (Settings.Demo)
                 ToggleButton1.IsChecked = true;
-            if (Convert.ToBoolean(Json.Read("Individualization", "AutoHideLaucher")))
+            if (Settings.AutoHideLaucher)
                 ToggleButton2.IsChecked = true;
-            if (Convert.ToBoolean(Json.Read("JVM", "AutoMemory")))
+            if (Settings.AutoMemory)
                 ToggleButton3.IsChecked = true;
-            if (Convert.ToBoolean(Json.Read("Files", "UseDefaultDirectory")))
+            if (Settings.UseDefaultDirectory)
                 R1.IsChecked = true;
             else R2.IsChecked = true;
-            TextBox_GamePath.Text = Json.Read("Files", "GamePath");
-            TextBox_JavaPath.Text = Json.Read("Files", "JavaPath");
-            TextBox_Memory.Text = Json.Read("JVM", "Memory");
-            TextBox_Width.Text = Json.Read("Video", "Width");
-            TextBox_Height.Text = Json.Read("Video", "Height");
-            TextBox_ServerIP.Text = Json.Read("Game", "ServerIP");
-            TextBox_JVM_Value.Text = Json.Read("JVM", "Value");
+            TextBox_GamePath.Text = (string)Json.Read("Files", "GamePath");
+            TextBox_JavaPath.Text = Settings.JavaPath;
+            TextBox_Memory.Text = Settings.Memory.ToString();
+            TextBox_Width.Text = (string)Json.Read("Video", "Width");
+            TextBox_Height.Text = (string)Json.Read("Video", "Height");
+            TextBox_ServerIP.Text = Settings.ServerIP;
+            TextBox_JVM_Value.Text = Settings.Value;
             #endregion
             #region Set2
-            if (Json.Read("Files", "DownloadSource") == "Mojang")
+            if (Settings.DownloadSource == "Mojang")
                 C1.SelectedIndex = 0;
-            else if (Json.Read("Files", "DownloadSource") == "BMCLAPI")
+            else if (Settings.DownloadSource == "BMCLAPI")
                 C1.SelectedIndex = 1;
-            else if (Json.Read("Files", "DownloadSource") == "McbbsAPI")
+            else if (Settings.DownloadSource == "McbbsAPI")
                 C1.SelectedIndex = 2;
             else
                 C1.SelectedIndex = 0;
-            if (Convert.ToBoolean(Json.Read("Files", "CompleteResource")))
+            if (Settings.CompleteResource)
                 ToggleButton4.IsChecked = true;
             else ToggleButton4.IsChecked = false;
             #endregion
             #region Set3
-            if (Convert.ToBoolean(Json.Read("Individualization", "AcrylicCard")))
+            if (Settings.AcrylicCard)
                 ToggleButton5.IsChecked = true;
             else ToggleButton5.IsChecked = false;
             #endregion

@@ -7,8 +7,12 @@
       xmlns:local="clr-namespace:XMCL.Pages"
       mc:Ignorable="d" 
       d:DesignHeight="415" d:DesignWidth="796"
-      Title="Page2" Background="#7FFFFFFF" >
-
+      Title="Page2" Background="#7FFFFFFF" Loaded="Page_Loaded">
+    <Page.Resources>
+        <SolidColorBrush x:Key="PrimaryHueLightBrush" Color="#6ec6ff"/>
+        <SolidColorBrush x:Key="PrimaryHueDarkBrush" Color="#0069c0"/>
+        <SolidColorBrush x:Key="PrimaryHueMidBrush" Color="#2196f3"/>
+    </Page.Resources>
     <Grid>
         <StackPanel Width="156" Margin="0,10,0,0" Orientation="Horizontal" HorizontalAlignment="Left">
             <StackPanel Width="155">
@@ -45,12 +49,12 @@
                     </ListBoxItem>
                 </Grid>
                 <Grid Margin="0,153,0,0">
-                    <ListBoxItem Height="50" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Foreground="#CC000000" FontSize="14" FontFamily="Microsoft YaHei UI Light" PreviewMouseLeftButtonDown="Back">
+                    <Button Style="{StaticResource ButtonRevealStyle}" Height="50" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Foreground="#CC000000" FontSize="14" FontFamily="Microsoft YaHei UI Light" Click="Back" Background="Transparent">
                         <StackPanel Orientation="Horizontal">
                             <materialDesign:PackIcon Kind="HamburgerMenuBack" Width="34" Height="34" />
                             <Label Content="返回" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Width="64"/>
                         </StackPanel>
-                    </ListBoxItem>
+                    </Button>
                 </Grid>
             </StackPanel>
             <Border Background="#7F000000" Width="1" />

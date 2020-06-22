@@ -6,10 +6,14 @@
       xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
       xmlns:System="clr-namespace:System;assembly=mscorlib"
       xmlns:local="clr-namespace:XMCL.Pages"
-      mc:Ignorable="d" 
+      mc:Ignorable="d"
       d:DesignHeight="415" d:DesignWidth="796"
       Title="Page3" Background="#7FFFFFFF" Loaded="Page_Loaded" Unloaded="Page_Unloaded">
-
+    <Page.Resources>
+        <SolidColorBrush x:Key="PrimaryHueLightBrush" Color="#6ec6ff"/>
+        <SolidColorBrush x:Key="PrimaryHueDarkBrush" Color="#0069c0"/>
+        <SolidColorBrush x:Key="PrimaryHueMidBrush" Color="#2196f3"/>
+    </Page.Resources>
     <Grid>
         <StackPanel Width="156" Margin="0,10,0,0" Orientation="Horizontal" HorizontalAlignment="Left">
             <StackPanel Width="155">
@@ -62,12 +66,12 @@
                     </ListBoxItem>
                 </Grid>
                 <Grid Margin="0,43,0,0">
-                    <ListBoxItem Height="50" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Foreground="#CC000000" FontSize="14" FontFamily="Microsoft YaHei UI Light" PreviewMouseLeftButtonDown="Back">
+                    <Button Style="{StaticResource ButtonRevealStyle}" Height="50" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Foreground="#CC000000" FontSize="14" FontFamily="Microsoft YaHei UI Light" Click="Back" Background="Transparent">
                         <StackPanel Orientation="Horizontal">
                             <materialDesign:PackIcon Kind="HamburgerMenuBack" Width="34" Height="34" />
                             <Label Content="返回" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Width="64"/>
                         </StackPanel>
-                    </ListBoxItem>
+                    </Button>
                 </Grid>
             </StackPanel>
             <Border Background="#7F000000" Width="1" />
@@ -82,7 +86,7 @@
                         <Grid Height="70">
                             <RadioButton x:Name="R2" Content="自定义" Margin="25,37,0,16" Height="17" Checked="R2_Checked" HorizontalAlignment="Left" Width="77"/>
                             <TextBox x:Name="TextBox_GamePath" Margin="107,30,95,12" RenderTransformOrigin="0,1" FontFamily="Microsoft YaHei UI Light" Height="28" VerticalContentAlignment="Bottom" HorizontalContentAlignment="Left"/>
-                            <Button x:Name="Button_OpenGame" Content="打开" Width="64" Height="24" FontSize="12" Margin="0,0,20,12" Click="Button_OpenGame_Click" RenderTransformOrigin="0.516,0.333" HorizontalAlignment="Right" VerticalAlignment="Bottom"/>
+                            <Button x:Name="Button_OpenGame" Content="打开" Width="64" Height="24" FontSize="12" Margin="0,0,20,12" Click="Button_OpenGame_Click" RenderTransformOrigin="0.516,0.333" HorizontalAlignment="Right" VerticalAlignment="Bottom" />
                             <RadioButton x:Name="R1" Content="默认" Margin="25,10,0,43" Height="17" Checked="R1_Checked" HorizontalAlignment="Left" Width="77"/>
                         </Grid>
                     </Expander>
@@ -230,7 +234,7 @@
 
                 </StackPanel>
             </ScrollViewer>
-            <ScrollViewer x:Name="Set5" Margin="10" VerticalScrollBarVisibility="Auto" Visibility="Collapsed">
+            <ScrollViewer x:Name="Set5" Margin="10" VerticalScrollBarVisibility="Auto" Visibility="Collapsed" d:IsHidden="True">
                 <Grid>
                     <StackPanel Orientation="Vertical" >
                         <StackPanel.Effect>

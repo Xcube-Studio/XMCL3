@@ -54,7 +54,10 @@ namespace XMCL
                                 this.Close();
                             }));
                         }
-                        else MainWindow.ShowTip("登陆失败,请检查密码.[或多次重复被服务器禁止登录]", 1);
+                        else this.Dispatcher.BeginInvoke(new Action(() =>
+                             {
+                                 MainWindow.ShowTip("登陆失败,请检查密码.[或多次重复被服务器禁止登录]", 1);
+                             })); 
                         this.Dispatcher.BeginInvoke(new Action(() =>
                         {
                             PasswordBox.IsEnabled = NameTextBox.IsEnabled = ComboBox.IsEnabled = button.IsEnabled = true;

@@ -5,6 +5,8 @@ using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
+using XMCL.Core;
+using MaterialDesignColors.ColorManipulation;
 namespace XMCL
 {
     /// <summary>
@@ -22,16 +24,39 @@ namespace XMCL
             if (Directory.Exists(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\.XMCL"))
             { }
             else Directory.CreateDirectory(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\.XMCL");
+            if (System.IO.File.Exists(System.IO.Directory.GetCurrentDirectory() + "\\XMCL.json"))
+            { }
+            else
+            {
+                FileStream fs1 = new FileStream(System.Environment.CurrentDirectory + "\\XMCL.json", FileMode.Create, FileAccess.ReadWrite);
+                try
+                {
+                    fs1.Write(XMCL.Properties.Resources.XMCL, 0, XMCL.Properties.Resources.XMCL.Length);
+                    fs1.Flush();
+                    fs1.Close();
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+            }
+            if (Settings.JavaPath.Length > 0)
+            { }
+            else
+            {
+                List<string> vs = Tools.GetJavaList();
+                if (vs != null)
+                    Json.Write("Files", "JavaPath", vs[0]);
+            }
         }
         public static string Folder_XMCL = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\.XMCL";
-        public static void Thems(string color1, string color2, string color3)
+        public static void Thems(string color_str)
         {
-            XMCL.MainWindow.Window.Resources.Remove("PrimaryHueMidBrush");
-            XMCL.MainWindow.Window.Resources.Add("PrimaryHueMidBrush", new SolidColorBrush((Color)ColorConverter.ConvertFromString(color1)));
-            XMCL.MainWindow.Window.Resources.Remove("PrimaryHueLightBrush");
-            XMCL.MainWindow.Window.Resources.Add("PrimaryHueLightBrush", new SolidColorBrush((Color)ColorConverter.ConvertFromString(color2)));
-            XMCL.MainWindow.Window.Resources.Remove("PrimaryHueDarkBrush");
-            XMCL.MainWindow.Window.Resources.Add("PrimaryHueDarkBrush", new SolidColorBrush((Color)ColorConverter.ConvertFromString(color3)));
+            Color color = ColorHelper.Darken((Color)ColorConverter.ConvertFromString(color_str), 1);
+            Color color1 = ColorHelper.Lighten((Color)ColorConverter.ConvertFromString(color_str), 1);
+            Json.Write("Individualization","PrimaryHueMidBrush", color_str);
+            Json.Write("Individualization", "PrimaryHueLightBrush", System.Drawing.ColorTranslator.ToHtml(System.Drawing.Color.FromArgb(color.A, color.R, color.B, color.G)));
+            Json.Write("Individualization", "PrimaryHueDarkBrush", System.Drawing.ColorTranslator.ToHtml(System.Drawing.Color.FromArgb(color1.A, color1.R, color1.B, color1.G)));
         }
         public static bool HasUpdated = false;
 

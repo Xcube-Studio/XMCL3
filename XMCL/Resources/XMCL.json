@@ -2,36 +2,37 @@
   "Files": {
     "GamePath": "",
     "JavaPath": "",
-    "CompleteResource": "true",
-    "UseDefaultDirectory": "true",
+    "CompleteResource": true,
+    "UseDefaultDirectory": true,
     "DownloadSource": "Mcbbs"
   },
   "JVM": {
-    "MoreValueEnabled": "true",
+    "MoreValueEnabled": true,
     "Value": " -XX:+UnlockExperimentalVMOptions -XX:+UseG1GC -XX:G1NewSizePercent=20 -XX:G1ReservePercent=20 -XX:MaxGCPauseMillis=50 -XX:G1HeapRegionSize=16M -XX:-UseAdaptiveSizePolicy -XX:-OmitStackTraceInFastThrow  -Dfml.ignoreInvalidMinecraftCertificates=true -Dfml.ignorePatchDiscrepancies=true -XX:HeapDumpPath=MojangTricksIntelDriversForPerformance_javaw.exe_minecraft.exe.heapdump",
     "Memory": "1024",
-    "AutoMemory": "false"
+    "AutoMemory": false
   },
   "Login": {
-    "clientToken": "",
-    "choose": "",
+    "ClientToken": "",
+    "Choose": "",
     "Users": [ ]
   },
   "Video": {
     "Width": "854",
     "Height": "480",
-    "IsFullScreen": "false"
+    "IsFullScreen": false
   },
   "Individualization": {
-    "PrimaryHueMidBrush": "",
-	"PrimaryHueLightBrush":"",
-	"PrimaryHueDarkBrush":"",
-    "Background": "None",
-    "AutoHideLaucher": "true",
-	"AcrylicCard":"false"
+    "PrimaryHueMidBrush": "#2196f3",
+    "PrimaryHueLightBrush": "#6ec6ff",
+    "PrimaryHueDarkBrush": "#0069c0",
+    "UseSystemTheme": false,
+    "Background": "null",
+    "AutoHideLaucher": true,
+    "AcrylicCard": false
   },
   "Game": {
-    "Demo": "false",
+    "Demo": false,
     "ServerIP": "",
     "LatestVerison": ""
   }

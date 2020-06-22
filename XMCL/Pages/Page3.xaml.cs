@@ -4,6 +4,7 @@ using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Media;
 using System.Windows.Controls;
 
 namespace XMCL.Pages
@@ -14,9 +15,11 @@ namespace XMCL.Pages
     public partial class Page3 : Page
     {
         string[] a;
+        public static Page Page;
         public Page3()
         {
             InitializeComponent();
+            Page = this;
         }
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
@@ -33,6 +36,13 @@ namespace XMCL.Pages
                     LV.Content += App.version + "    →" + a[0];
                 }));
             });
+            Resources.Remove("PrimaryHueMidBrush");
+            Resources.Add("PrimaryHueMidBrush", new SolidColorBrush((System.Windows.Media.Color)System.Windows.Media.ColorConverter.ConvertFromString(Settings.PrimaryHueMidBrush)));
+            Resources.Remove("PrimaryHueLightBrush");
+            Resources.Add("PrimaryHueLightBrush", new SolidColorBrush((System.Windows.Media.Color)System.Windows.Media.ColorConverter.ConvertFromString(Settings.PrimaryHueLightBrush)));
+            Resources.Remove("PrimaryHueDarkBrush");
+            Resources.Add("PrimaryHueDarkBrush", new SolidColorBrush((System.Windows.Media.Color)System.Windows.Media.ColorConverter.ConvertFromString(Settings.PrimaryHueDarkBrush)));
+
         }
         private void RadioButton_Click(object sender, RoutedEventArgs e)
         {

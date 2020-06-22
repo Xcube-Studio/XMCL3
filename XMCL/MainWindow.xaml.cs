@@ -1,6 +1,5 @@
 ﻿using MaterialDesignThemes.Wpf;
 using System;
-using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Net;
@@ -76,53 +75,19 @@ namespace XMCL
             });
             #endregion
             #region JSON
-            if (System.IO.File.Exists(System.IO.Directory.GetCurrentDirectory() + "\\XMCL.json"))
-            { }
-            else
+            C1.ItemsSource = Tools.GetVersions(Settings.GamePath());
+            if (Settings.LatestVerison.Contains(" "))
             {
-                FileStream fs1 = new FileStream(System.Environment.CurrentDirectory + "\\XMCL.json", FileMode.Create, FileAccess.ReadWrite);
-                try
+                string[] vs = Settings.LatestVerison.Split(' ');
+                if (vs[0] == Settings.GamePath())
                 {
-                    fs1.Write(Properties.Resources.XMCL, 0, Properties.Resources.XMCL.Length);
-                    fs1.Flush();
-                    fs1.Close();
-                }
-                catch (Exception ex)
-                {
-                    throw ex;
+                    for (int i = 0; i < C1.Items.Count; i++)
+                    {
+                        if (C1.Items[i].ToString() == vs[1])
+                            C1.SelectedIndex = i;
+                    }
                 }
             }
-            if (Json.Read("Files", "JavaPath").Length > 0)
-            { }
-            else
-            {
-                List<string> vs = Tools.GetJavaList();
-                if (vs != null)
-                    Json.Write("Files", "JavaPath", vs[0]);
-            }
-            try
-            {
-                if (Convert.ToBoolean(Json.Read("Files", "UseDefaultDirectory")))
-                    C1.ItemsSource = Tools.GetVersions(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\.minecraft");
-                else
-                {
-                    if (Json.Read("Game", "LatestVerison").Length > 0)
-                        if (Json.Read("Game", "LatestVerison").Contains(" "))
-                        {
-                            string[] vs = Json.Read("Game", "LatestVerison").Split(' ');
-                            if (vs[0] == Json.Read("Files", "GamePath"))
-                            {
-                                C1.ItemsSource = Tools.GetVersions(Json.Read("Files", "GamePath"));
-                                for (int i = 0; i < C1.Items.Count; i++)
-                                {
-                                    if (C1.Items[i].ToString() == vs[1])
-                                        C1.SelectedIndex = i;
-                                }
-                            }
-                        }
-                }
-            }
-            catch { ShowTip("未能正确获取版本列表,请检查设置", 1); }
             #endregion
             #region Login/Iamge
             login();
@@ -139,11 +104,12 @@ namespace XMCL
                 timer.Start();
             });
             #endregion
+            #region Theme
             #region Acrylic
-            if (Convert.ToBoolean(Json.Read("Individualization", "AcrylicCard")))
+            if (Settings.AcrylicCard)
             {
                 Grid[] grids = new Grid[] { Card_Login, G2, G3, G4 };
-                for (int i=0;i<grids.Length;i++)
+                for (int i = 0; i < grids.Length; i++)
                 {
                     AcrylicPanel acrylic = new AcrylicPanel();
                     acrylic.NoiseOpacity = 0.02;
@@ -152,7 +118,7 @@ namespace XMCL
                     grids[i].Children.Add(acrylic);
                     Panel.SetZIndex(acrylic, 0);
                     Label_Name2.Foreground = Label_Logined.Foreground = new SolidColorBrush((System.Windows.Media.Color)System.Windows.Media.ColorConverter.ConvertFromString("#CCFFFFFF"));
-                    for (int i1=0;i1<grids[i].Children.Count; i1++)
+                    for (int i1 = 0; i1 < grids[i].Children.Count; i1++)
                     {
                         if (!(grids[i].Children[i1] == acrylic))
                             Panel.SetZIndex(grids[i].Children[i1], 1);
@@ -161,24 +127,39 @@ namespace XMCL
 
             }
             #endregion
+            #region Color
+            Resources.Remove("PrimaryHueMidBrush");
+            Resources.Add("PrimaryHueMidBrush", new SolidColorBrush((System.Windows.Media.Color)System.Windows.Media.ColorConverter.ConvertFromString(Settings.PrimaryHueMidBrush)));
+            Resources.Remove("PrimaryHueLightBrush");
+            Resources.Add("PrimaryHueLightBrush", new SolidColorBrush((System.Windows.Media.Color)System.Windows.Media.ColorConverter.ConvertFromString(Settings.PrimaryHueLightBrush)));
+            Resources.Remove("PrimaryHueDarkBrush");
+            Resources.Add("PrimaryHueDarkBrush", new SolidColorBrush((System.Windows.Media.Color)System.Windows.Media.ColorConverter.ConvertFromString(Settings.PrimaryHueDarkBrush)));
+            #endregion
+            #endregion
             GC.Collect();
         }
         public static void ShowTip(string text, int second) => Snackbar.MessageQueue.Enqueue(text, null, null, null, false, false, TimeSpan.FromSeconds(second));
         private void Button_Click_Start(object sender, RoutedEventArgs e)
         {
             Laucher game = new Laucher();
-            string GamePath;
-            if (Convert.ToBoolean(Json.Read("Files", "UseDefaultDirectory")))
-                GamePath = (Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\.minecraft");
-            else GamePath = Json.Read("Files", "GamePath");
-            Value.DownloadSource = Json.Read("Files", "DownloadSource");
-            Value.ServerIP = Json.Read("Game", "ServerIP");
-            Value.IsDemo = Convert.ToBoolean(Json.Read("Game", "Demo"));
-            Value.AutoMemory = Convert.ToBoolean(Json.Read("JVM", "AutoMemory"));
-            string uuid = Json.Read("Login", "choose");
-            game.Set(Json.ReadUser(uuid, "userName"), Json.Read("JVM", "Memory"), GamePath, Json.Read("Files", "JavaPath"), C1.Text, Json.Read("JVM", "Value"), uuid, Json.ReadUser(uuid, "accessToken"), Convert.ToBoolean(Json.Read("Video", "IsFullScreen")), Convert.ToBoolean(Json.Read("Files", "CompleteResource")));
+            Value.DownloadSource = Settings.DownloadSource;
+            Value.ServerIP = Settings.ServerIP;
+            Value.IsDemo = Settings.Demo;
+            Value.AutoMemory = Settings.AutoMemory;
+            game.Set(
+                Json.ReadUser(Settings.UUID, "userName"),
+                Settings.Memory,
+                Settings.GamePath(),
+                Settings.JavaPath,
+                C1.Text,
+                Settings.Value,
+                Settings.UUID,
+                Json.ReadUser(Settings.UUID, "accessToken"),
+                Settings.IsFullScreen,
+                Settings.CompleteResource
+            );
             game.Owner = this;
-            if (Json.ReadUser(uuid, "LoginMode") == "正版")
+            if (Json.ReadUser(Settings.UUID, "LoginMode") == "正版")
                 game.VerificationToken = true;
             game.WindowStartupLocation = WindowStartupLocation.CenterOwner;
             game.ShowDialog();
@@ -197,7 +178,7 @@ namespace XMCL
                 { }
                 else
                 {
-                    if (Convert.ToBoolean(Json.Read("Individualization", "AutoHideLaucher")))
+                    if (Settings.AutoHideLaucher)
                         this.Dispatcher.Invoke(new Action(() =>
                         {
                             this.Visibility = Visibility.Hidden;
@@ -206,7 +187,7 @@ namespace XMCL
                 }
             }
             catch { }
-            Json.Write("Game", "LatestVerison", Json.Read("Files", "GamePath") + " " + C1.Text);
+            Json.Write("Game", "LatestVerison", Settings.GamePath() + " " + C1.Text);
         }
         private void C1_DropDownClosed(object sender, EventArgs e)
         {
@@ -221,19 +202,15 @@ namespace XMCL
             C1.Background = new System.Windows.Media.SolidColorBrush(color);
             System.Windows.Media.Color color1 = System.Windows.Media.Color.FromRgb(0, 0, 0);
             C1.Foreground = new System.Windows.Media.SolidColorBrush(color1);
-            if (Convert.ToBoolean(Json.Read("Files", "UseDefaultDirectory")))
-                C1.ItemsSource = Tools.GetVersions(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\.minecraft");
-            else C1.ItemsSource = Tools.GetVersions(Json.Read("Files", "GamePath"));
+            C1.ItemsSource = Tools.GetVersions(Settings.GamePath());
         }
-        private void RadioButton1_PreviewMouseLeftButton(object sender, MouseButtonEventArgs e)
+        private void FrameButton1_Click(object sender, RoutedEventArgs e)
         {
             Frame.Navigate(new Page1());
-            RadioButton1.IsChecked = false;
         }
-        private void RadioButton2_PreviewMouseLeftButton(object sender, MouseButtonEventArgs e)
+        private void FrameButton2_Click(object sender, RoutedEventArgs e)
         {
             Frame.Navigate(new Page2());
-            RadioButton2.IsChecked = false;
         }
         private void Frame_Navigated(object sender, System.Windows.Navigation.NavigationEventArgs e)
         {
@@ -253,13 +230,13 @@ namespace XMCL
         private void Label_Logined_MouseEnter(object sender, MouseEventArgs e)
         {
             Label_Logined.ToolTip = Label_Logined.Content;
-            if (Json.ReadUser(Json.Read("Login", "choose"), "LoginMode") == "正版")
+            if (Json.ReadUser(Settings.UUID, "LoginMode") == "正版")
                 if (Label_Logined.Content.ToString() == "离线登录")
                     Label_Logined.ToolTip = "重新登录";
         }
         private void Label_Logined_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            if (Json.ReadUser(Json.Read("Login", "choose"), "LoginMode") == "正版")
+            if (Json.ReadUser(Settings.UUID, "LoginMode") == "正版")
                 if (Label_Logined.Content.ToString() == "离线登录")
                 {
                     Window1.Window = this;
@@ -273,7 +250,7 @@ namespace XMCL
         }
         private void Label_Name2_MouseLeave(object sender, MouseEventArgs e)
         {
-            Label_Name2.Foreground = new System.Windows.Media.SolidColorBrush(System.Windows.Media.Colors.White);
+            Label_Name2.Foreground = Label_Logined.Foreground;
         }
         private void Label_Name2_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
@@ -321,8 +298,8 @@ namespace XMCL
         {
             Load.Visibility = Visibility.Visible;
             head1.Source = BitmapToBitmapImage(Properties.Resources.steve);
-            string x = Json.Read("Login", "choose");
-            if (Json.Read("Login", "choose").Length > 0)
+            string x = Settings.UUID;
+            if (x.Length > 0)
             {
                 Label_Name2.Content = Json.ReadUser(x, "userName");
                 Task.Run(() =>
@@ -349,7 +326,7 @@ namespace XMCL
                         }
                         else
                         {
-                            if (Authenticate.Refresh(Json.ReadUser(x, "accessToken"), Json.Read("Login", "clientToken")))
+                            if (Authenticate.Refresh(Json.ReadUser(x, "accessToken"), Settings.ClientToken))
                             {
                                 this.Dispatcher.BeginInvoke(new Action(() =>
                                 {
@@ -369,7 +346,7 @@ namespace XMCL
                                 {
                                     System.Windows.MessageBox.Show("当前账户不可用,已删除");
                                     Json.ReMoveUsers(x);
-                                    Json.Write("Login", "choose", "");
+                                    Json.Write("Login", "Choose", "");
                                 }
                                 else
                                 {
@@ -485,6 +462,5 @@ namespace XMCL
                 Image_Loading.Visibility = Visibility.Collapsed;
             }
         }
-
     }
 }

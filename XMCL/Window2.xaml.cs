@@ -26,11 +26,10 @@ namespace XMCL
         }
         public void Get()
         {
-            string uuid = Json.Read("Login", "choose");
-            Label_name.Content = Json.ReadUser(uuid, "userName");
-            Label_uuid.Content = uuid;
-            Label_accessToken.Content = Json.ReadUser(uuid, "accessToken");
-            Label_LoginMode.Content = Json.ReadUser(uuid, "LoginMode");
+            Label_name.Content = Json.ReadUser(Settings.UUID, "userName");
+            Label_uuid.Content = Settings.UUID;
+            Label_accessToken.Content = Json.ReadUser(Settings.UUID, "accessToken");
+            Label_LoginMode.Content = Json.ReadUser(Settings.UUID, "LoginMode");
         }
         private void TreeViewItem_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
@@ -64,7 +63,7 @@ namespace XMCL
                 label.Margin = new Thickness(10);
                 label.FontFamily = new FontFamily("Microsoft YaHei UI Light");
                 label.Content = "名字: " + jObject["userName"].ToString() + " uuid: " + jObject["uuid"].ToString() + "\r\n登录方式: " + jObject["LoginMode"].ToString();
-                if (jObject["uuid"].ToString() == Json.Read("Login", "choose"))
+                if (jObject["uuid"].ToString() == Settings.UUID)
                     label.Content += "   正在使用";
                 label.VerticalContentAlignment = VerticalAlignment.Center;
                 grid.Height = label.Height + 20;

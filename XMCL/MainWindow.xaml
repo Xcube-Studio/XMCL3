@@ -45,7 +45,7 @@
   Value="0"
   IsIndeterminate="True" Height="18" Width="18" Margin="131,52,42,50" Foreground="{DynamicResource PrimaryHueMidBrush}" />
                         <Label x:Name="Label_Name2" Content="Steve" HorizontalAlignment="Left" Margin="74,20,0,0" VerticalAlignment="Top" MouseEnter="Label_Name2_MouseEnter" MouseLeave="Label_Name2_MouseLeave" Background="#99FFFFFF" MouseLeftButtonDown="Label_Name2_MouseLeftButtonDown" FontSize="16" Foreground="#CC000000"/>
-                        <Label x:Name="Label_Logined" Content="正在登录" ToolTip="" HorizontalAlignment="Left" Margin="74,48,0,0" VerticalAlignment="Top" Foreground="{Binding Foreground, ElementName=Label_Name2}" MouseEnter="Label_Logined_MouseEnter" MouseLeftButtonDown="Label_Logined_MouseLeftButtonDown"/>
+                        <Label x:Name="Label_Logined" Content="正在登录" ToolTip="" HorizontalAlignment="Left" Margin="74,48,0,0" VerticalAlignment="Top" MouseEnter="Label_Logined_MouseEnter" MouseLeftButtonDown="Label_Logined_MouseLeftButtonDown" Foreground="#CC000000"/>
                         <Label Content="欢迎回来" HorizontalAlignment="Left" Margin="10,79,0,0" VerticalAlignment="Top" Foreground="{Binding Foreground, ElementName=Label_Logined}" Width="171" Height="31" FontSize="16" FontFamily="Microsoft YaHei UI Light" />
                         <Image x:Name="head1" HorizontalAlignment="Left" RenderOptions.BitmapScalingMode="NearestNeighbor" RenderOptions.ClearTypeHint="Enabled" Height="50" Margin="19,20,0,0" VerticalAlignment="Top" Width="50" Source="pack://siteoforigin:,,,/Resources/steve.png" />
                         <Image x:Name="head2" RenderOptions.BitmapScalingMode="NearestNeighbor" RenderOptions.ClearTypeHint="Enabled" Height="56" Margin="16,17,0,0" Width="56" HorizontalAlignment="Left" VerticalAlignment="Top"/>
@@ -65,7 +65,7 @@
                     </Grid>
                     <Grid Margin="206,122,399,0" Height="163" VerticalAlignment="Top"  x:Name="G4" Background="White"/>
                     <Grid Margin="402,35,10,130" Background="#FCFFFFFF">
-                        <ProgressBar x:Name="Image_Loading" Style="{StaticResource MaterialDesignCircularProgressBar}" Value="0" IsIndeterminate="True" HorizontalAlignment="Center" Height="30" Width="30" VerticalAlignment="Center"/>
+                        <ProgressBar x:Name="Image_Loading" Style="{StaticResource MaterialDesignCircularProgressBar}" Value="0" IsIndeterminate="True" HorizontalAlignment="Center" Height="30" Width="30" VerticalAlignment="Center" Foreground="{DynamicResource PrimaryHueMidBrush}"/>
                         <Image x:Name="Image" Stretch="UniformToFill"/>
                         <Grid Margin="0,184,0,0" Background="#26FFFFFF">
                             <fw:AcrylicPanel Target="{Binding ElementName=Image}" NoiseOpacity="0.02"/>
@@ -75,10 +75,8 @@
                     </Grid>
                     <materialDesign:ColorZone x:Name="CtrlPage" Mode="PrimaryMid" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="30,0,0,3" Background="{x:Null}">
                         <StackPanel  Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Top">
-                            <RadioButton x:Name="RadioButton1" Style="{StaticResource MaterialDesignTabRadioButton}" IsChecked="False"
-                            Content="游戏管理" Height="Auto" BorderBrush="White" FontSize="13" FontFamily="Microsoft YaHei UI Light" PreviewMouseLeftButtonDown="RadioButton1_PreviewMouseLeftButton" />
-                            <RadioButton x:Name="RadioButton2" Style="{StaticResource MaterialDesignTabRadioButton}" IsChecked="False"
-                            Content="设置" Height="Auto" BorderBrush="White" FontSize="13" FontFamily="Microsoft YaHei UI Light" PreviewMouseLeftButtonDown="RadioButton2_PreviewMouseLeftButton" />
+                            <Button x:Name="FrameButton1" Style="{StaticResource ButtonAccentRevealStyle}" Content="游戏管理" Height="Auto" BorderBrush="White" FontSize="13" FontFamily="Microsoft YaHei UI Light" Width="84" Background="#00000000" Padding="12,4" Foreground="#DDFFFFFF" Click="FrameButton1_Click" />
+                            <Button x:Name="FrameButton2" Style="{StaticResource ButtonAccentRevealStyle}" Content="设置" Height="Auto" BorderBrush="White" FontSize="13" FontFamily="Microsoft YaHei UI Light" Padding="16,4" Width="84" Foreground="#DDFFFFFF" Background="#00000000" Click="FrameButton2_Click" />
                         </StackPanel>
                     </materialDesign:ColorZone>
                 </Grid>

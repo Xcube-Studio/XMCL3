@@ -8,7 +8,11 @@
       mc:Ignorable="d" 
       d:DesignHeight="395" d:DesignWidth="620"
       Title="SubPage2" Loaded="Page_Loaded">
-
+    <Page.Resources>
+        <SolidColorBrush x:Key="PrimaryHueLightBrush" Color="#6ec6ff"/>
+        <SolidColorBrush x:Key="PrimaryHueDarkBrush" Color="#0069c0"/>
+        <SolidColorBrush x:Key="PrimaryHueMidBrush" Color="#2196f3"/>
+    </Page.Resources>
     <Grid Background="White">
         <Grid x:Name="write" d:IsHidden="True">
             <TextBox x:Name="Title1" materialDesign:HintAssist.HelperText="标题/Title （可以将你遇到的问题写出来 e.g:游戏无法加载）" Margin="10,10,211,360" Height="25" Background="{x:Null}" FontFamily="Microsoft YaHei UI Light" />

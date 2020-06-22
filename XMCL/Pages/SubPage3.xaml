@@ -8,7 +8,11 @@
       d:DesignHeight="395" d:DesignWidth="620"
       Title="SubPage3" 
       xmlns:MD="http://materialdesigninxaml.net/winfx/xaml/themes" Loaded="Page_Loaded">
-
+    <Page.Resources>
+        <SolidColorBrush x:Key="PrimaryHueLightBrush" Color="#6ec6ff"/>
+        <SolidColorBrush x:Key="PrimaryHueDarkBrush" Color="#0069c0"/>
+        <SolidColorBrush x:Key="PrimaryHueMidBrush" Color="#2196f3"/>
+    </Page.Resources>
     <Grid>
         <MD:Card Margin="58,41,48,41.667" >
             <ScrollViewer  VerticalScrollBarVisibility="Auto">
