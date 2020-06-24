@@ -7,25 +7,28 @@
       mc:Ignorable="d" 
       d:DesignHeight="395" d:DesignWidth="620"
       Title="SubPage3" 
-      xmlns:MD="http://materialdesigninxaml.net/winfx/xaml/themes" Loaded="Page_Loaded">
+      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" Loaded="Page_Loaded">
     <Page.Resources>
         <SolidColorBrush x:Key="PrimaryHueLightBrush" Color="#6ec6ff"/>
         <SolidColorBrush x:Key="PrimaryHueDarkBrush" Color="#0069c0"/>
         <SolidColorBrush x:Key="PrimaryHueMidBrush" Color="#2196f3"/>
     </Page.Resources>
     <Grid>
-        <MD:Card Margin="58,41,48,41.667" >
-            <ScrollViewer  VerticalScrollBarVisibility="Auto">
-                <StackPanel>
-                    <Label Content="Title" x:Name="Title1" FontFamily="Microsoft YaHei UI Light" FontSize="24" Margin="18,6,0,11" Width="490" />
-                    <Label Content="By:" x:Name="By" FontFamily="Microsoft YaHei UI Light" FontSize="16" Margin="-230,-8,0,11" Width="236" Height="30" />
-                    <Label Content="反馈：" x:Name="state1" FontFamily="Microsoft YaHei UI Light" FontSize="16" Margin="263,-42,0,11" Width="236" Height="30" />
-                    <Label Content="正文部分" x:Name="Text"  FontFamily="Microsoft YaHei UI Light" FontSize="16" Margin="13,-6,0,11" Width="auto" Height="auto" />
-                    <Label Content="开发者回应" x:Name="state2"  FontFamily="Microsoft YaHei UI Light" FontSize="16" Margin="-128,-6,0,11" Width="361" Height="auto" />
-                    <Label Content="回应的开发者" x:Name="reply_by" FontFamily="Microsoft YaHei UI Light" FontSize="16" Margin="85,-36,-257,11" Width="146" Height="auto" />
-                    <Label Content="回复" x:Name="reply_" FontFamily="Microsoft YaHei UI Light" FontSize="16" Margin="13,-6,0,11" Width="502" Height="auto" />
+        <Grid.Effect>
+            <DropShadowEffect BlurRadius="10" ShadowDepth="0" Color="Black" Opacity="0.50"/>
+        </Grid.Effect>
+        <Grid Background="{DynamicResource PrimaryHueMidBrush}" Margin="70,50">
+            <Grid Background="White" Margin="0,5,0,0">
+                <StackPanel Orientation="Horizontal" Margin="10,10,10,252">
+                    <Label Content="Title" x:Name="Title1" FontFamily="Microsoft YaHei UI Light" FontSize="18"/>
+                    <Label Content="反馈：" x:Name="state1" FontFamily="Microsoft YaHei UI Light" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="5,0,0,0" />
                 </StackPanel>
-            </ScrollViewer>
-        </MD:Card>
+                <StackPanel Orientation="Horizontal" Margin="0,10,10,0" HorizontalAlignment="Right" VerticalAlignment="Top" Width="460" FlowDirection="RightToLeft">
+                    <Label Content="开发者回应" x:Name="state2"  FontFamily="Microsoft YaHei UI Light" FontSize="16" />
+                </StackPanel>
+                <TextBox x:Name="TextBox1" TextWrapping="Wrap" materialDesign:HintAssist.HelperText="正文部分" Margin="10,43,10,37" Background="#19000000" AcceptsReturn="True" IsReadOnly="True" Foreground="#F2000000" FontFamily="Microsoft YaHei UI Light" BorderBrush="{DynamicResource PrimaryHueLightBrush}" />
+                <Button x:Name="button" Style="{StaticResource ButtonAccentRevealStyle}" Content="返回" HorizontalAlignment="Right" Margin="0,0,10,5"  VerticalAlignment="Bottom" Width="69" Background="{DynamicResource PrimaryHueMidBrush}" BorderBrush="{DynamicResource PrimaryHueLightBrush}" Padding="16,4" Click="Button_Click" FontFamily="Microsoft YaHei UI Light"/>
+            </Grid>
+        </Grid>
     </Grid>
 </Page>

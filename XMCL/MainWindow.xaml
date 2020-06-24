@@ -12,6 +12,11 @@
         AllowsTransparency="True"
         Title="MainWindow" WindowStartupLocation="CenterScreen" materialDesign:ShadowAssist.ShadowDepth="Depth4" Height="450" Width="800" MouseLeftButtonDown="Window_MouseLeftButtonDown" Loaded="Window_Loaded">
     <Window.Resources>
+        <SolidColorBrush x:Key="PrimaryHueLightBrush" Color="#6ec6ff"/>
+        <SolidColorBrush x:Key="PrimaryHueDarkBrush" Color="#0069c0"/>
+        <SolidColorBrush x:Key="PrimaryHueMidBrush" Color="#2196f3"/>
+
+
         <BooleanToVisibilityConverter x:Key="booleanToVisibilityConverter" />
         <Style TargetType="Label">
             <Setter Property="Template">

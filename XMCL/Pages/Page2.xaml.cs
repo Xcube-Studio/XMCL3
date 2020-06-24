@@ -114,10 +114,10 @@ namespace XMCL.Pages
                         for (int f = 1; f < i; f++)
                         {
                             ListBoxItem listBoxItem = new ListBoxItem();
-                            ListBoxItem listBoxItem1 = new ListBoxItem();
-                            listBoxItem.Margin = listBoxItem1.Margin = new Thickness(20, 0, 20, 0);
+                            listBoxItem.PreviewMouseLeftButtonDown += ListBoxItem_PreviewMouseLeftButtonDown;
+                            listBoxItem.Margin = new Thickness(20, 0, 20, 0);
                             listBoxItem.Content = "(XMCL-" + id[f].ToString() + ") " + title[f] + "  By：" + by[f];
-                            listBoxItem.Tag = "XMCL" + id[f].ToString();
+                            listBoxItem.Tag = f;
                             Latest.Children.Add(listBoxItem);
                         }
                         pb1.Visibility = Visibility.Collapsed;
@@ -129,6 +129,15 @@ namespace XMCL.Pages
                 MainWindow.ShowTip("从远程数据库拉取反馈失败,请重试", 1);
             }
         }
+
+        private void ListBoxItem_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            ListBoxItem listBoxItem = (ListBoxItem)sender;
+            Frame.Visibility = Visibility.Visible;
+            SubPage3.id = (int)listBoxItem.Tag;
+            Frame.Navigate(new SubPage3());
+        }
+
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
             Resources.Remove("PrimaryHueMidBrush");

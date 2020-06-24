@@ -3,7 +3,7 @@ using MySql.Data.MySqlClient;
 using System.Windows;
 using System.Windows.Media;
 using System.Threading.Tasks;
-
+using System;
 namespace XMCL.Pages
 {
     /// <summary>
@@ -17,7 +17,7 @@ namespace XMCL.Pages
             InitializeComponent();
             Page = this;
         }
-        int id = 0;
+        public static int id = 0;
         private void Page_Loaded(object sender, System.Windows.RoutedEventArgs e)
         {
             Resources.Remove("PrimaryHueMidBrush");
@@ -30,7 +30,7 @@ namespace XMCL.Pages
             Task.Run(() =>
             {
                 string strcon = "server=106.14.64.250;User Id=User;password=User20202020server;Database=User";
-                string sql = $"select * from issues where id‘" + id.ToString() + "'";
+                string sql = $"select * from issues where id='" + id.ToString() + "'";
                 MySqlConnection conn = new MySqlConnection(strcon);
                 conn.Open();
                 MySqlCommand cmd = new MySqlCommand(sql, conn);
@@ -45,26 +45,28 @@ namespace XMCL.Pages
                 replied_by = (string)reader[3];
                 by = (string)reader[4];
                 title = (string)reader[6];
-                Title1.Content = issues;
-                By.Content = by;
-                if (state >= 1 || state < 10)
-                    state1.Content = "反馈类型：BUG";
-                else
-                    state1.Content = "反馈类型：建议";
-                Text.Content = issues;
-                if (state >= 2 & state < 10 | state > 10)
+                this.Dispatcher.BeginInvoke(new Action(() =>
                 {
-                    state2.Content = "开发者已经回应";
-                    reply_by.Content = "回复：" + replied_by;
-                    reply_.Content = "回复 \n " + reply;
-                }
-                else
-                {
-                    state2.Content = "开发者暂未查看";
-                    reply_by.Visibility = Visibility.Collapsed;
-                    reply_.Visibility = Visibility.Collapsed;
-                }
+                    Title1.Content = issues;
+                    if (state >= 1 || state < 10)
+                        state1.Content = "反馈类型：BUG";
+                    else state1.Content = "反馈类型：建议";
+                    if (state >= 2 & state < 10 | state > 10)
+                    {
+                        state2.Content = "已回应";
+                        TextBox1.Text += "回复的反馈: " + by + "     " + "回复的开发者：" + replied_by + "\r\n";
+                        TextBox1.Text += "================回复================" + "\r\n";
+                        TextBox1.Text += reply + "\r\n";
+                        TextBox1.Text += "===================================" + "\r\n";
+                    }
+                    else state2.Content = "开发者暂未查看";
+                }));
             });
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            this.NavigationService.Navigate(null);
         }
     }
 }

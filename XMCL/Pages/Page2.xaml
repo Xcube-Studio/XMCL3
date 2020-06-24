@@ -77,7 +77,7 @@
             <Border Background="#7F000000" Width="1" />
         </StackPanel>
         <Grid Margin="156,0,0,0">
-            <ScrollViewer x:Name="Set1" Margin="10" VerticalScrollBarVisibility="Auto" d:IsHidden="True">
+            <ScrollViewer x:Name="Set1" Margin="10" VerticalScrollBarVisibility="Auto">
                 <StackPanel>
                     <StackPanel.Effect>
                         <DropShadowEffect BlurRadius="10" ShadowDepth="0" Color="Black" Opacity="0.50"/>
@@ -248,7 +248,7 @@
                         </Expander>
                         <Button Content="我要反馈" materialDesign:ShadowAssist.ShadowDepth="Depth0" x:Name="ToIssues" Height="Auto" Margin="5,10,475,0" FontFamily="Microsoft JhengHei UI Light" Click="Toissues_Click"/>
                     </StackPanel>
-                    <Frame x:Name="Frame" NavigationUIVisibility="Hidden" Foreground="{x:Null}" Visibility="Collapsed" Navigated="Frame_Navigated" />
+                    <Frame Width="620" Height="395" x:Name="Frame" NavigationUIVisibility="Hidden" Foreground="{x:Null}" Navigated="Frame_Navigated" Visibility="Collapsed" />
                 </Grid>
             </ScrollViewer>
         </Grid>
