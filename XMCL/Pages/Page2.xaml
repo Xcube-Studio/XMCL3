@@ -74,10 +74,10 @@
                     </Button>
                 </Grid>
             </StackPanel>
-            <Border Background="#7F000000" Width="1" />
+            <Border Background="#7F000000" Width="1" d:IsHidden="True" />
         </StackPanel>
         <Grid Margin="156,0,0,0">
-            <ScrollViewer x:Name="Set1" Margin="10" VerticalScrollBarVisibility="Auto">
+            <ScrollViewer x:Name="Set1" Margin="10" VerticalScrollBarVisibility="Auto" d:IsHidden="True">
                 <StackPanel>
                     <StackPanel.Effect>
                         <DropShadowEffect BlurRadius="10" ShadowDepth="0" Color="Black" Opacity="0.50"/>
@@ -144,7 +144,7 @@
                     </Expander>
                 </StackPanel>
             </ScrollViewer>
-            <ScrollViewer x:Name="Set2" Margin="10" VerticalScrollBarVisibility="Auto" d:IsHidden="True" Visibility="Collapsed">
+            <ScrollViewer x:Name="Set2" Margin="10" VerticalScrollBarVisibility="Auto" Visibility="Collapsed" d:IsHidden="True">
                 <StackPanel>
                     <StackPanel.Effect>
                         <DropShadowEffect BlurRadius="10" ShadowDepth="0" Color="Black" Opacity="0.50"/>
@@ -167,7 +167,7 @@
                     </Grid>
                 </StackPanel>
             </ScrollViewer>
-            <ScrollViewer x:Name="Set3" Margin="10" VerticalScrollBarVisibility="Auto" d:IsHidden="True" Visibility="Collapsed">
+            <ScrollViewer x:Name="Set3" Margin="10" VerticalScrollBarVisibility="Auto" d:IsHidden="True" >
                 <StackPanel>
                     <StackPanel.Effect>
                         <DropShadowEffect BlurRadius="10" ShadowDepth="0" Color="Black" Opacity="0.50"/>
@@ -194,6 +194,18 @@
                                         <Rectangle Fill="#ffc406" Margin="0,0,0,0" Width="59.5" />
                                         <Rectangle Fill="#c56000" Margin="1,0,0,0" Width="59.5" />
                                     </StackPanel>
+                                    <Button Background="Transparent" Height="Auto" Click="Button_Click2"/>
+                                    <Label Foreground="White" Margin="5,25,5,84" FontFamily="Microsoft YaHei UI Light" Content="#ff8f00"/>
+                                    <Label Foreground="White" Margin="5,86,65,4" FontFamily="Microsoft YaHei UI Light" Content="#ffc406"/>
+                                    <Label Foreground="White" Margin="65,86,5,4" FontFamily="Microsoft YaHei UI Light" Content="#c56000"/>
+                                </Grid>
+                                <Grid Margin="10,10,0,10" Width="130" x:Name="xingxingtheme">
+                                    <Label Margin="5,5,5,100" Foreground="Black" FontFamily="Microsoft YaHei UI Light" >星星黄</Label>
+                                    <Rectangle Fill="#ffc400" Margin="5,25,5,45" />
+                                    <StackPanel Margin="5,85.5,5,5" Orientation="Horizontal">
+                                        <Rectangle Fill="#fff64f" Margin="0,0,0,0" Width="59.5" />
+                                        <Rectangle Fill="#c49400" Margin="1,0,0,0" Width="59.5" />
+                                    </StackPanel>
                                     <Button Background="Transparent" Height="Auto" Click="Button_Click1"/>
                                     <Label Foreground="White" Margin="5,25,5,84" FontFamily="Microsoft YaHei UI Light" Content="#ff8f00"/>
                                     <Label Foreground="White" Margin="5,86,65,4" FontFamily="Microsoft YaHei UI Light" Content="#ffc406"/>
@@ -205,12 +217,13 @@
                     </Expander>
                     <Border Height="0.5" Background="Transparent" VerticalAlignment="Top" Margin="0"/>
                     <Grid Margin="5,0">
-                        <Label Height="48" Background="White" Content="     启用亚力克卡片（测试）" Foreground="Black" VerticalContentAlignment="Center" FontSize="14" FontFamily="Microsoft YaHei UI Light" Margin="0"/>
+                        <Label Height="48" Background="White" Content="     启用亚力克卡片（Beta）" Foreground="Black" VerticalContentAlignment="Center" FontSize="14" FontFamily="Microsoft YaHei UI Light" Margin="0"/>
                         <ToggleButton x:Name="ToggleButton5" Style="{StaticResource MaterialDesignSwitchLightToggleButton}" ToolTip="自动分配内存" IsChecked="False" Margin="0,10,10,10" HorizontalAlignment="Right" Width="45" Click="ToggleButton3_Click" HorizontalContentAlignment="Right" VerticalContentAlignment="Bottom" Checked="ToggleButton3_Checked" />
                     </Grid>
                 </StackPanel>
             </ScrollViewer>
-            <ScrollViewer x:Name="Set4" Margin="10" VerticalScrollBarVisibility="Disabled" d:IsHidden="True" Visibility="Collapsed">
+            <!--  Visibility="Collapsed"-->
+            <ScrollViewer x:Name="Set4" Margin="10" VerticalScrollBarVisibility="Disabled" >
                 <StackPanel>
                     <StackPanel.Effect>
                         <DropShadowEffect BlurRadius="10" ShadowDepth="0" Color="Black" Opacity="0.50"/>
@@ -221,12 +234,15 @@
                         </TextBlock>
                     </Grid>
                     <Grid Margin="5,10,5,20" Background="White">
-                        <StackPanel>
+                        <StackPanel Margin="0">
                             <TextBlock Margin="15,15,15,0" Text="版权             Xcube Studio Copyright ©  2020" FontFamily="Microsoft YaHei UI Light"/>
                             <TextBlock Margin="15,8,15,0" Text="作者             xuan2006" FontFamily="Microsoft YaHei UI Light"/>
-                            <TextBlock Margin="15,8,15,0" Text="开发             xuan2006、gxh2004、xingxing520" FontFamily="Microsoft YaHei UI Light" />
+                            <TextBlock FontFamily="Microsoft YaHei UI Light" Margin="-161,-11,-34,-25" VerticalAlignment="Bottom" Height="19" Width="78"><Hyperlink x:Name="xingxing" Click="xingxing_Click" >xingxing520</Hyperlink></TextBlock>
+                            <TextBlock Margin="14,8,412,0" Text="开发             xuan2006、gxh2004、" FontFamily="Microsoft YaHei UI Light" />
+
                             <TextBlock Margin="15,8,15,0" FontFamily="Microsoft YaHei UI Light"><Run Text="鸣谢             bangbang93 (BMCLAPI下载源,https://bmclapi2.bangbang93.com)"/><LineBreak/><Run Text="                    Mcbbs (Mcbbs下载源) "/><LineBreak/><Run Text="                    Minecraft Wiki (Minecraft元素的图标)"/><LineBreak/><Run Text="                    其他一些提议者及贡献者"/></TextBlock>
                             <TextBlock Margin="15,8,15,0" FontFamily="Microsoft YaHei UI Light"><Run Text="引用             Newtonsoft.Json  (James Newton-King)"/><LineBreak/><Run Text="                    Costura.Fody  (https://github.com/Fody/Costura/graphs/contributors)"/><LineBreak/><Run Text="                    MaterialDesignColors  (James Willock)"/><LineBreak/><Run Text="                    MaterialDesignThemes.Wpf  (James Willock)"/><LineBreak/><Run Text="                    MySql.Data"/><Run Text=" (Oracle)"/><LineBreak/><Run Text="                    XMCL"/><Run Text="."/><Run Text="Core"/><Run Text=" (Xcube Studio"/><Run Text=" - xuan2006"/><Run Text=")"/></TextBlock>
+
                             <TextBlock Margin="15,8,15,0" FontFamily="Microsoft YaHei UI Light"><Run Text="声明             Minecraft 版权归 Mojang AB 所有，使用本软件产生的版权问题，软件制作方概不负责，请支持"/><LineBreak/><Run Text="                    正版"/></TextBlock>
                             <TextBlock Margin="15,8,15,15" Text="开源             开发版本暂时未发布代码" FontFamily="Microsoft YaHei UI Light"/>
                         </StackPanel>
@@ -243,7 +259,7 @@
                         <Expander Header="反馈" Background="White" Margin="5,5,5,0" FontFamily="Microsoft YaHei UI Light">
                             <StackPanel Orientation="Vertical">
                                 <StackPanel x:Name="Latest" Orientation="Vertical"/>
-                                <ProgressBar x:Name="pb1" IsIndeterminate="True" ></ProgressBar>
+                                <ProgressBar x:Name="pb1" IsIndeterminate="True" />
                             </StackPanel>
                         </Expander>
                         <Button Content="我要反馈" materialDesign:ShadowAssist.ShadowDepth="Depth0" x:Name="ToIssues" Height="Auto" Margin="5,10,475,0" FontFamily="Microsoft JhengHei UI Light" Click="Toissues_Click"/>

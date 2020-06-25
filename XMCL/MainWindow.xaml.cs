@@ -15,6 +15,8 @@ using System.Windows.Media.Imaging;
 using XMCL.Core;
 using XMCL.Pages;
 using SourceChord.FluentWPF;
+using MySql.Data;
+using MySql.Data.MySqlClient;
 
 namespace XMCL
 {
@@ -57,6 +59,39 @@ namespace XMCL
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             this.Activate();
+            #region hwid
+         
+                if (!File.Exists("c:\\xmcl.txt"))
+                {
+                
+                    FileStream fs = new FileStream("c:\\xmcl", FileMode.OpenOrCreate, FileAccess.ReadWrite); //可以指定盘符，也可以指定任意文件名，还可以为word等文件
+                    StreamWriter sw = new StreamWriter(fs);
+                    char a1=(char) intSuijishu(1, 96);
+                    char b2 = (char)intSuijishu(1, 96);
+                    char c3 = (char)intSuijishu(1, 96);
+                    char d4 = (char)intSuijishu(1, 96);
+                    char e5 = (char)intSuijishu(1, 96);
+                    char f6 = (char)intSuijishu(1, 96);
+                    sw.WriteLine(a1+b2+c3+d4+e5+f6); 
+                    sw.Close();
+                    fs.Close();
+
+                    string ConString = "server=106.14.64.250;User Id=User;password=User20202020server;Database=User";
+                    MySqlConnection conn = new MySqlConnection(ConString);//连接数据库 
+            
+                    conn.Open();   //open的时候可以套个try防止boom 
+                    string hwid = System.IO.File.ReadAllText(@"c:\xmcl");
+                    string sql = "INSERT INTO `主题` (`hwid`, `主题1`, `主题2`, `主题3`) VALUES ('"+hwid+"', '0', '0', '0');";
+                    MySqlCommand cmd = new MySqlCommand(sql, conn);
+                    conn.Close();
+                }
+                else
+                {
+                    
+                }
+
+            
+            #endregion
             #region Update
             Task.Run(() =>
             {
