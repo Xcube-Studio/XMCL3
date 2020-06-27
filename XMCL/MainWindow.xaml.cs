@@ -60,7 +60,7 @@ namespace XMCL
         {
             this.Activate();
             #region hwid
-         
+            /*
                 if (!File.Exists("c:\\xmcl.txt"))
                 {
                 
@@ -90,7 +90,7 @@ namespace XMCL
                     
                 }
 
-            
+            */
             #endregion
             #region Update
             Task.Run(() =>
@@ -110,11 +110,11 @@ namespace XMCL
             });
             #endregion
             #region JSON
-            C1.ItemsSource = Tools.GetVersions(Settings.GamePath());
+            C1.ItemsSource = Tools.GetVersions(Settings.GamePath);
             if (Settings.LatestVerison.Contains(" "))
             {
                 string[] vs = Settings.LatestVerison.Split(' ');
-                if (vs[0] == Settings.GamePath())
+                if (vs[0] == Settings.GamePath)
                 {
                     for (int i = 0; i < C1.Items.Count; i++)
                     {
@@ -184,7 +184,7 @@ namespace XMCL
             game.Set(
                 Json.ReadUser(Settings.UUID, "userName"),
                 Settings.Memory,
-                Settings.GamePath(),
+                Settings.GamePath,
                 Settings.JavaPath,
                 C1.Text,
                 Settings.Value,
@@ -222,7 +222,7 @@ namespace XMCL
                 }
             }
             catch { }
-            Json.Write("Game", "LatestVerison", Settings.GamePath() + " " + C1.Text);
+            Json.Write("Game", "LatestVerison", Settings.GamePath + " " + C1.Text);
         }
         private void C1_DropDownClosed(object sender, EventArgs e)
         {
@@ -237,7 +237,7 @@ namespace XMCL
             C1.Background = new System.Windows.Media.SolidColorBrush(color);
             System.Windows.Media.Color color1 = System.Windows.Media.Color.FromRgb(0, 0, 0);
             C1.Foreground = new System.Windows.Media.SolidColorBrush(color1);
-            C1.ItemsSource = Tools.GetVersions(Settings.GamePath());
+            C1.ItemsSource = Tools.GetVersions(Settings.GamePath);
         }
         private void FrameButton1_Click(object sender, RoutedEventArgs e)
         {
@@ -289,8 +289,8 @@ namespace XMCL
         }
         private void Label_Name2_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            Window2 window2 = new Window2();
-            window2.ShowDialog();
+            if (Window2.Show())
+                login();
         }
         #endregion
         private void Timer_Elapsed(object sender, ElapsedEventArgs e)
@@ -333,6 +333,7 @@ namespace XMCL
         {
             Load.Visibility = Visibility.Visible;
             head1.Source = BitmapToBitmapImage(Properties.Resources.steve);
+            head2.Source = null;
             string x = Settings.UUID;
             if (x.Length > 0)
             {

@@ -32,13 +32,13 @@ namespace XMCL.Pages
             Task.Run(() =>
             {
 
-                if (Directory.Exists(Settings.GamePath() + "\\versions"))
+                if (Directory.Exists(Settings.GamePath + "\\versions"))
                 { }
-                else { Directory.CreateDirectory(Settings.GamePath() + "\\versions"); }
-                string[] b = Directory.GetDirectories(Settings.GamePath() + "\\versions");
+                else { Directory.CreateDirectory(Settings.GamePath + "\\versions"); }
+                string[] b = Directory.GetDirectories(Settings.GamePath + "\\versions");
                 for (int i = 0; i < b.Length; i++)
                 {
-                    int c = (Settings.GamePath() + "\\versions\\").Length;
+                    int c = (Settings.GamePath + "\\versions\\").Length;
                     string d = b[i].Substring(c, b[i].Length - c);
                     string json = b[i] + "\\" + d + ".json";
                     if (File.Exists(json))

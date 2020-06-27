@@ -5,6 +5,8 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 using XMCL.Core;
+using MaterialDesignThemes.Wpf;
+
 
 namespace XMCL
 {
@@ -13,64 +15,95 @@ namespace XMCL
     /// </summary>
     public partial class Window2 : Window
     {
+        static string UUID_Before;
         public Window2()
         {
             InitializeComponent();
             this.Owner = MainWindow.Window;
             this.WindowStartupLocation = WindowStartupLocation.CenterOwner;
+            UUID_Before = Settings.UUID;
+        }
+        public void GetUsersList()
+        {
+            List.Children.Clear();
+            JArray jArray = Json.ReadUsers();
+            for (int i=0;i<jArray.Count;i++)
+            {
+                Button button = new Button();
+                button.HorizontalAlignment = System.Windows.HorizontalAlignment.Right;
+                button.Margin = new System.Windows.Thickness(0, 7, 10, 7);
+                button.Width = 45;
+                button.Style = (Style)this.FindResource("MaterialDesignFlatButton");
+                button.Background = button.BorderBrush = new SolidColorBrush(Colors.White);
+                ShadowAssist.SetShadowDepth(button, ShadowDepth.Depth0);
+                button.Foreground = (SolidColorBrush)new BrushConverter().ConvertFromString("#DD000000");
+                button.Padding = new System.Windows.Thickness(0);
+
+                PackIcon packIcon = new PackIcon();
+                packIcon.Kind = PackIconKind.Delete;
+                packIcon.Width = packIcon.Height = 22;
+                button.Content = packIcon;
+
+                RadioButton radioButton = new RadioButton();
+                radioButton.Margin = new System.Windows.Thickness(10, 0, 0, 0);
+                radioButton.HorizontalAlignment = System.Windows.HorizontalAlignment.Left;
+                radioButton.Width = 25;
+                radioButton.GroupName = "A";
+                radioButton.Tag = JObject.Parse(jArray[i].ToString())["uuid"].ToString();
+                if (Settings.UUID == JObject.Parse(jArray[i].ToString())["uuid"].ToString())
+                    radioButton.IsChecked = true;
+                radioButton.Checked += RadioButton_Checked;
+
+                Label label = new Label();
+                label.Content = JObject.Parse(jArray[i].ToString())["userName"].ToString() + " - " + JObject.Parse(jArray[i].ToString())["LoginMode"].ToString();
+                label.VerticalContentAlignment = System.Windows.VerticalAlignment.Center;
+                label.FontFamily = new FontFamily("Microsoft YaHei UI Light");
+                label.FontSize = 14;
+                label.Margin = new System.Windows.Thickness(30, 0, 90, 0);
+
+                Grid grid = new Grid();
+                grid.Height = 40;
+                grid.Background = new SolidColorBrush(Colors.White);
+                grid.Margin = new System.Windows.Thickness(5, 5, 5, 0);
+                if (i == jArray.Count - 1)
+                    grid.Margin = new System.Windows.Thickness(5, 5, 5, 5);
+
+                grid.Children.Add(button);
+                grid.Children.Add(radioButton);
+                grid.Children.Add(label);
+
+                List.Children.Add(grid);
+            }
+        }
+
+        private void RadioButton_Checked(object sender, RoutedEventArgs e)
+        {
+            RadioButton radioButton = (RadioButton)sender;
+            Json.Write("Login", "Choose", radioButton.Tag.ToString());
+        }
+
+        private void Back(object sender, RoutedEventArgs e)
+        {
+            this.Close();
         }
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            G1.Visibility = Visibility.Visible; G2.Visibility = Visibility.Collapsed;
-            Get();
+            GetUsersList();
         }
-        public void Get()
+        public static bool Show()
         {
-            Label_name.Content = Json.ReadUser(Settings.UUID, "userName");
-            Label_uuid.Content = Settings.UUID;
-            Label_accessToken.Content = Json.ReadUser(Settings.UUID, "accessToken");
-            Label_LoginMode.Content = Json.ReadUser(Settings.UUID, "LoginMode");
+            Window2 window = new Window2();
+            window.ShowDialog();
+            if (Settings.UUID == UUID_Before)
+                return false;
+            else return true;
         }
-        private void TreeViewItem_PreviewMouseDown(object sender, MouseButtonEventArgs e)
+
+        private void Button_Click(object sender, RoutedEventArgs e)
         {
-            this.Close();
-            GC.Collect();
-        }
-        private void TreeViewItem_PreviewMouseDown_1(object sender, MouseButtonEventArgs e)
-        {
-            G1.Visibility = Visibility.Visible; G2.Visibility = Visibility.Collapsed;
-            Get();
-        }
-        private void TreeViewItem_PreviewMouseDown_2(object sender, MouseButtonEventArgs e)
-        {
-            G1.Visibility = Visibility.Collapsed; G2.Visibility = Visibility.Visible;
-            JArray jArray = JArray.Parse(Json.ReadUsers());
-            for (int i = 0; i < jArray.Count; i++)
-            {
-                JObject jObject = JObject.Parse(jArray[i].ToString());
-                Grid grid = new Grid();
-                Label label = new Label();
-                Label label1 = new Label();
-                label1.Width = StackPanel1.Width;
-                label1.Height = 5;
-                if (i == 0)
-                    grid.Margin = new Thickness(20, 20, 20, 0);
-                else if (i == jArray.Count)
-                    grid.Margin = new Thickness(20, 0, 20, 20);
-                else grid.Margin = new Thickness(20, 0, 20, 0);
-                grid.Background = new SolidColorBrush(Colors.White);
-                label.Foreground = new SolidColorBrush(Colors.Black);
-                label.Margin = new Thickness(10);
-                label.FontFamily = new FontFamily("Microsoft YaHei UI Light");
-                label.Content = "名字: " + jObject["userName"].ToString() + " uuid: " + jObject["uuid"].ToString() + "\r\n登录方式: " + jObject["LoginMode"].ToString();
-                if (jObject["uuid"].ToString() == Settings.UUID)
-                    label.Content += "   正在使用";
-                label.VerticalContentAlignment = VerticalAlignment.Center;
-                grid.Height = label.Height + 20;
-                grid.Children.Add(label);
-                StackPanel1.Children.Add(label1);
-                StackPanel1.Children.Add(grid);
-            }
+            Window1 window1 = new Window1();
+            window1.ShowDialog();
+            GetUsersList();
         }
     }
 }
