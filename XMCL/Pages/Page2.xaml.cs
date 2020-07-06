@@ -63,14 +63,17 @@ namespace XMCL.Pages
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             App.Thems("#2196f3");
+            MainWindow.ShowTip("个性化设置重启后生效~", 3);
         }
         private void Button_Click1(object sender, RoutedEventArgs e)
         {
             App.Thems("#ff8f00");
+            MainWindow.ShowTip("个性化设置重启后生效~", 3);
         }
         private void Button_Click2(object sender, RoutedEventArgs e)
         {
             App.Thems("#ffc400");
+            MainWindow.ShowTip("个性化设置重启后生效~", 3);
         }
         private void Toissues_Click(object sender, RoutedEventArgs e)
         {
