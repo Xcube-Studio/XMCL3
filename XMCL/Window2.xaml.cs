@@ -31,13 +31,15 @@ namespace XMCL
             {
                 Button button = new Button();
                 button.HorizontalAlignment = System.Windows.HorizontalAlignment.Right;
-                button.Margin = new System.Windows.Thickness(0, 7, 10, 7);
+                button.Margin = new System.Windows.Thickness(0, 0, 10, 0);
                 button.Width = 45;
                 button.Style = (Style)this.FindResource("MaterialDesignFlatButton");
                 button.Background = button.BorderBrush = new SolidColorBrush(Colors.White);
                 ShadowAssist.SetShadowDepth(button, ShadowDepth.Depth0);
                 button.Foreground = (SolidColorBrush)new BrushConverter().ConvertFromString("#DD000000");
                 button.Padding = new System.Windows.Thickness(0);
+                button.Click += Button_Click1;
+                button.Tag = JObject.Parse(jArray[i].ToString())["uuid"].ToString();
 
                 PackIcon packIcon = new PackIcon();
                 packIcon.Kind = PackIconKind.Delete;
@@ -76,6 +78,12 @@ namespace XMCL
             }
         }
 
+        private void Button_Click1(object sender, RoutedEventArgs e)
+        {
+            Button button = (Button)sender;
+            Json.ReMoveUsers(button.Tag.ToString());
+        }
+
         private void RadioButton_Checked(object sender, RoutedEventArgs e)
         {
             RadioButton radioButton = (RadioButton)sender;
@@ -102,6 +110,7 @@ namespace XMCL
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             Window1 window1 = new Window1();
+            window1.Owner = this;
             window1.ShowDialog();
             GetUsersList();
         }

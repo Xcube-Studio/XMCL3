@@ -270,7 +270,7 @@ namespace XMCL.Pages
 
         private void xingxing_Click(object sender, RoutedEventArgs e)
         {
-            
+            /*
             string hwid = System.IO.File.ReadAllText(@"C:\xmcl主题.txt");
             string ConString = "server=106.14.64.250;User Id=User;password=User20202020server;Database=User";
             MySqlConnection conn = new MySqlConnection(ConString);//连接数据库 
@@ -322,7 +322,7 @@ namespace XMCL.Pages
                       }));
                 }
                
-            }
+            }*/
         }
     }
 }

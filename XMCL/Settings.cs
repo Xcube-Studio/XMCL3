@@ -37,7 +37,7 @@ namespace XMCL
         public static string Background { get { return (string)Json.Read("Individualization", "Background"); } }
         public static bool AutoHideLaucher { get { return (bool)Json.Read("Individualization", "AutoHideLaucher"); } }
         public static bool AcrylicCard { get { return (bool)Json.Read("Individualization", "AcrylicCard"); } }
-        public static bool Demo { get { return (bool)Json.Read("Files", "UseDefaultDirectory"); } }
+        public static bool Demo { get { return (bool)Json.Read("Game", "Demo"); } }
         public static string ServerIP { get { return (string)Json.Read("Game", "ServerIP"); } }
         public static string LatestVerison { get { return (string)Json.Read("Game", "LatestVerison"); } }
     }
