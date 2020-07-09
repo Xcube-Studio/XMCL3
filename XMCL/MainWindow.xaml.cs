@@ -60,11 +60,12 @@ namespace XMCL
         {
             this.Activate();
             #region hwid
-            /*
-                if (!File.Exists("c:\\xmcl.txt"))
+/*
+            if (!File.Exists("C:\\Users\\xmcl主题.txt"))
                 {
                 
-                    FileStream fs = new FileStream("c:\\xmcl", FileMode.OpenOrCreate, FileAccess.ReadWrite); //可以指定盘符，也可以指定任意文件名，还可以为word等文件
+                
+                    FileStream fs = new FileStream("C:\\Users\\xmcl主题.txt", FileMode.OpenOrCreate, FileAccess.ReadWrite); //可以指定盘符，也可以指定任意文件名，还可以为word等文件
                     StreamWriter sw = new StreamWriter(fs);
                     char a1=(char) intSuijishu(1, 96);
                     char b2 = (char)intSuijishu(1, 96);
@@ -72,15 +73,16 @@ namespace XMCL
                     char d4 = (char)intSuijishu(1, 96);
                     char e5 = (char)intSuijishu(1, 96);
                     char f6 = (char)intSuijishu(1, 96);
-                    sw.WriteLine(a1+b2+c3+d4+e5+f6); 
+                    sw.WriteLine(a1.ToString()+b2.ToString()+c3.ToString()+d4.ToString()+e5.ToString()+f6.ToString()); 
                     sw.Close();
                     fs.Close();
-
+                   
                     string ConString = "server=106.14.64.250;User Id=User;password=User20202020server;Database=User";
                     MySqlConnection conn = new MySqlConnection(ConString);//连接数据库 
-            
+                    
                     conn.Open();   //open的时候可以套个try防止boom 
-                    string hwid = System.IO.File.ReadAllText(@"c:\xmcl");
+                    string hwid = System.IO.File.ReadAllText("C:\\Users\\xmcl主题.txt");
+                System.Windows.MessageBox.Show(hwid);
                     string sql = "INSERT INTO `主题` (`hwid`, `主题1`, `主题2`, `主题3`) VALUES ('"+hwid+"', '0', '0', '0');";
                     MySqlCommand cmd = new MySqlCommand(sql, conn);
                     conn.Close();
@@ -90,7 +92,7 @@ namespace XMCL
                     
                 }
 
-            */
+  */
             #endregion
             #region Update
             Task.Run(() =>

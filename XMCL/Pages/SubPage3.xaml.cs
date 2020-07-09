@@ -55,6 +55,9 @@ namespace XMCL.Pages
                     {
                         state2.Content = "已回应";
                         TextBox1.Text += "回复的反馈: " + by + "     " + "回复的开发者：" + replied_by + "\r\n";
+
+                        TextBox1.Text += "================正文================" + "\r\n";
+                        TextBox1.Text += issues + "\r\n";
                         TextBox1.Text += "================回复================" + "\r\n";
                         TextBox1.Text += reply + "\r\n";
                         TextBox1.Text += "===================================" + "\r\n";
