@@ -154,7 +154,7 @@
                         <ComboBox  x:Name="C1" HorizontalAlignment="Right" Margin="0,10,10,0" VerticalAlignment="Top" Width="171" SelectedIndex="0" Height="28" FontFamily="Microsoft YaHei UI Light">
                             <System:String>Mojang</System:String>
                             <System:String>BMCLAPI</System:String>
-                            <System:String>McbbsAPI</System:String>
+                            <System:String>Mcbbs</System:String>
                         </ComboBox>
                     </Grid>
                     <Border Height="0.5" Background="#FFC7C7C7" VerticalAlignment="Top" Margin="5,0"/>

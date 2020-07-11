@@ -54,6 +54,7 @@ namespace XMCL
                             {
                                 JObject jObject = yggdrasilAuthenticator.GetResult();
                                 Json.AddUsers((string)jObject["selectedProfile"]["name"], (string)jObject["selectedProfile"]["id"], (string)jObject["accessToken"], "正版", email);
+                                Json.Write("Login", "Choose", (string)jObject["selectedProfile"]["id"]);
                                 Loading.Visibility = Visibility.Collapsed;
                                 this.Close();
                             }));
@@ -76,6 +77,7 @@ namespace XMCL
                 offlineAuthenticator.Authenticate();
                 JObject jObject = offlineAuthenticator.GetResult();
                 Json.AddUsers((string)jObject["selectedProfile"]["name"], (string)jObject["selectedProfile"]["id"], (string)jObject["accessToken"], "离线", "");
+                Json.Write("Login", "Choose", (string)jObject["selectedProfile"]["id"]);
                 Loading.Visibility = Visibility.Collapsed;
                 this.Close();
             }

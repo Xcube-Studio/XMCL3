@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Controls;
 using System.Windows.Forms;
 
 namespace XMCL
@@ -21,7 +22,19 @@ namespace XMCL
         public static string JavaPath { get { return (string)Json.Read("Files", "JavaPath"); } }
         public static bool CompleteResource { get { return (bool)Json.Read("Files", "CompleteResource"); } }
         public static bool UseDefaultDirectory { get { return (bool)Json.Read("Files", "UseDefaultDirectory"); } }
-        public static string DownloadSource { get { return (string)Json.Read("Files", "DownloadSource"); } }
+        public static XL.Core.Tools.DownloadSource DownloadSource 
+        { 
+            get
+            {
+                if (Json.Read("Files", "DownloadSource").ToString() == "Mojang" )
+                    return XL.Core.Tools.DownloadSource.Mojang;
+                else if (Json.Read("Files", "DownloadSource").ToString() == "BMCLAPI")
+                    return XL.Core.Tools.DownloadSource.BMCPAPI;
+                else if (Json.Read("Files", "DownloadSource").ToString() == "Mcbbs")
+                    return XL.Core.Tools.DownloadSource.Mcbbs;
+                else return XL.Core.Tools.DownloadSource.Mojang;
+            } 
+        }
         public static bool MoreValueEnabled { get { return (bool)Json.Read("JVM", "MoreValueEnabled"); } }
         public static string Value { get { return (string)Json.Read("JVM", "Value"); } }
         public static int Memory { get { return (int)Json.Read("JVM", "Memory"); } }

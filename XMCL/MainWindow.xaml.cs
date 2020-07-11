@@ -204,7 +204,7 @@ namespace XMCL
 
             XMCLSettings settings = new XMCLSettings();
             settings.DefaultConnectionLimit = 1024;
-            settings.DownloadSource = DownloadSource.Mcbbs;
+            settings.DownloadSource = Settings.DownloadSource;
             settings.AfterLaunchAction = new Action(delegate
             {
                 Json.AddUsers(launchInfo.Player.Name, launchInfo.Player.UUID, launchInfo.Player.AccessToken, Json.ReadUser(Settings.UUID, "LoginMode"), launchInfo.Player.LoginName);
@@ -285,9 +285,8 @@ namespace XMCL
         }
         private void Label_Logined_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            if (Json.ReadUser(Settings.UUID, "LoginMode") == "正版")
-                if (Label_Logined.Content.ToString() == "离线登录")
-                    Window1.login(this);
+            Window2.Show();
+            Login();
         }
         private void Label_Name2_MouseEnter(object sender, MouseEventArgs e)
         {
@@ -300,6 +299,7 @@ namespace XMCL
         private void Label_Name2_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             Window2.Show();
+            Login();
         }
         private void Head2_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
@@ -479,7 +479,12 @@ namespace XMCL
                     });
                 }
             }
-            else Label_Logined.Content = "离线验证";
+            else
+            {
+                Label_Logined.Content = "离线验证";
+                head1.Source = new BitmapImage(new Uri(@"pack://application:,,,/XMCL;component/Resources/steve.png"));
+
+            }
         }
 
     }

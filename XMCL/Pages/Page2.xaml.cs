@@ -173,11 +173,11 @@ namespace XMCL.Pages
             TextBox_JVM_Value.Text = Settings.Value;
             #endregion
             #region Set2
-            if (Settings.DownloadSource == "Mojang")
+            if (Settings.DownloadSource == XL.Core.Tools.DownloadSource.Mojang)
                 C1.SelectedIndex = 0;
-            else if (Settings.DownloadSource == "BMCLAPI")
+            else if (Settings.DownloadSource == XL.Core.Tools.DownloadSource.BMCPAPI)
                 C1.SelectedIndex = 1;
-            else if (Settings.DownloadSource == "McbbsAPI")
+            else if (Settings.DownloadSource == XL.Core.Tools.DownloadSource.Mcbbs)
                 C1.SelectedIndex = 2;
             else
                 C1.SelectedIndex = 0;

@@ -209,7 +209,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\steve.png" />
+    <Resource Include="Resources\steve.png" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Table.ico" />

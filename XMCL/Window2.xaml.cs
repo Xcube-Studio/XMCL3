@@ -87,6 +87,7 @@ namespace XMCL
                 Window1 window1 = new Window1();
                 window1.Owner = this;
                 window1.ShowDialog();
+                GetUsersList();
             }
         }
         private void RadioButton_Checked(object sender, RoutedEventArgs e)
