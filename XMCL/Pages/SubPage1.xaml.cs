@@ -5,7 +5,8 @@ using System.Windows;
 using System.Windows.Media;
 using System.Windows.Controls;
 using System.Windows.Input;
-using XMCL.Core;
+using XL.Core;
+using XL.Core.Tools;
 
 namespace XMCL.Pages
 {
@@ -44,7 +45,7 @@ namespace XMCL.Pages
                 All.Children.Clear();
                 Task.Run(() =>
                 {
-                    string[] a = Tools.GetLatestVersion(Settings.DownloadSource).Split(';');
+                    string[] a = SomethingUseful.GetLatestVersion(Settings.DownloadSource).Split(';');
                     this.Dispatcher.BeginInvoke(new Action(() =>
                     {
                         ListBoxItem listBoxItem = new ListBoxItem();
@@ -66,7 +67,7 @@ namespace XMCL.Pages
                 });
                 Task.Run(() =>
                 {
-                    List<string> vs = Tools.GetVersionsListAll(Settings.DownloadSource);
+                    List<string> vs = SomethingUseful.GetVersionsListAll(Settings.DownloadSource);
                     this.Dispatcher.Invoke(new Action(() =>
                     {
                         for (int i = 0; i < vs.Count; i++)

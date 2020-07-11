@@ -12,7 +12,8 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using XMCL.Core;
+using XL.Core.Tools;
+using XL.Core;
 using XMCL.Pages;
 using SourceChord.FluentWPF;
 using MySql.Data;
@@ -30,6 +31,7 @@ namespace XMCL
         static Snackbar Snackbar;
         public static ColorZone ColorZone;
         public static Page DownloadPage;
+        Performance performance;
         Timer timer;
 
         #region 图形/控件
@@ -112,7 +114,7 @@ namespace XMCL
             });
             #endregion
             #region JSON
-            C1.ItemsSource = Tools.GetVersions(Settings.GamePath);
+            C1.ItemsSource = SomethingUseful.GetVersions(Settings.GamePath);
             if (Settings.LatestVerison.Contains(" "))
             {
                 string[] vs = Settings.LatestVerison.Split(' ');
@@ -127,13 +129,13 @@ namespace XMCL
             }
             #endregion
             #region Login/Iamge
-            login();
+            Login();
             Image_Change();
             #endregion
             #region Timer
             Task.Run(() =>
             {
-                Tools.Performance();
+                performance = new Performance();
                 timer = new Timer();
                 timer.Enabled = true;
                 timer.Interval = 1500;
@@ -154,7 +156,7 @@ namespace XMCL
                     grids[i].Background = new SolidColorBrush((System.Windows.Media.Color)System.Windows.Media.ColorConverter.ConvertFromString("#26FFFFFF"));
                     grids[i].Children.Add(acrylic);
                     Panel.SetZIndex(acrylic, 0);
-                    Label_Name2.Foreground = Label_Logined.Foreground = new SolidColorBrush((System.Windows.Media.Color)System.Windows.Media.ColorConverter.ConvertFromString("#CCFFFFFF"));
+                    Label_Name.Foreground = Label_Logined.Foreground = new SolidColorBrush((System.Windows.Media.Color)System.Windows.Media.ColorConverter.ConvertFromString("#CCFFFFFF"));
                     for (int i1 = 0; i1 < grids[i].Children.Count; i1++)
                     {
                         if (!(grids[i].Children[i1] == acrylic))
@@ -178,53 +180,63 @@ namespace XMCL
         public static void ShowTip(string text, int second) => Snackbar.MessageQueue.Enqueue(text, null, null, null, false, false, TimeSpan.FromSeconds(second));
         private void Button_Click_Start(object sender, RoutedEventArgs e)
         {
-            Laucher game = new Laucher();
-            Value.DownloadSource = Settings.DownloadSource;
-            Value.ServerIP = Settings.ServerIP;
-            Value.IsDemo = Settings.Demo;
-            Value.AutoMemory = Settings.AutoMemory;
-            game.Set(
-                Json.ReadUser(Settings.UUID, "userName"),
-                Settings.Memory,
-                Settings.GamePath,
-                Settings.JavaPath,
-                C1.Text,
-                Settings.Value,
-                Settings.UUID,
-                Json.ReadUser(Settings.UUID, "accessToken"),
-                Settings.IsFullScreen,
-                Settings.CompleteResource
-            );
-            game.Owner = this;
+            LaunchInfo launchInfo = new LaunchInfo();
+            launchInfo.Game.ComplementaryResources = true;
+            launchInfo.Game.GamePath = Settings.GamePath;
+            launchInfo.Game.Selected_Version = C1.Text;
+            launchInfo.Game.ServerIP = Settings.ServerIP;
+            launchInfo.Game.IsDemo = Settings.Demo;
+            launchInfo.Game.IsFullScreen = Settings.IsFullScreen;
+
+            launchInfo.Java.AutoMemory = Settings.AutoMemory;
+            launchInfo.Java.Memory = Settings.Memory;
+            launchInfo.Java.MoreValue = Settings.Value;
+            launchInfo.Java.JavaPath = Settings.JavaPath;
+
+            launchInfo.Player.LoginName = Json.ReadUser(Settings.UUID, "Email");
+            launchInfo.Player.AccessToken = Json.ReadUser(Settings.UUID, "accessToken");
+            launchInfo.Player.ClientToken = Settings.ClientToken;
+            launchInfo.Player.Name = Json.ReadUser(Settings.UUID, "userName");
+            launchInfo.Player.UUID = Settings.UUID;
             if (Json.ReadUser(Settings.UUID, "LoginMode") == "正版")
-                game.VerificationToken = true;
-            game.WindowStartupLocation = WindowStartupLocation.CenterOwner;
-            game.ShowDialog();
-            if (game.process == null)
-            { }
-            else
+                launchInfo.Player.Mode = Player.Authentication.Validate;
+            else launchInfo.Player.Mode = Player.Authentication.Offline;
+
+            XMCLSettings settings = new XMCLSettings();
+            settings.DefaultConnectionLimit = 1024;
+            settings.DownloadSource = DownloadSource.Mcbbs;
+            settings.AfterLaunchAction = new Action(delegate
             {
-                game.process.Exited += Process_Exited;
-                button.IsEnabled = false;
-                button.Content = "游戏已启动";
-            }
-            Task.Delay(1000);
-            try
-            {
-                if (game.process.HasExited)
-                { }
-                else
+                Json.AddUsers(launchInfo.Player.Name, launchInfo.Player.UUID, launchInfo.Player.AccessToken, Json.ReadUser(Settings.UUID, "LoginMode"), launchInfo.Player.LoginName);
+                Json.Write("Login", "ClientToken", launchInfo.Player.ClientToken);
+                Json.Write("Login", "Choose", launchInfo.Player.UUID);
+                Json.Write("Game", "LatestVerison", Settings.GamePath + " " + C1.Text);
+                if (Launcher.process != null)
                 {
-                    if (Settings.AutoHideLaucher)
-                        this.Dispatcher.Invoke(new Action(() =>
-                        {
-                            this.Visibility = Visibility.Hidden;
-                            timer.Stop();
-                        }));
+                    Launcher.process.Exited += Process_Exited;
+                    button.IsEnabled = false;
+                    button.Content = "游戏已启动";
                 }
-            }
-            catch { }
-            Json.Write("Game", "LatestVerison", Settings.GamePath + " " + C1.Text);
+                try
+                {
+                    if (Launcher.process.HasExited)
+                    { }
+                    else
+                    {
+                        if (Settings.AutoHideLaucher)
+                            this.Dispatcher.Invoke(new Action(() =>
+                            {
+                                this.Visibility = Visibility.Hidden;
+                                timer.Stop();
+                            }));
+                    }
+                }
+                catch { }
+            });
+
+            Launcher launcher = new Launcher(launchInfo,settings);
+            launcher.Start(this);
+            
         }
         private void C1_DropDownClosed(object sender, EventArgs e)
         {
@@ -239,7 +251,7 @@ namespace XMCL
             C1.Background = new System.Windows.Media.SolidColorBrush(color);
             System.Windows.Media.Color color1 = System.Windows.Media.Color.FromRgb(0, 0, 0);
             C1.Foreground = new System.Windows.Media.SolidColorBrush(color1);
-            C1.ItemsSource = Tools.GetVersions(Settings.GamePath);
+            C1.ItemsSource = SomethingUseful.GetVersions(Settings.GamePath);
         }
         private void FrameButton1_Click(object sender, RoutedEventArgs e)
         {
@@ -275,31 +287,49 @@ namespace XMCL
         {
             if (Json.ReadUser(Settings.UUID, "LoginMode") == "正版")
                 if (Label_Logined.Content.ToString() == "离线登录")
-                {
-                    Window1.Window = this;
-                    Window1.login();
-                    login();
-                }
+                    Window1.login(this);
         }
         private void Label_Name2_MouseEnter(object sender, MouseEventArgs e)
         {
-            Label_Name2.Foreground = new System.Windows.Media.SolidColorBrush(System.Windows.Media.Color.FromRgb(0, 120, 215));
+            Label_Name.Foreground = new System.Windows.Media.SolidColorBrush(System.Windows.Media.Color.FromRgb(0, 120, 215));
         }
         private void Label_Name2_MouseLeave(object sender, MouseEventArgs e)
         {
-            Label_Name2.Foreground = Label_Logined.Foreground;
+            Label_Name.Foreground = Label_Logined.Foreground;
         }
         private void Label_Name2_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            if (Window2.Show())
-                login();
+            Window2.Show();
+        }
+        private void Head2_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            Task.Run(delegate
+            {
+                this.Dispatcher.BeginInvoke(new Action(() =>
+                {
+                    head1.Visibility = head2.Visibility = Visibility.Collapsed;
+                    head_load.Visibility = Visibility.Visible;
+                }));
+                try
+                {
+                    Skin.GetSkins(Settings.UUID, App.Folder_XMCL);
+                }
+                catch { }
+                this.Dispatcher.BeginInvoke(new Action(() =>
+                {
+                    head1.Visibility = head2.Visibility = Visibility.Visible;
+                    head_load.Visibility = Visibility.Collapsed;
+                    head1.Source = new BitmapImage(new Uri(App.Folder_XMCL + "\\user\\" + Json.ReadUser(Settings.UUID, "userName") + "\\head1.png"));
+                    head2.Source = new BitmapImage(new Uri(App.Folder_XMCL + "\\user\\" + Json.ReadUser(Settings.UUID, "userName") + "\\head2.png"));
+                }));
+            });
         }
         #endregion
         private void Timer_Elapsed(object sender, ElapsedEventArgs e)
         {
-            float cpu = Tools.CPU_Utilization();
-            float allram = Tools.GetTotalPhysicalMemory();
-            float available = Tools.GetAvailablePhysicalMemory();
+            float cpu = performance.CPU_Utilization();
+            float allram = performance.GetTotalPhysicalMemory();
+            float available = performance.GetAvailablePhysicalMemory();
             float ram = (available / allram);
             string a = ((allram - available) / 1024 / 1024).ToString();
             string b = (allram / 1024 / 1024).ToString();
@@ -330,86 +360,6 @@ namespace XMCL
                 }
                 else CPU_.Content = c + "%";
             }));
-        }
-        public void login()
-        {
-            Load.Visibility = Visibility.Visible;
-            head1.Source = BitmapToBitmapImage(Properties.Resources.steve);
-            head2.Source = null;
-            string x = Settings.UUID;
-            if (x.Length > 0)
-            {
-                Label_Name2.Content = Json.ReadUser(x, "userName");
-                Task.Run(() =>
-                {
-                    try
-                    {
-                        if (Json.ReadUser(x, "LoginMode") == "正版")
-                        {
-                            Tools.GetSkins(x, App.Folder_XMCL);
-                            this.Dispatcher.BeginInvoke(new Action(() =>
-                            {
-                                head1.Source = new BitmapImage(new Uri(App.Folder_XMCL + "\\user\\" + Json.ReadUser(x, "userName") + "\\head1.png"));
-                                head2.Source = new BitmapImage(new Uri(App.Folder_XMCL + "\\user\\" + Json.ReadUser(x, "userName") + "\\head2.png"));
-                            }));
-                        }
-                        if (Authenticate.validate(Json.ReadUser(x, "accessToken")))
-                        {
-                            this.Dispatcher.BeginInvoke(new Action(() =>
-                            {
-                                Label_Name2.Content = Json.ReadUser(x, "userName");
-                                Label_Logined.Content = "正版登录";
-                                Load.Visibility = Visibility.Collapsed;
-                            }));
-                        }
-                        else
-                        {
-                            if (Authenticate.Refresh(Json.ReadUser(x, "accessToken"), Settings.ClientToken))
-                            {
-                                this.Dispatcher.BeginInvoke(new Action(() =>
-                                {
-                                    Label_Name2.Content = Json.ReadUser(x, "userName");
-                                    Label_Logined.Content = "正版登录";
-                                    Load.Visibility = Visibility.Collapsed;
-                                }));
-                            }
-                            else
-                            {
-                                bool a = false;
-                                if (Json.ReadUser(x, "uuid").Length > 0)
-                                    if (Json.ReadUser(x, "userName").Length > 0)
-                                        if (Json.ReadUser(x, "accessToken").Length > 0)
-                                            a = true;
-                                if (a == false)
-                                {
-                                    System.Windows.MessageBox.Show("当前账户不可用,已删除");
-                                    Json.ReMoveUsers(x);
-                                    Json.Write("Login", "Choose", "");
-                                }
-                                else
-                                {
-                                    this.Dispatcher.BeginInvoke(new Action(() =>
-                                    {
-                                        Label_Logined.Content = "离线登录";
-                                        Load.Visibility = Visibility.Collapsed;
-                                    }));
-                                }
-                            }
-                        }
-                    }
-                    catch
-                    {
-                        throw;
-                    }
-                });
-            }
-            else
-            {
-                Window1.Window = this;
-                Window1.login();
-                login();
-            }
-            System.GC.Collect();
         }
         BitmapImage BitmapToBitmapImage(Bitmap bitmap)
         {
@@ -500,5 +450,37 @@ namespace XMCL
                 Image_Loading.Visibility = Visibility.Collapsed;
             }
         }
+        void Login()
+        {
+            if (Json.ReadUsers().Count == 0)
+            {
+                Window1.login(this);
+                Login();
+            }
+            Label_Name.Content = Json.ReadUser(Settings.UUID, "userName");
+            if (Json.ReadUser(Settings.UUID, "LoginMode") == "正版")
+            {
+                Label_Logined.Content = "正版验证";
+                try
+                {
+                    head1.Source = new BitmapImage(new Uri(App.Folder_XMCL + "\\user\\" + Json.ReadUser(Settings.UUID, "userName") + "\\head1.png"));
+                    head2.Source = new BitmapImage(new Uri(App.Folder_XMCL + "\\user\\" + Json.ReadUser(Settings.UUID, "userName") + "\\head2.png"));
+                }
+                catch
+                {
+                    Task.Run(delegate
+                    {
+                        try { Skin.GetSkins(Settings.UUID, App.Folder_XMCL); } catch { }
+                        this.Dispatcher.BeginInvoke(new Action(() =>
+                        {
+                            head1.Source = new BitmapImage(new Uri(App.Folder_XMCL + "\\user\\" + Json.ReadUser(Settings.UUID, "userName") + "\\head1.png"));
+                            head2.Source = new BitmapImage(new Uri(App.Folder_XMCL + "\\user\\" + Json.ReadUser(Settings.UUID, "userName") + "\\head2.png"));
+                        }));
+                    });
+                }
+            }
+            else Label_Logined.Content = "离线验证";
+        }
+
     }
 }

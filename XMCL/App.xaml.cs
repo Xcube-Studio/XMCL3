@@ -5,7 +5,7 @@ using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
-using XMCL.Core;
+using XL.Core;
 using MaterialDesignColors.ColorManipulation;
 namespace XMCL
 {
@@ -44,7 +44,7 @@ namespace XMCL
             { }
             else
             {
-                List<string> vs = Tools.GetJavaList();
+                List<string> vs = Java.GetJavaList();
                 if (vs != null)
                     Json.Write("Files", "JavaPath", vs[0]);
             }

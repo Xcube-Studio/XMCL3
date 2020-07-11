@@ -4,7 +4,6 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
-using XMCL.Core;
 using MaterialDesignThemes.Wpf;
 
 
@@ -57,7 +56,7 @@ namespace XMCL
                 radioButton.Checked += RadioButton_Checked;
 
                 Label label = new Label();
-                label.Content = JObject.Parse(jArray[i].ToString())["userName"].ToString() + " - " + JObject.Parse(jArray[i].ToString())["LoginMode"].ToString();
+                label.Content = JObject.Parse(jArray[i].ToString())["userName"].ToString() + " - " + JObject.Parse(jArray[i].ToString())["Email"].ToString();
                 label.VerticalContentAlignment = System.Windows.VerticalAlignment.Center;
                 label.FontFamily = new FontFamily("Microsoft YaHei UI Light");
                 label.FontSize = 14;
@@ -81,9 +80,15 @@ namespace XMCL
         private void Button_Click1(object sender, RoutedEventArgs e)
         {
             Button button = (Button)sender;
-            Json.ReMoveUsers(button.Tag.ToString());
+            Json.ReMoveUser(button.Tag.ToString());
+            GetUsersList();
+            if (Json.ReadUsers().Count == 0)
+            {
+                Window1 window1 = new Window1();
+                window1.Owner = this;
+                window1.ShowDialog();
+            }
         }
-
         private void RadioButton_Checked(object sender, RoutedEventArgs e)
         {
             RadioButton radioButton = (RadioButton)sender;

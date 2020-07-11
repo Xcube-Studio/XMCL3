@@ -1,7 +1,7 @@
 ﻿<Window x:Class="XMCL.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:d="http://schemas.microsoft .com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:XMCL"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
@@ -45,15 +45,12 @@
                     <ComboBox x:Name="C1" ToolTip="选择版本" HorizontalAlignment="Right" Margin="0,0,245,10" VerticalAlignment="Bottom" Width="212" Height="34" BorderBrush="#89FFFFFF" DropDownOpened="ComboBox_DropDownOpened" Foreground="White" Background="#00000000" DropDownClosed="C1_DropDownClosed" FontFamily="Microsoft YaHei UI Light" VerticalContentAlignment="Center" HorizontalContentAlignment="Left"/>
                     <Button materialDesign:ShadowAssist.ShadowDepth="Depth0" x:Name="button" Style="{StaticResource MaterialDesignRaisedButton}" ToolTip="Lauch Minecraft!" Margin="0,0,10,10" Height="34" Content="启动游戏" Click="Button_Click_Start" FontFamily="Microsoft YaHei UI Light" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="221"/>
                     <Grid x:Name="Card_Login" Background="White" Margin="10,35,595,260" >
-                        <ProgressBar x:Name="Load"
-  Style="{StaticResource MaterialDesignCircularProgressBar}"
-  Value="0"
-  IsIndeterminate="True" Height="18" Width="18" Margin="131,52,42,50" Foreground="{DynamicResource PrimaryHueMidBrush}" />
-                        <Label x:Name="Label_Name2" Content="Steve" HorizontalAlignment="Left" Margin="74,20,0,0" VerticalAlignment="Top" MouseEnter="Label_Name2_MouseEnter" MouseLeave="Label_Name2_MouseLeave" Background="#99FFFFFF" MouseLeftButtonDown="Label_Name2_MouseLeftButtonDown" FontSize="16" Foreground="#CC000000"/>
+                        <Label x:Name="Label_Name" Content="Steve" HorizontalAlignment="Left" Margin="74,20,0,0" VerticalAlignment="Top" MouseEnter="Label_Name2_MouseEnter" MouseLeave="Label_Name2_MouseLeave" Background="#99FFFFFF" MouseLeftButtonDown="Label_Name2_MouseLeftButtonDown" FontSize="16" Foreground="#CC000000"/>
                         <Label x:Name="Label_Logined" Content="正在登录" ToolTip="" HorizontalAlignment="Left" Margin="74,48,0,0" VerticalAlignment="Top" MouseEnter="Label_Logined_MouseEnter" MouseLeftButtonDown="Label_Logined_MouseLeftButtonDown" Foreground="#CC000000"/>
                         <Label Content="欢迎回来" HorizontalAlignment="Left" Margin="10,79,0,0" VerticalAlignment="Top" Foreground="{Binding Foreground, ElementName=Label_Logined}" Width="171" Height="31" FontSize="16" FontFamily="Microsoft YaHei UI Light" />
                         <Image x:Name="head1" HorizontalAlignment="Left" RenderOptions.BitmapScalingMode="NearestNeighbor" RenderOptions.ClearTypeHint="Enabled" Height="50" Margin="19,20,0,0" VerticalAlignment="Top" Width="50" Source="pack://siteoforigin:,,,/Resources/steve.png" />
-                        <Image x:Name="head2" RenderOptions.BitmapScalingMode="NearestNeighbor" RenderOptions.ClearTypeHint="Enabled" Height="56" Margin="16,17,0,0" Width="56" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                        <Image x:Name="head2" RenderOptions.BitmapScalingMode="NearestNeighbor" RenderOptions.ClearTypeHint="Enabled" Height="56" Margin="16,17,0,0" Width="56" HorizontalAlignment="Left" VerticalAlignment="Top" PreviewMouseLeftButtonDown="Head2_PreviewMouseLeftButtonDown"/>
+                        <ProgressBar x:Name="head_load"  Visibility="Collapsed"  Style="{StaticResource MaterialDesignCircularProgressBar}" Value="0" IsIndeterminate="True" Margin="34,37,137,63" />
                     </Grid>
                     <Grid x:Name="G2" Margin="10,160,595,130" Background="White">
                         <TextBlock Text="CPU占用" HorizontalAlignment="Left" Margin="31,14,0,0" VerticalAlignment="Top" FontSize="10" Foreground="{Binding Foreground, ElementName=Label_Logined}"/>

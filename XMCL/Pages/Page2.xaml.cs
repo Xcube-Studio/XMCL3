@@ -5,9 +5,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using WinForm = System.Windows.Forms;
 using System.Threading.Tasks;
-using XMCL.Core;
 using MySql.Data.MySqlClient;
-using System.IO;
 
 namespace XMCL.Pages
 {
