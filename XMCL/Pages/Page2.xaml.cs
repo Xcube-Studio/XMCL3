@@ -6,6 +6,7 @@ using System.Windows.Input;
 using WinForm = System.Windows.Forms;
 using System.Threading.Tasks;
 using MySql.Data.MySqlClient;
+using Newtonsoft.Json.Linq;
 
 namespace XMCL.Pages
 {
@@ -57,21 +58,6 @@ namespace XMCL.Pages
         private void ToggleButton3_Checked(object sender, RoutedEventArgs e)
         {
             TextBox_Memory.IsEnabled = false;
-        }
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            App.Thems("#2196f3");
-            MainWindow.ShowTip("个性化设置重启后生效~", 3);
-        }
-        private void Button_Click1(object sender, RoutedEventArgs e)
-        {
-            App.Thems("#ff8f00");
-            MainWindow.ShowTip("个性化设置重启后生效~", 3);
-        }
-        private void Button_Click2(object sender, RoutedEventArgs e)
-        {
-            App.Thems("#ffc400");
-            MainWindow.ShowTip("个性化设置重启后生效~", 3);
         }
         private void Toissues_Click(object sender, RoutedEventArgs e)
         {
@@ -152,6 +138,67 @@ namespace XMCL.Pages
             Resources.Remove("PrimaryHueDarkBrush");
             Resources.Add("PrimaryHueDarkBrush", new SolidColorBrush((System.Windows.Media.Color)System.Windows.Media.ColorConverter.ConvertFromString(Settings.PrimaryHueDarkBrush)));
 
+            if (System.IO.File.Exists(App.Folder_XMCL + "\\Themes.json"))
+            {
+                try
+                {
+                    Themes.Children.Clear();
+                    JArray jArray = JArray.Parse(System.IO.File.ReadAllText(App.Folder_XMCL + "\\Themes.json",System.Text.Encoding.UTF8));
+                    foreach (JObject jObject in jArray)
+                    {
+                        Color color = (Color)ColorConverter.ConvertFromString(jObject["PrimaryHueMidBrush"].ToString());
+                        Color color1 = (Color)ColorConverter.ConvertFromString(jObject["PrimaryHueLightBrush"].ToString());
+                        Color color2 = (Color)ColorConverter.ConvertFromString(jObject["PrimaryHueDarkBrush"].ToString());
+
+                        Border border = new Border();
+                        border.Margin = new Thickness(10);
+                        border.Height = 50;
+                        border.BorderBrush = new SolidColorBrush(color1);
+                        border.Background = new SolidColorBrush(Colors.White);
+                        border.BorderThickness = new Thickness(1);
+
+                        System.Windows.Shapes.Rectangle rectangle1 = new System.Windows.Shapes.Rectangle();
+                        rectangle1.Fill = new SolidColorBrush(color1);
+                        rectangle1.Margin = new Thickness(0, 0, 580, 0);
+
+                        System.Windows.Shapes.Rectangle rectangle2 = new System.Windows.Shapes.Rectangle();
+                        rectangle2.Fill = new SolidColorBrush(color);
+                        rectangle2.Margin = new Thickness(8, 0, 430, 0);
+
+                        System.Windows.Shapes.Rectangle rectangle3 = new System.Windows.Shapes.Rectangle();
+                        rectangle3.Fill = new SolidColorBrush(color2);
+                        rectangle3.Margin = new Thickness(581, 0, 0, 0);
+
+                        Label label = new Label();
+                        label.Content = jObject["Name"].ToString();
+                        label.HorizontalAlignment = HorizontalAlignment.Left;
+                        label.Margin = new Thickness(160, 0, 0, 0);
+                        label.VerticalAlignment = VerticalAlignment.Center;
+                        label.FontSize = 16;
+
+                        RadioButton radioButton = new RadioButton();
+                        radioButton.Margin = new Thickness(558, 0, 7, 0);
+                        radioButton.GroupName = "A";
+                        radioButton.Tag = string.Format("{0};{1};{2}", jObject["PrimaryHueMidBrush"].ToString(), jObject["PrimaryHueLightBrush"].ToString(), jObject["PrimaryHueDarkBrush"].ToString());
+                        radioButton.Checked += RadioButton_Checked;
+                        if (Settings.PrimaryHueMidBrush == jObject["PrimaryHueMidBrush"].ToString())
+                            radioButton.IsChecked = true;
+
+                        Grid grid = new Grid();
+                        grid.Children.Add(rectangle1);
+                        grid.Children.Add(rectangle2);
+                        grid.Children.Add(rectangle3);
+                        grid.Children.Add(label);
+                        grid.Children.Add(radioButton);
+
+                        border.Child = grid;
+
+                        Themes.Children.Add(border);
+                    }
+                }
+                catch { }
+            }
+
             #region Set1
             if (Settings.IsFullScreen)
                 ToggleButton.IsChecked = true;
@@ -189,6 +236,7 @@ namespace XMCL.Pages
             if (Settings.AcrylicCard)
                 ToggleButton5.IsChecked = true;
             else ToggleButton5.IsChecked = false;
+            TextBox_BackGround.Text = (string)Json.Read("Individualization", "Background");
             #endregion
             #region Set5
             MySQL_Loaded();
@@ -231,6 +279,7 @@ namespace XMCL.Pages
             if (ToggleButton5.IsChecked == true)
                 Json.Write("Individualization", "AcrylicCard", "true");
             else Json.Write("Individualization", "AcrylicCard", "false");
+            Json.Write("Individualization", "Background", TextBox_BackGround.Text);
             #endregion
         }
         private void ListBoxItem_PreviewMouseLeftButton(object sender, MouseButtonEventArgs e)
@@ -324,6 +373,19 @@ namespace XMCL.Pages
                 }
                
             }*/
+        }
+
+        private void RadioButton_Checked(object sender, RoutedEventArgs e)
+        {
+            RadioButton radioButton = (RadioButton)sender;
+            string[] a = radioButton.Tag.ToString().Split(';');
+            App.Themes(a[0], a[1], a[2]);
+            Resources.Remove("PrimaryHueMidBrush");
+            Resources.Add("PrimaryHueMidBrush", new SolidColorBrush((System.Windows.Media.Color)System.Windows.Media.ColorConverter.ConvertFromString(Settings.PrimaryHueMidBrush)));
+            Resources.Remove("PrimaryHueLightBrush");
+            Resources.Add("PrimaryHueLightBrush", new SolidColorBrush((System.Windows.Media.Color)System.Windows.Media.ColorConverter.ConvertFromString(Settings.PrimaryHueLightBrush)));
+            Resources.Remove("PrimaryHueDarkBrush");
+            Resources.Add("PrimaryHueDarkBrush", new SolidColorBrush((System.Windows.Media.Color)System.Windows.Media.ColorConverter.ConvertFromString(Settings.PrimaryHueDarkBrush)));
         }
     }
 }

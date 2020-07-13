@@ -167,58 +167,37 @@
                     </Grid>
                 </StackPanel>
             </ScrollViewer>
-            <ScrollViewer x:Name="Set3" Margin="10" VerticalScrollBarVisibility="Auto" d:IsHidden="True" Visibility="Collapsed" >
+            <ScrollViewer x:Name="Set3" Margin="10" VerticalScrollBarVisibility="Hidden" Visibility="Collapsed" d:IsHidden="True" >
                 <StackPanel>
                     <StackPanel.Effect>
                         <DropShadowEffect BlurRadius="10" ShadowDepth="0" Color="Black" Opacity="0.50"/>
                     </StackPanel.Effect>
                     <Expander Header="主题色" Margin="5,5,5,0" Background="White" FontFamily="Microsoft YaHei UI Light">
-                        <Grid >
-                            <StackPanel Orientation="Horizontal" Height="150">
-                                <Grid Margin="10,10,0,10" Width="130">
-                                    <Label Margin="5,5,5,100" Foreground="Black" FontFamily="Microsoft YaHei UI Light" >默认蓝</Label>
-                                    <Rectangle Fill="#2196f3" Margin="5,25,5,45" />
-                                    <StackPanel Margin="5,85.5,5,5" Orientation="Horizontal">
-                                        <Rectangle Fill="#6ec6ff" Margin="0,0,0,0" Width="59.5" />
-                                        <Rectangle Fill="#0069c0" Margin="1,0,0,0" Width="59.5" />
-                                    </StackPanel>
-                                    <Button Background="Transparent" Height="Auto" Click="Button_Click"/>
-                                    <Label Foreground="White" Margin="5,25,5,84" FontFamily="Microsoft YaHei UI Light" Content="#2196f3"/>
-                                    <Label Foreground="White" Margin="5,86,65,4" FontFamily="Microsoft YaHei UI Light" Content="#6ec6ff"/>
-                                    <Label Foreground="White" Margin="65,86,5,4" FontFamily="Microsoft YaHei UI Light" Content="#0069c0"/>
-                                </Grid>
-                                <Grid Margin="10,10,0,10" Width="130">
-                                    <Label Margin="5,5,5,100" Foreground="Black" FontFamily="Microsoft YaHei UI Light" >活力橙</Label>
-                                    <Rectangle Fill="#ff8f00" Margin="5,25,5,45" />
-                                    <StackPanel Margin="5,85.5,5,5" Orientation="Horizontal">
-                                        <Rectangle Fill="#ffc406" Margin="0,0,0,0" Width="59.5" />
-                                        <Rectangle Fill="#c56000" Margin="1,0,0,0" Width="59.5" />
-                                    </StackPanel>
-                                    <Button Background="Transparent" Height="Auto" Click="Button_Click2"/>
-                                    <Label Foreground="White" Margin="5,25,5,84" FontFamily="Microsoft YaHei UI Light" Content="#ff8f00"/>
-                                    <Label Foreground="White" Margin="5,86,65,4" FontFamily="Microsoft YaHei UI Light" Content="#ffc406"/>
-                                    <Label Foreground="White" Margin="65,86,5,4" FontFamily="Microsoft YaHei UI Light" Content="#c56000"/>
-                                </Grid>
-                                <Grid Margin="10,10,0,10" Width="130" x:Name="xingxingtheme">
-                                    <Label Margin="5,5,5,100" Foreground="Black" FontFamily="Microsoft YaHei UI Light" >星星黄</Label>
-                                    <Rectangle Fill="#ffc400" Margin="5,25,5,45" />
-                                    <StackPanel Margin="5,85.5,5,5" Orientation="Horizontal">
-                                        <Rectangle Fill="#fff64f" Margin="0,0,0,0" Width="59.5" />
-                                        <Rectangle Fill="#c49400" Margin="1,0,0,0" Width="59.5" />
-                                    </StackPanel>
-                                    <Button Background="Transparent" Height="Auto" Click="Button_Click1"/>
-                                    <Label Foreground="White" Margin="5,25,5,84" FontFamily="Microsoft YaHei UI Light" Content="#ff8f00"/>
-                                    <Label Foreground="White" Margin="5,86,65,4" FontFamily="Microsoft YaHei UI Light" Content="#ffc406"/>
-                                    <Label Foreground="White" Margin="65,86,5,4" FontFamily="Microsoft YaHei UI Light" Content="#c56000"/>
-                                </Grid>
-
+                        <Grid>
+                            <StackPanel Orientation="Vertical" x:Name="Themes" >
+                                <StackPanel.Effect>
+                                    <DropShadowEffect BlurRadius="10" ShadowDepth="0" Color="Black" Opacity="0.50"/>
+                                </StackPanel.Effect>
+                                <Border Margin="10" Height="50" BorderBrush="#FF6EC6FF" BorderThickness="1">
+                                    <Grid>
+                                        <Rectangle Fill="#FF6EC6FF" Margin="0,0,580,0" />
+                                        <Rectangle Margin="8,0,430,0" Fill="#FF2196F3"/>
+                                        <Rectangle Margin="581,0,0,0" Fill="#FF0069C0"/>
+                                        <Label Content="默认蓝" HorizontalAlignment="Left" Margin="160,0,0,0" VerticalAlignment="Center" FontSize="16" />
+                                        <RadioButton Margin="558,0,7,0" Checked="RadioButton_Checked" Tag="#FF2196F3;#FF6EC6FF;#FF0069C0" />
+                                    </Grid>
+                                </Border>
                             </StackPanel>
+
                         </Grid>
                     </Expander>
-                    <Border Height="0.5" Background="Transparent" VerticalAlignment="Top" Margin="0"/>
-                    <Grid Margin="5,0">
+                    <Grid Margin="5,0.5,5,0">
                         <Label Height="48" Background="White" Content="     启用亚力克卡片（Beta）" Foreground="Black" VerticalContentAlignment="Center" FontSize="14" FontFamily="Microsoft YaHei UI Light" Margin="0"/>
                         <ToggleButton x:Name="ToggleButton5" Style="{StaticResource MaterialDesignSwitchLightToggleButton}" ToolTip="自动分配内存" IsChecked="False" Margin="0,10,10,10" HorizontalAlignment="Right" Width="45" Click="ToggleButton3_Click" HorizontalContentAlignment="Right" VerticalContentAlignment="Bottom" Checked="ToggleButton3_Checked" />
+                    </Grid>
+                    <Grid Margin="5,1.5,5,0">
+                        <Label Height="48" Background="White" Content="     背景图片（留空则不启用）" Foreground="Black" VerticalContentAlignment="Center" FontSize="14" FontFamily="Microsoft YaHei UI Light" Margin="0"/>
+                        <TextBox x:Name="TextBox_BackGround" VerticalAlignment="Top" Margin="0,10,10,0" RenderTransformOrigin="0,1" FontFamily="Microsoft YaHei UI Light" HorizontalAlignment="Right" Width="353" Height="28" VerticalContentAlignment="Bottom" HorizontalContentAlignment="Left"  />
                     </Grid>
                 </StackPanel>
             </ScrollViewer>

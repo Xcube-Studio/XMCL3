@@ -16,8 +16,6 @@ using XL.Core.Tools;
 using XL.Core;
 using XMCL.Pages;
 using SourceChord.FluentWPF;
-using MySql.Data;
-using MySql.Data.MySqlClient;
 
 namespace XMCL
 {
@@ -61,41 +59,6 @@ namespace XMCL
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             this.Activate();
-            #region hwid
-/*
-            if (!File.Exists("C:\\Users\\xmcl主题.txt"))
-                {
-                
-                
-                    FileStream fs = new FileStream("C:\\Users\\xmcl主题.txt", FileMode.OpenOrCreate, FileAccess.ReadWrite); //可以指定盘符，也可以指定任意文件名，还可以为word等文件
-                    StreamWriter sw = new StreamWriter(fs);
-                    char a1=(char) intSuijishu(1, 96);
-                    char b2 = (char)intSuijishu(1, 96);
-                    char c3 = (char)intSuijishu(1, 96);
-                    char d4 = (char)intSuijishu(1, 96);
-                    char e5 = (char)intSuijishu(1, 96);
-                    char f6 = (char)intSuijishu(1, 96);
-                    sw.WriteLine(a1.ToString()+b2.ToString()+c3.ToString()+d4.ToString()+e5.ToString()+f6.ToString()); 
-                    sw.Close();
-                    fs.Close();
-                   
-                    string ConString = "server=106.14.64.250;User Id=User;password=User20202020server;Database=User";
-                    MySqlConnection conn = new MySqlConnection(ConString);//连接数据库 
-                    
-                    conn.Open();   //open的时候可以套个try防止boom 
-                    string hwid = System.IO.File.ReadAllText("C:\\Users\\xmcl主题.txt");
-                System.Windows.MessageBox.Show(hwid);
-                    string sql = "INSERT INTO `主题` (`hwid`, `主题1`, `主题2`, `主题3`) VALUES ('"+hwid+"', '0', '0', '0');";
-                    MySqlCommand cmd = new MySqlCommand(sql, conn);
-                    conn.Close();
-                }
-                else
-                {
-                    
-                }
-
-  */
-            #endregion
             #region Update
             Task.Run(() =>
             {
@@ -174,6 +137,8 @@ namespace XMCL
             Resources.Remove("PrimaryHueDarkBrush");
             Resources.Add("PrimaryHueDarkBrush", new SolidColorBrush((System.Windows.Media.Color)System.Windows.Media.ColorConverter.ConvertFromString(Settings.PrimaryHueDarkBrush)));
             #endregion
+            if(File.Exists(Settings.Background))
+                MainImage.Source = new BitmapImage(new Uri(Settings.Background));
             #endregion
             GC.Collect();
         }
