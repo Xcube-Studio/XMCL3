@@ -27,10 +27,23 @@ namespace XMCL.Pages
         }
         private void ListBoxItem_PreviewMouseLeftButton(object sender, MouseButtonEventArgs e)
         {
+            GetList();
+        }
+        private void Page_Loaded(object sender, RoutedEventArgs e)
+        {
+            Resources.Remove("PrimaryHueMidBrush");
+            Resources.Add("PrimaryHueMidBrush", new SolidColorBrush((System.Windows.Media.Color)System.Windows.Media.ColorConverter.ConvertFromString(Settings.PrimaryHueMidBrush)));
+            Resources.Remove("PrimaryHueLightBrush");
+            Resources.Add("PrimaryHueLightBrush", new SolidColorBrush((System.Windows.Media.Color)System.Windows.Media.ColorConverter.ConvertFromString(Settings.PrimaryHueLightBrush)));
+            Resources.Remove("PrimaryHueDarkBrush");
+            Resources.Add("PrimaryHueDarkBrush", new SolidColorBrush((System.Windows.Media.Color)System.Windows.Media.ColorConverter.ConvertFromString(Settings.PrimaryHueDarkBrush)));
+            GetList();
+        }
+        void GetList()
+        {
             List.Children.Clear();
             Task.Run(() =>
             {
-
                 if (Directory.Exists(Settings.GamePath + "\\versions"))
                 { }
                 else { Directory.CreateDirectory(Settings.GamePath + "\\versions"); }
@@ -76,6 +89,10 @@ namespace XMCL.Pages
                             radioButton.HorizontalAlignment = System.Windows.HorizontalAlignment.Left;
                             radioButton.Width = 25;
                             radioButton.GroupName = "A";
+                            radioButton.Checked += RadioButton_Checked;
+                            radioButton.Tag = d;
+                            if (MainWindow.ComboBox.Text == d)
+                                radioButton.IsChecked = true;
 
                             Label label = new Label();
                             label.Content = d;
@@ -98,19 +115,24 @@ namespace XMCL.Pages
 
                             List.Children.Add(grid);
                         }));
-
                     }
                 }
             });
         }
-        private void Page_Loaded(object sender, RoutedEventArgs e)
+
+        private void RadioButton_Checked(object sender, RoutedEventArgs e)
         {
-            Resources.Remove("PrimaryHueMidBrush");
-            Resources.Add("PrimaryHueMidBrush", new SolidColorBrush((System.Windows.Media.Color)System.Windows.Media.ColorConverter.ConvertFromString(Settings.PrimaryHueMidBrush)));
-            Resources.Remove("PrimaryHueLightBrush");
-            Resources.Add("PrimaryHueLightBrush", new SolidColorBrush((System.Windows.Media.Color)System.Windows.Media.ColorConverter.ConvertFromString(Settings.PrimaryHueLightBrush)));
-            Resources.Remove("PrimaryHueDarkBrush");
-            Resources.Add("PrimaryHueDarkBrush", new SolidColorBrush((System.Windows.Media.Color)System.Windows.Media.ColorConverter.ConvertFromString(Settings.PrimaryHueDarkBrush)));
+            RadioButton radioButton = (RadioButton)sender;
+            foreach(string text in MainWindow.ComboBox.Items)
+                if (text == radioButton.Tag.ToString())
+                {
+                    MainWindow.ComboBox.SelectedItem = text;
+                }
+        }
+
+        private void ToSubPage1_Click(object sender, RoutedEventArgs e)
+        {
+            MainWindow.Frame1.Navigate(new SubPage1());
         }
     }
 }

@@ -15,9 +15,8 @@ using System.Windows.Media.Imaging;
 using XL.Core.Tools;
 using XL.Core;
 using XMCL.Pages;
+using System.Windows.Media.Animation;
 using SourceChord.FluentWPF;
-using MySql.Data;
-using MySql.Data.MySqlClient;
 
 namespace XMCL
 {
@@ -28,9 +27,11 @@ namespace XMCL
     public partial class MainWindow : Window
     {
         public static Window Window;
-        static Snackbar Snackbar;
         public static ColorZone ColorZone;
         public static Page DownloadPage;
+        public static Card Tip1;
+        public static Frame Frame1;
+        public static ComboBox ComboBox;
         Performance performance;
         Timer timer;
 
@@ -40,7 +41,9 @@ namespace XMCL
             InitializeComponent();
             Window = this;
             ColorZone = CtrlPage;
-            Snackbar = snackbar;
+            ComboBox = C1;
+            Frame1 = Frame;
+            Tip1 = Tip;
             string[] a = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString().Split('.');
             Text_Title.Text += " " + a[0] + "." + a[1] + a[2] + a[3];
             Card_Login.ClipToBounds = true;
@@ -61,41 +64,6 @@ namespace XMCL
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             this.Activate();
-            #region hwid
-/*
-            if (!File.Exists("C:\\Users\\xmcl主题.txt"))
-                {
-                
-                
-                    FileStream fs = new FileStream("C:\\Users\\xmcl主题.txt", FileMode.OpenOrCreate, FileAccess.ReadWrite); //可以指定盘符，也可以指定任意文件名，还可以为word等文件
-                    StreamWriter sw = new StreamWriter(fs);
-                    char a1=(char) intSuijishu(1, 96);
-                    char b2 = (char)intSuijishu(1, 96);
-                    char c3 = (char)intSuijishu(1, 96);
-                    char d4 = (char)intSuijishu(1, 96);
-                    char e5 = (char)intSuijishu(1, 96);
-                    char f6 = (char)intSuijishu(1, 96);
-                    sw.WriteLine(a1.ToString()+b2.ToString()+c3.ToString()+d4.ToString()+e5.ToString()+f6.ToString()); 
-                    sw.Close();
-                    fs.Close();
-                   
-                    string ConString = "server=106.14.64.250;User Id=User;password=User20202020server;Database=User";
-                    MySqlConnection conn = new MySqlConnection(ConString);//连接数据库 
-                    
-                    conn.Open();   //open的时候可以套个try防止boom 
-                    string hwid = System.IO.File.ReadAllText("C:\\Users\\xmcl主题.txt");
-                System.Windows.MessageBox.Show(hwid);
-                    string sql = "INSERT INTO `主题` (`hwid`, `主题1`, `主题2`, `主题3`) VALUES ('"+hwid+"', '0', '0', '0');";
-                    MySqlCommand cmd = new MySqlCommand(sql, conn);
-                    conn.Close();
-                }
-                else
-                {
-                    
-                }
-
-  */
-            #endregion
             #region Update
             Task.Run(() =>
             {
@@ -148,10 +116,12 @@ namespace XMCL
             if (Settings.AcrylicCard)
             {
                 Grid[] grids = new Grid[] { Card_Login, G2, G3, G4 };
+                Card[] borders = new Card[] { B1, B2, B3, B4 };
                 for (int i = 0; i < grids.Length; i++)
                 {
                     AcrylicPanel acrylic = new AcrylicPanel();
                     acrylic.NoiseOpacity = 0.02;
+                    borders[i].Background = new SolidColorBrush(Colors.Transparent);
                     acrylic.SetBinding(AcrylicPanel.TargetProperty, new Binding() { ElementName = "MainImage" });
                     grids[i].Background = new SolidColorBrush((System.Windows.Media.Color)System.Windows.Media.ColorConverter.ConvertFromString("#26FFFFFF"));
                     grids[i].Children.Add(acrylic);
@@ -174,10 +144,49 @@ namespace XMCL
             Resources.Remove("PrimaryHueDarkBrush");
             Resources.Add("PrimaryHueDarkBrush", new SolidColorBrush((System.Windows.Media.Color)System.Windows.Media.ColorConverter.ConvertFromString(Settings.PrimaryHueDarkBrush)));
             #endregion
+            if(File.Exists(Settings.Background))
+                MainImage.Source = new BitmapImage(new Uri(Settings.Background));
             #endregion
             GC.Collect();
         }
-        public static void ShowTip(string text, int second) => Snackbar.MessageQueue.Enqueue(text, null, null, null, false, false, TimeSpan.FromSeconds(second));
+        public static void ShowTip(string text, int second) => ShowTip(new TextBlock() { Text = text, Margin = new Thickness(10), TextWrapping = TextWrapping.Wrap }, second);
+        public static void ShowTip(UIElement uIElement, int second)
+        {
+            Tip1.Visibility = Visibility.Visible;
+            Tip1.Content = uIElement;
+            Task.Run(async delegate
+            {
+                Storyboard sb; DoubleAnimation yd5;
+                await Window.Dispatcher.BeginInvoke(new Action(() =>
+                {
+                    sb = new Storyboard();//首先实例化一个故事板
+                    yd5 = new DoubleAnimation(Tip1.ActualWidth, -Tip1.ActualWidth, new Duration(TimeSpan.FromSeconds(1)));//浮点动画定义了开始值和起始值
+                    Tip1.RenderTransform = new TranslateTransform();//在二维x-y坐标系统内平移(移动)对象
+                    yd5.AutoReverse = false;//设置可以进行反转
+                    Storyboard.SetTarget(yd5, Tip1);//绑定动画为这个按钮执行的浮点动画
+                    Storyboard.SetTargetProperty(yd5, new PropertyPath("RenderTransform.X"));//依赖的属性
+                    sb.Children.Add(yd5);//向故事板中加入此浮点动画
+                    sb.Begin();//播放此动画
+                }));
+                await Task.Delay(second * 1000);
+                await Window.Dispatcher.BeginInvoke(new Action(() =>
+                {
+                    sb = new Storyboard();
+                    yd5 = new DoubleAnimation(-Tip1.ActualWidth, Tip1.ActualWidth, new Duration(TimeSpan.FromSeconds(1)));//浮点动画定义了开始值和起始值
+                    yd5.AutoReverse = false;//设置可以进行反转
+                    Storyboard.SetTarget(yd5, Tip1);//绑定动画为这个按钮执行的浮点动画
+                    Storyboard.SetTargetProperty(yd5, new PropertyPath("RenderTransform.X"));//依赖的属性
+                    sb.Children.Add(yd5);//向故事板中加入此浮点动画
+                    sb.Begin();//播放此动画
+                }));
+                await Task.Delay(second * 1000);
+                await Window.Dispatcher.BeginInvoke(new Action(() =>
+                {
+                    Tip1.Visibility = Visibility.Collapsed;
+                }));
+
+            });
+        }
         private void Button_Click_Start(object sender, RoutedEventArgs e)
         {
             LaunchInfo launchInfo = new LaunchInfo();

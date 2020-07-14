@@ -71,7 +71,7 @@ namespace XMCL.Pages
                 }
                 catch
                 {
-                    MainWindow.ShowTip("下载发生问题！请重试", 1);
+                    MainWindow.ShowTip("下载发生问题！请重试", 3);
                     Button_Update.IsEnabled = true; ProgressBar1.Visibility = Visibility.Collapsed;
                 }
             }

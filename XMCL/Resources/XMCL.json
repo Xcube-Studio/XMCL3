@@ -27,7 +27,7 @@
     "PrimaryHueLightBrush": "#6ec6ff",
     "PrimaryHueDarkBrush": "#0069c0",
     "UseSystemTheme": false,
-    "Background": "null",
+    "Background": "",
     "AutoHideLaucher": true,
     "AcrylicCard": false
   },

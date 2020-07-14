@@ -5,7 +5,6 @@ using System.Windows;
 using System.Windows.Media;
 using System.Windows.Controls;
 using System.Windows.Input;
-using XL.Core;
 using XL.Core.Tools;
 
 namespace XMCL.Pages
@@ -36,18 +35,19 @@ namespace XMCL.Pages
         {
             load();
         }
+        string version;
         void load()
         {
             try
             {
-                pb2.Visibility = pb1.Visibility = Visibility.Visible;
-                Latest.Children.Clear();
-                All.Children.Clear();
                 Task.Run(() =>
                 {
                     string[] a = SomethingUseful.GetLatestVersion(Settings.DownloadSource).Split(';');
                     this.Dispatcher.BeginInvoke(new Action(() =>
                     {
+                        pb2.Visibility = pb1.Visibility = Visibility.Visible;
+                        Latest.Children.Clear();
+                        All.Children.Clear();
                         ListBoxItem listBoxItem = new ListBoxItem();
                         ListBoxItem listBoxItem1 = new ListBoxItem();
                         listBoxItem.Margin = listBoxItem1.Margin = new Thickness(20, 0, 20, 0);
@@ -68,7 +68,7 @@ namespace XMCL.Pages
                 Task.Run(() =>
                 {
                     List<string> vs = SomethingUseful.GetVersionsListAll(Settings.DownloadSource);
-                    this.Dispatcher.Invoke(new Action(() =>
+                    this.Dispatcher.BeginInvoke(new Action(() =>
                     {
                         for (int i = 0; i < vs.Count; i++)
                         {
@@ -88,7 +88,7 @@ namespace XMCL.Pages
                         }
                         pb2.Visibility = Visibility.Collapsed;
                     }));
-                });//此处会导致CPU占用高 因为代码生成的控件太多 所以最好不要在这个页面停留
+                });
             }
             catch
             {
@@ -97,7 +97,15 @@ namespace XMCL.Pages
         }
         private void ListBoxItem_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
+            S1.Visibility = Visibility.Collapsed;
+            S2.Visibility = Visibility.Visible;
+        }
 
+        private void Back(object sender, RoutedEventArgs e)
+        {
+            if (S1.Visibility == Visibility.Visible)
+                try { this.NavigationService.Navigate(null); version = null; } catch { }
+            else { S1.Visibility = Visibility.Visible; S2.Visibility = Visibility.Collapsed; }
         }
     }
 }

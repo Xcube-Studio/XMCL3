@@ -6,7 +6,7 @@ using System.Windows;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
 using XL.Core;
-using MaterialDesignColors.ColorManipulation;
+
 namespace XMCL
 {
     /// <summary>
@@ -50,13 +50,17 @@ namespace XMCL
             }
         }
         public static string Folder_XMCL = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\.XMCL";
-        public static void Thems(string color_str)
+        public static void Themes(string color_str , string color_str1 , string color_str2)
         {
-            Color color = ColorHelper.Darken((Color)ColorConverter.ConvertFromString(color_str), 1);
-            Color color1 = ColorHelper.Lighten((Color)ColorConverter.ConvertFromString(color_str), 1);
-            Json.Write("Individualization","PrimaryHueMidBrush", color_str);
-            Json.Write("Individualization", "PrimaryHueLightBrush", System.Drawing.ColorTranslator.ToHtml(System.Drawing.Color.FromArgb(color.A, color.R, color.B, color.G)));
-            Json.Write("Individualization", "PrimaryHueDarkBrush", System.Drawing.ColorTranslator.ToHtml(System.Drawing.Color.FromArgb(color1.A, color1.R, color1.B, color1.G)));
+            Json.Write("Individualization", "PrimaryHueMidBrush", color_str);
+            Json.Write("Individualization", "PrimaryHueLightBrush", color_str1);
+            Json.Write("Individualization", "PrimaryHueDarkBrush", color_str2);
+            XMCL.MainWindow.Window.Resources.Remove("PrimaryHueMidBrush");
+            XMCL.MainWindow.Window.Resources.Add("PrimaryHueMidBrush", new SolidColorBrush((System.Windows.Media.Color)System.Windows.Media.ColorConverter.ConvertFromString(Settings.PrimaryHueMidBrush)));
+            XMCL.MainWindow.Window.Resources.Remove("PrimaryHueLightBrush");
+            XMCL.MainWindow.Window.Resources.Add("PrimaryHueLightBrush", new SolidColorBrush((System.Windows.Media.Color)System.Windows.Media.ColorConverter.ConvertFromString(Settings.PrimaryHueLightBrush)));
+            XMCL.MainWindow.Window.Resources.Remove("PrimaryHueDarkBrush");
+            XMCL.MainWindow.Window.Resources.Add("PrimaryHueDarkBrush", new SolidColorBrush((System.Windows.Media.Color)System.Windows.Media.ColorConverter.ConvertFromString(Settings.PrimaryHueDarkBrush)));
         }
         public static bool HasUpdated = false;
 
