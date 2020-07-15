@@ -14,8 +14,8 @@
         <SolidColorBrush x:Key="PrimaryHueMidBrush" Color="#2196f3"/>
     </Page.Resources>
     <Grid>
-        <Grid d:IsHidden="True">
-            <ScrollViewer x:Name="S1" VerticalScrollBarVisibility="Auto" >
+        <Grid>
+            <ScrollViewer x:Name="S1" VerticalScrollBarVisibility="Auto" Margin="0,0,0,40" >
                 <StackPanel Orientation="Vertical" >
                     <StackPanel.Effect>
                         <DropShadowEffect BlurRadius="10" ShadowDepth="0" Color="Black" Opacity="0.50"/>
@@ -38,19 +38,55 @@
         </Grid>
         <ScrollViewer x:Name="S2" VerticalScrollBarVisibility="Auto" Visibility="Collapsed">
             <StackPanel Margin="10">
-                <materialDesign:Card Height="45" VerticalAlignment="Top" >
+                <materialDesign:Card Height="48" VerticalAlignment="Top" Margin="0,10,0,0" >
                     <StackPanel Orientation="Horizontal">
-                        <Image Margin="5" HorizontalAlignment="Left" Width="35" Height="35" Source="/XMCL;component/Resources/Grass_Block.png" SnapsToDevicePixels="True" RenderOptions.BitmapScalingMode="HighQuality" UseLayoutRounding="True"/>
+                        <Image Margin="10,5,5,5" HorizontalAlignment="Left" Width="35" Height="35" Source="/XMCL;component/Resources/Grass_Block.png" SnapsToDevicePixels="True" RenderOptions.BitmapScalingMode="HighQuality" UseLayoutRounding="True"/>
                         <Label Content="Minecraft" VerticalContentAlignment="Center" HorizontalAlignment="Left"/>
-                        <ListBoxItem/>
-                        
                     </StackPanel>
+                </materialDesign:Card>
+                <materialDesign:Card Height="48" VerticalAlignment="Top" Margin="0,10,0,0" >
+                    <ListBoxItem x:Name="Fabric" Tag="fabric" PreviewMouseLeftButtonDown="ListBoxItem_PreviewMouseLeftButtonDown">
+                        <StackPanel Orientation="Horizontal">
+                            <Image HorizontalAlignment="Left" Width="32" Height="32" Source="/XMCL;component/Resources/fabric.png" SnapsToDevicePixels="True" RenderOptions.BitmapScalingMode="HighQuality" UseLayoutRounding="True"/>
+                            <Label Content="Fabric" VerticalContentAlignment="Center" HorizontalAlignment="Left" Margin="10,0,0,0"/>
+                        </StackPanel>
+                    </ListBoxItem>
+                </materialDesign:Card>
+                <materialDesign:Card Height="48" VerticalAlignment="Top" Margin="0,10,0,0" >
+                    <ListBoxItem x:Name="Forge" Tag="forge" PreviewMouseLeftButtonDown="ListBoxItem_PreviewMouseLeftButtonDown">
+                        <StackPanel Orientation="Horizontal">
+                            <Image HorizontalAlignment="Left" Width="32" Height="32" Source="/XMCL;component/Resources/Anvil.png" SnapsToDevicePixels="True" RenderOptions.BitmapScalingMode="HighQuality" UseLayoutRounding="True"/>
+                            <Label Content="Forge" VerticalContentAlignment="Center" HorizontalAlignment="Left" Margin="10,0,0,0"/>
+                        </StackPanel>
+                    </ListBoxItem>
+                </materialDesign:Card>
+                <materialDesign:Card Height="48" VerticalAlignment="Top" Margin="0,10,0,0" >
+                    <ListBoxItem x:Name="LiteLoader" Tag="liteloader" PreviewMouseLeftButtonDown="ListBoxItem_PreviewMouseLeftButtonDown">
+                        <StackPanel Orientation="Horizontal">
+                            <Image HorizontalAlignment="Left" Width="32" Height="32" Source="/XMCL;component/Resources/Chicken.png" SnapsToDevicePixels="True" RenderOptions.BitmapScalingMode="HighQuality" UseLayoutRounding="True"/>
+                            <Label Content="LiteLoader" VerticalContentAlignment="Center" HorizontalAlignment="Left" Margin="10,0,0,0"/>
+                        </StackPanel>
+                    </ListBoxItem>
+                </materialDesign:Card>
+                <materialDesign:Card Height="48" VerticalAlignment="Top" Margin="0,10,0,0" >
+                    <ListBoxItem x:Name="Optifine" Tag="optifine" PreviewMouseLeftButtonDown="ListBoxItem_PreviewMouseLeftButtonDown">
+                        <StackPanel Orientation="Horizontal">
+                            <Image  HorizontalAlignment="Left" Width="32" Height="32" Source="/XMCL;component/Resources/Furnace.png" SnapsToDevicePixels="True" RenderOptions.BitmapScalingMode="HighQuality" UseLayoutRounding="True"/>
+                            <Label Content="Optifine" VerticalContentAlignment="Center" HorizontalAlignment="Left" Margin="10,0,0,0"/>
+                        </StackPanel>
+                    </ListBoxItem>
                 </materialDesign:Card>
             </StackPanel>
         </ScrollViewer>
+        <ScrollViewer x:Name="S3" VerticalScrollBarVisibility="Auto" Visibility="Collapsed">
+            <StackPanel Margin="10" x:Name="mod">
+                
+            </StackPanel>
+        </ScrollViewer>
+
         <Grid VerticalAlignment="Bottom" Height="38" Background="#7FFFFFFF" >
             <CheckBox Content="显示快照" IsChecked="True" x:Name="ShowSnapshot" Click="ShowSnapshot_Click" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5,0,0,0"/>
-            <Button Style="{StaticResource ButtonRevealStyle}" Height="28" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Foreground="#CC000000" FontSize="14" FontFamily="Microsoft YaHei UI Light" Click="Back" Background="Transparent" HorizontalAlignment="Right" VerticalAlignment="Center" Padding="16,4" Width="66" Margin="0,0,5,0" Content="返回"/>
+            <Button Style="{StaticResource ButtonRevealStyle}" Height="28" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Foreground="#CC000000" FontSize="14" FontFamily="Microsoft YaHei UI Light" Click="Back" Background="Transparent" HorizontalAlignment="Right" VerticalAlignment="Center" Width="66" Margin="0,0,5,0" Content="返回"/>
             <StackPanel Orientation="Vertical" Margin="0,0,0,38" >
                 <StackPanel.Effect>
                     <DropShadowEffect BlurRadius="10" ShadowDepth="0" Color="Black" Opacity="0.50"/>

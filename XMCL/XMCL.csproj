@@ -253,6 +253,13 @@
       <Name>XL.Core</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Anvil.png" />
+    <Resource Include="Resources\Chicken.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\fabric.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>

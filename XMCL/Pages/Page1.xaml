@@ -72,7 +72,12 @@
                     <DropShadowEffect BlurRadius="10" ShadowDepth="0" Color="Black" Opacity="0.50"/>
                 </Grid.Effect>
                 <Grid Margin="10,5,10,0" Background="{DynamicResource PrimaryHueMidBrush}">
-                    <Button x:Name="ToSubPage1" Content="安装新版本" materialDesign:ShadowAssist.ShadowDepth="Depth0" HorizontalAlignment="Left" VerticalAlignment="Top" Height="Auto" Margin="3,3,0,0" Style="{StaticResource MaterialDesignOutlinedButton}" Background="{x:Null}" BorderBrush="White" Foreground="White" Click="ToSubPage1_Click"/>
+                    <Button x:Name="ToSubPage1" materialDesign:ShadowAssist.ShadowDepth="Depth0" HorizontalAlignment="Left" VerticalAlignment="Top" Height="34" Background="{DynamicResource PrimaryHueMidBrush}" BorderBrush="{x:Null}" Foreground="White" Click="ToSubPage1_Click" Width="130">
+                        <StackPanel Orientation="Horizontal">
+                            <materialDesign:PackIcon Kind="Add" Height="25" Width="25"/>
+                            <Label Content="安装新版本" Foreground="#DDFFFFFF" Padding="0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </StackPanel>
+                    </Button>
                 </Grid>
             </Grid>
         </Grid>
