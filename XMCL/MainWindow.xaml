@@ -98,11 +98,8 @@
                         </StackPanel>
                     </materialDesign:ColorZone>
                 </Grid>
-                
-                <materialDesign:Card x:Name="Tip" Visibility="Collapsed" Background="White" Margin="0,10,-230,0" HorizontalAlignment="Right" VerticalAlignment="Top" Width="230" Height="50">
-
-                </materialDesign:Card>
                 <Frame x:Name="Frame" Content="{x:Null}" NavigationUIVisibility="Hidden" VerticalAlignment="Stretch" Margin="0,0,0,0" Navigated="Frame_Navigated" d:IsHidden="True" Visibility="Collapsed" Foreground="{x:Null}"/>
+                <materialDesign:Card x:Name="Tip" Visibility="Collapsed" Background="White" Margin="0,10,-230,0" HorizontalAlignment="Right" VerticalAlignment="Top" Width="230" Height="50"/>
             </Grid>
             <GroupBox.Header>
                 <TextBlock x:Name="Text_Title" Text="XcubeLauncher" Foreground="White" Margin="20,0,20,0" >

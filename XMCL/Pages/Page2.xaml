@@ -215,8 +215,8 @@
                     <Grid Margin="5,10,5,20" Background="White">
                         <StackPanel Margin="0">
                             <TextBlock Margin="15,15,15,0" Text="版权             Xcube Studio ©  2020" FontFamily="Microsoft YaHei UI Light"/>
-                            <TextBlock Margin="15,8,15,0" Text="作者             xuan2006" FontFamily="Microsoft YaHei UI Light"/>
-                            <TextBlock Margin="14,8,15,0" Text="开发             xuan2006、gxh2004、xingxing520" FontFamily="Microsoft YaHei UI Light" />
+                            <TextBlock Margin="15,8,15,0" Text="作者             xuan2006" FontFamily="Microsoft YaHei UI Light" PreviewMouseLeftButtonDown="TextBlock_PreviewMouseLeftButtonDown"/>
+                            <TextBlock Margin="14,8,15,0" Text="开发             xuan2006、gxh2004、xingxing520" FontFamily="Microsoft YaHei UI Light" PreviewMouseLeftButtonDown="TextBlock_PreviewMouseLeftButtonDown"/>
 
                             <TextBlock Margin="15,8,15,0" FontFamily="Microsoft YaHei UI Light"><Run Text="鸣谢             bangbang93 (BMCLAPI下载源,https://bmclapi2.bangbang93.com)"/><LineBreak/><Run Text="                    Mcbbs (Mcbbs下载源) "/><LineBreak/><Run Text="                    Minecraft Wiki (Minecraft元素的图标)"/><LineBreak/><Run Text="                    其他一些提议者及贡献者"/></TextBlock>
                             <TextBlock Margin="15,8,15,0" FontFamily="Microsoft YaHei UI Light"><Run Text="引用             Newtonsoft.Json  (James Newton-King)"/><LineBreak/><Run Text="                    Costura.Fody  (https://github.com/Fody/Costura/graphs/contributors)"/><LineBreak/><Run Text="                    MaterialDesignColors  (James Willock)"/><LineBreak/><Run Text="                    MaterialDesignThemes.Wpf  (James Willock)"/><LineBreak/><Run Text="                    MySql.Data"/><Run Text=" (Oracle)"/><LineBreak/><Run Text="                    FluentWPF"/><Run Text=" (https://github.com/sourcechord/FluentWPF)"/></TextBlock>

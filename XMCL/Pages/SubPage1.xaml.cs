@@ -177,11 +177,11 @@ namespace XMCL.Pages
                             listBoxItem.Tag = (string)jObject["info"]["type"] + "_" + (string)jObject["info"]["patch"];
                             label.Content = new TextBlock() { Text = (string)jObject["info"]["type"] + "_" + (string)jObject["info"]["patch"] };
                         }
-                        /*else if (kind == "liteloader")
+                        else if (kind == "liteloader")
                         {
                             image.Source = new BitmapImage(new Uri("/XMCL;component/Resources/Chicken.png", UriKind.Relative));
                             label.Content = listBoxItem.Tag = version;
-                        }*/
+                        }
                         stackPanel.Children.Add(image);
                         stackPanel.Children.Add(label);
                         listBoxItem.Content = stackPanel;

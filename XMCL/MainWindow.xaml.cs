@@ -149,12 +149,12 @@ namespace XMCL
             #endregion
             GC.Collect();
         }
-        public static void ShowTip(string text, int second) => ShowTip(new TextBlock() { Text = text, Margin = new Thickness(10), TextWrapping = TextWrapping.Wrap }, second);
-        public static void ShowTip(UIElement uIElement, int second)
+        public static Task ShowTip(string text, int second) => ShowTip(new TextBlock() { Text = text, Margin = new Thickness(10), TextWrapping = TextWrapping.Wrap }, second);
+        public static Task ShowTip(UIElement uIElement, int second)
         {
             Tip1.Visibility = Visibility.Visible;
             Tip1.Content = uIElement;
-            Task.Run(async delegate
+            return Task.Run(async delegate
             {
                 Storyboard sb; DoubleAnimation yd5;
                 await Window.Dispatcher.BeginInvoke(new Action(() =>

@@ -15,6 +15,7 @@ namespace XMCL.Pages
     /// </summary>
     public partial class Page2 : Page
     {
+        int egg = 0;
         public static Page Page;
         public Page2()
         {
@@ -318,63 +319,6 @@ namespace XMCL.Pages
             GC.Collect();
         }
 
-        private void xingxing_Click(object sender, RoutedEventArgs e)
-        {
-            /*
-            string hwid = System.IO.File.ReadAllText(@"C:\xmcl主题.txt");
-            string ConString = "server=106.14.64.250;User Id=User;password=User20202020server;Database=User";
-            MySqlConnection conn = new MySqlConnection(ConString);//连接数据库 
-            conn.Open();   //open的时候可以套个try防止boom 
-            int i;
-            string sql = "select * from issues where hwid='" + hwid + "'";
-            MySqlCommand cmd = new MySqlCommand(sql, conn);
-            MySqlDataReader reader = cmd.ExecuteReader();
-            reader.Read();
-            int theme1 = (int)reader[1];
-            int theme2 = (int)reader[2];
-            int theme3 = (int)reader[3];
-            if(theme1>1)
-            {
-                Dispatcher.BeginInvoke(new Action(() =>
-                {
-                    MainWindow.ShowTip("你已经有这个菜单主题了", 5);
-                }));
-            }
-            else
-            {
-                
-                cmd.CommandText= "Delete * from issues where hwid = '" + hwid + "'";
-                i = Convert.ToInt32(cmd.ExecuteNonQuery());
-                if(i>0)
-                {
-                    cmd.CommandText= "INSERT INTO `主题` (`hwid`, `主题1`, `主题2`, `主题3`) VALUES('"+hwid+"', '1', '"+theme2.ToString()+"', '"+theme3.ToString()+"'); ";
-                    i = Convert.ToInt32(cmd.ExecuteNonQuery());
-                    if (i > 0)
-                    {
-                        Dispatcher.BeginInvoke(new Action(() =>
-                        {
-                            MainWindow.ShowTip("领取成功，请到[个性化]里查看", 5);
-                        }));
-                    }
-                    else
-                    {
-                        Dispatcher.BeginInvoke(new Action(() =>
-                        {
-                            MainWindow.ShowTip("领取失败，请检查你的网络", 5);
-                        }));
-                    }
-                }
-                else
-                {
-                     Dispatcher.BeginInvoke(new Action(() =>
-                      {
-                          MainWindow.ShowTip("领取失败，请检查你的网络", 5);
-                      }));
-                }
-               
-            }*/
-        }
-
         private void RadioButton_Checked(object sender, RoutedEventArgs e)
         {
             RadioButton radioButton = (RadioButton)sender;
@@ -387,5 +331,19 @@ namespace XMCL.Pages
             Resources.Remove("PrimaryHueDarkBrush");
             Resources.Add("PrimaryHueDarkBrush", new SolidColorBrush((System.Windows.Media.Color)System.Windows.Media.ColorConverter.ConvertFromString(Settings.PrimaryHueDarkBrush)));
         }
+        #region
+        private async void TextBlock_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            egg += 1;
+            if (egg == 5)
+            {
+                await MainWindow.ShowTip("xuan2006：冒泡！沉！\r\n(日常冒泡...)", 2);
+                await MainWindow.ShowTip("xingxing520：快去更新！\r\n(还有不去更新,又有bug!)",2);
+                await MainWindow.ShowTip("xuan2006：qwq~\r\n(不存在的,咕咕咕)", 2);
+                await MainWindow.ShowTip("gxh2004：吃瓜...\r\n(emmmmmmm)", 2);
+                egg = 0;
+            }
+        }
+        #endregion
     }
 }
