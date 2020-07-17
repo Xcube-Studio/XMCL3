@@ -14,12 +14,12 @@
         <SolidColorBrush x:Key="PrimaryHueMidBrush" Color="#2196f3"/>
     </Page.Resources>
     <Grid>
+        <Grid.Effect>
+            <DropShadowEffect BlurRadius="13" ShadowDepth="1" Color="Black" Opacity="1"/>
+        </Grid.Effect>
         <Grid>
             <ScrollViewer x:Name="S1" VerticalScrollBarVisibility="Auto" Margin="0,0,0,40" >
                 <StackPanel Orientation="Vertical" >
-                    <StackPanel.Effect>
-                        <DropShadowEffect BlurRadius="10" ShadowDepth="0" Color="Black" Opacity="0.50"/>
-                    </StackPanel.Effect>
                     <Expander Header="最新版本" Background="White" Margin="20,20,20,0" FontFamily="Microsoft YaHei UI Light">
                         <StackPanel Orientation="Vertical">
                             <StackPanel x:Name="Latest" Orientation="Vertical"/>
@@ -39,52 +39,64 @@
         <ScrollViewer x:Name="S2" VerticalScrollBarVisibility="Auto" Visibility="Collapsed">
             <StackPanel Margin="10">
                 <materialDesign:Card Height="48" VerticalAlignment="Top" Margin="0,10,0,0" >
-                    <StackPanel Orientation="Horizontal">
-                        <Image Margin="10,5,5,5" HorizontalAlignment="Left" Width="35" Height="35" Source="/XMCL;component/Resources/Grass_Block.png" SnapsToDevicePixels="True" RenderOptions.BitmapScalingMode="HighQuality" UseLayoutRounding="True"/>
-                        <Label Content="Minecraft" VerticalContentAlignment="Center" HorizontalAlignment="Left"/>
-                    </StackPanel>
+                    <Grid>
+                        <ListBoxItem x:Name="Minecraft" Tag="minecraft" MouseLeftButtonDown="ListBoxItem_MouseLeftButtonDown">
+                            <StackPanel Orientation="Horizontal">
+                                <Image HorizontalAlignment="Left" Width="32" Height="32" Source="/XMCL;component/Resources/Grass_Block.png" SnapsToDevicePixels="True" RenderOptions.BitmapScalingMode="HighQuality" UseLayoutRounding="True"/>
+                                <Label Content="Minecraft[仅安装原版]" VerticalContentAlignment="Center" HorizontalAlignment="Left" Margin="10,0,0,0"/>
+                            </StackPanel>
+                        </ListBoxItem>
+                    </Grid>
                 </materialDesign:Card>
                 <materialDesign:Card Height="48" VerticalAlignment="Top" Margin="0,10,0,0" >
-                    <ListBoxItem x:Name="Fabric" Tag="fabric" PreviewMouseLeftButtonDown="ListBoxItem_PreviewMouseLeftButtonDown">
-                        <StackPanel Orientation="Horizontal">
-                            <Image HorizontalAlignment="Left" Width="32" Height="32" Source="/XMCL;component/Resources/fabric.png" SnapsToDevicePixels="True" RenderOptions.BitmapScalingMode="HighQuality" UseLayoutRounding="True"/>
-                            <Label Content="Fabric" VerticalContentAlignment="Center" HorizontalAlignment="Left" Margin="10,0,0,0"/>
-                        </StackPanel>
-                    </ListBoxItem>
+                    <Grid>
+                        <ListBoxItem x:Name="Fabric" Tag="fabric" MouseLeftButtonDown="ListBoxItem_MouseLeftButtonDown">
+                            <StackPanel Orientation="Horizontal">
+                                <Image HorizontalAlignment="Left" Width="32" Height="32" Source="/XMCL;component/Resources/fabric.png" SnapsToDevicePixels="True" RenderOptions.BitmapScalingMode="HighQuality" UseLayoutRounding="True"/>
+                                <Label Content="Fabric" VerticalContentAlignment="Center" HorizontalAlignment="Left" Margin="10,0,0,0"/>
+                            </StackPanel>
+                        </ListBoxItem>
+                    </Grid>
                 </materialDesign:Card>
                 <materialDesign:Card Height="48" VerticalAlignment="Top" Margin="0,10,0,0" >
-                    <ListBoxItem x:Name="Forge" Tag="forge" PreviewMouseLeftButtonDown="ListBoxItem_PreviewMouseLeftButtonDown">
-                        <StackPanel Orientation="Horizontal">
-                            <Image HorizontalAlignment="Left" Width="32" Height="32" Source="/XMCL;component/Resources/Anvil.png" SnapsToDevicePixels="True" RenderOptions.BitmapScalingMode="HighQuality" UseLayoutRounding="True"/>
-                            <Label Content="Forge" VerticalContentAlignment="Center" HorizontalAlignment="Left" Margin="10,0,0,0"/>
-                        </StackPanel>
-                    </ListBoxItem>
+                    <Grid>
+                        <ListBoxItem x:Name="Forge" Tag="forge" MouseLeftButtonDown="ListBoxItem_MouseLeftButtonDown">
+                            <StackPanel Orientation="Horizontal">
+                                <Image HorizontalAlignment="Left" Width="32" Height="32" Source="/XMCL;component/Resources/Anvil.png" SnapsToDevicePixels="True" RenderOptions.BitmapScalingMode="HighQuality" UseLayoutRounding="True"/>
+                                <Label Content="Forge" VerticalContentAlignment="Center" HorizontalAlignment="Left" Margin="10,0,0,0"/>
+                            </StackPanel>
+                        </ListBoxItem>
+                    </Grid>
                 </materialDesign:Card>
                 <materialDesign:Card Height="48" VerticalAlignment="Top" Margin="0,10,0,0" >
-                    <ListBoxItem x:Name="LiteLoader" Tag="liteloader" PreviewMouseLeftButtonDown="ListBoxItem_PreviewMouseLeftButtonDown">
-                        <StackPanel Orientation="Horizontal">
-                            <Image HorizontalAlignment="Left" Width="32" Height="32" Source="/XMCL;component/Resources/Chicken.png" SnapsToDevicePixels="True" RenderOptions.BitmapScalingMode="HighQuality" UseLayoutRounding="True"/>
-                            <Label Content="LiteLoader" VerticalContentAlignment="Center" HorizontalAlignment="Left" Margin="10,0,0,0"/>
-                        </StackPanel>
-                    </ListBoxItem>
+                    <Grid>
+                        <ListBoxItem x:Name="LiteLoader" Tag="liteloader" MouseLeftButtonDown="ListBoxItem_MouseLeftButtonDown">
+                            <StackPanel Orientation="Horizontal">
+                                <Image HorizontalAlignment="Left" Width="32" Height="32" Source="/XMCL;component/Resources/Chicken.png" SnapsToDevicePixels="True" RenderOptions.BitmapScalingMode="HighQuality" UseLayoutRounding="True"/>
+                                <Label Content="LiteLoader" VerticalContentAlignment="Center" HorizontalAlignment="Left" Margin="10,0,0,0"/>
+                            </StackPanel>
+                        </ListBoxItem>
+                    </Grid>
                 </materialDesign:Card>
                 <materialDesign:Card Height="48" VerticalAlignment="Top" Margin="0,10,0,0" >
-                    <ListBoxItem x:Name="Optifine" Tag="optifine" PreviewMouseLeftButtonDown="ListBoxItem_PreviewMouseLeftButtonDown">
-                        <StackPanel Orientation="Horizontal">
-                            <Image  HorizontalAlignment="Left" Width="32" Height="32" Source="/XMCL;component/Resources/Furnace.png" SnapsToDevicePixels="True" RenderOptions.BitmapScalingMode="HighQuality" UseLayoutRounding="True"/>
-                            <Label Content="Optifine" VerticalContentAlignment="Center" HorizontalAlignment="Left" Margin="10,0,0,0"/>
-                        </StackPanel>
-                    </ListBoxItem>
+                    <Grid>
+                        <ListBoxItem x:Name="Optifine" Tag="optifine" MouseLeftButtonDown="ListBoxItem_MouseLeftButtonDown">
+                            <StackPanel Orientation="Horizontal">
+                                <Image  HorizontalAlignment="Left" Width="32" Height="32" Source="/XMCL;component/Resources/Furnace.png" SnapsToDevicePixels="True" RenderOptions.BitmapScalingMode="HighQuality" UseLayoutRounding="True"/>
+                                <Label Content="Optifine" VerticalContentAlignment="Center" HorizontalAlignment="Left" Margin="10,0,0,0"/>
+                            </StackPanel>
+                        </ListBoxItem>
+                    </Grid>
                 </materialDesign:Card>
+                <Button x:Name="setup" IsEnabled="False" Content="安装" HorizontalAlignment="Right" Width="80" Margin="0,35,0,0" Click="Setup_Click"/>
             </StackPanel>
         </ScrollViewer>
         <ScrollViewer x:Name="S3" VerticalScrollBarVisibility="Auto" Visibility="Collapsed">
             <StackPanel Margin="10" x:Name="mod">
-                
+
             </StackPanel>
         </ScrollViewer>
-
-        <Grid VerticalAlignment="Bottom" Height="38" Background="#7FFFFFFF" >
+        <Grid x:Name="GridBottom" VerticalAlignment="Bottom" Height="38" Background="#7FFFFFFF" >
             <CheckBox Content="显示快照" IsChecked="True" x:Name="ShowSnapshot" Click="ShowSnapshot_Click" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5,0,0,0"/>
             <Button Style="{StaticResource ButtonRevealStyle}" Height="28" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Foreground="#CC000000" FontSize="14" FontFamily="Microsoft YaHei UI Light" Click="Back" Background="Transparent" HorizontalAlignment="Right" VerticalAlignment="Center" Width="66" Margin="0,0,5,0" Content="返回"/>
             <StackPanel Orientation="Vertical" Margin="0,0,0,38" >
@@ -93,6 +105,42 @@
                 </StackPanel.Effect>
             </StackPanel>
         </Grid>
+        <Grid Height="300" Width="500" x:Name="setupGrid" IsVisibleChanged="SetupGrid_IsVisibleChanged" Visibility="Collapsed">
+            <Border Background="White" CornerRadius="1" >
+                <Grid>
+                    <Label Content="安装游戏" Margin="10,10,10,261" HorizontalAlignment="Left" VerticalAlignment="Top" FontFamily="宋体" FontSize="14"/>
+                    <ScrollViewer VerticalScrollBarVisibility="Hidden" Margin="20,40,20,43">
+                        <StackPanel>
+                            <StackPanel>
+                                <StackPanel VerticalAlignment="Top" Orientation="Horizontal">
+                                    <materialDesign:PackIcon x:Name="icon1" Kind="ArrowRight" Height="30" Width="20" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                                    <Label Content="处理游戏依赖" VerticalAlignment="Center" FontFamily="宋体"/>
+                                </StackPanel>
+                                <StackPanel Margin="30,0,0,0" x:Name="StackPanel">
+                                    <Grid Margin="0,0,0,2" x:Name="check">
+                                        <Label Content="检查资源文件完整性" Margin="0,0,0,4" FontFamily="宋体"/>
+                                        <ProgressBar VerticalAlignment="Bottom" Height="4" IsIndeterminate="True"/>
+                                    </Grid>
+                                </StackPanel>
+                            </StackPanel>
+                            <StackPanel VerticalAlignment="Top" Orientation="Horizontal">
+                                <StackPanel VerticalAlignment="Top" Orientation="Horizontal">
+                                    <materialDesign:PackIcon x:Name="icon2" Kind="EllipsisHorizontal" Height="30" Width="20" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                                    <Label x:Name="model" Content="{}{Null}" VerticalAlignment="Center" FontFamily="宋体"/>
+                                </StackPanel>
+                                <StackPanel Margin="30,0,0,0" x:Name="StackPanel1">
+                                </StackPanel>
+                            </StackPanel>
+                            <StackPanel VerticalAlignment="Top" Orientation="Horizontal">
+                                <materialDesign:PackIcon x:Name="icon3" Kind="EllipsisHorizontal" Height="30" Width="20" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                                <Label Content="完成" VerticalAlignment="Center" FontFamily="宋体"/>
+                            </StackPanel>
+                        </StackPanel>
+                    </ScrollViewer>
 
+                    <Button Margin="0,0,7,7" Content="取消" HorizontalAlignment="Right" VerticalAlignment="Bottom" Height="29" Width="46" FontFamily="宋体" Background="{x:Null}" Style="{StaticResource MaterialDesignFlatButton}" BorderBrush="{x:Null}" Padding="0" Click="Button_Click"/>
+                </Grid>
+            </Border>
+        </Grid>
     </Grid>
 </Page>

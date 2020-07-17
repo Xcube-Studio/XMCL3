@@ -44,78 +44,89 @@ namespace XMCL.Pages
             List.Children.Clear();
             Task.Run(() =>
             {
-                if (Directory.Exists(Settings.GamePath + "\\versions"))
-                { }
-                else { Directory.CreateDirectory(Settings.GamePath + "\\versions"); }
-                string[] b = Directory.GetDirectories(Settings.GamePath + "\\versions");
-                for (int i = 0; i < b.Length; i++)
+                try
                 {
-                    int c = (Settings.GamePath + "\\versions\\").Length;
-                    string d = b[i].Substring(c, b[i].Length - c);
-                    string json = b[i] + "\\" + d + ".json";
-                    if (File.Exists(json))
+                    if (Directory.Exists(Settings.GamePath + "\\versions"))
+                    { }
+                    else { Directory.CreateDirectory(Settings.GamePath + "\\versions"); }
+                    string[] b = Directory.GetDirectories(Settings.GamePath + "\\versions");
+                    for (int i = 0; i < b.Length; i++)
                     {
-                        this.Dispatcher.Invoke(new Action(() =>
+                        int c = (Settings.GamePath + "\\versions\\").Length;
+                        string d = b[i].Substring(c, b[i].Length - c);
+                        string json = b[i] + "\\" + d + ".json";
+                        if (File.Exists(json))
                         {
-                            Image image = new Image();
-                            image.SnapsToDevicePixels = true;
-                            image.UseLayoutRounding = true;
-                            image.Width = image.Height = 35;
-                            image.Margin = new System.Windows.Thickness(35, 5, 0, 5);
-                            image.HorizontalAlignment = System.Windows.HorizontalAlignment.Left;
-                            RenderOptions.SetBitmapScalingMode(image, BitmapScalingMode.HighQuality);
-                            if (File.ReadAllText(json).Contains("inheritsFrom"))
-                                image.Source = new BitmapImage(new Uri("/XMCL;component/Resources/Furnace.png", UriKind.Relative));
-                            else image.Source = new BitmapImage(new Uri("/XMCL;component/Resources/Grass_Block.png", UriKind.Relative));
+                            this.Dispatcher.Invoke(new Action(() =>
+                            {
+                                Image image = new Image();
+                                image.SnapsToDevicePixels = true;
+                                image.UseLayoutRounding = true;
+                                image.Width = image.Height = 35;
+                                image.Margin = new System.Windows.Thickness(35, 5, 0, 5);
+                                image.HorizontalAlignment = System.Windows.HorizontalAlignment.Left;
+                                RenderOptions.SetBitmapScalingMode(image, BitmapScalingMode.HighQuality);
+                                if (File.ReadAllText(json).Contains("inheritsFrom"))
+                                    image.Source = new BitmapImage(new Uri("/XMCL;component/Resources/Furnace.png", UriKind.Relative));
+                                else image.Source = new BitmapImage(new Uri("/XMCL;component/Resources/Grass_Block.png", UriKind.Relative));
 
-                            Button button = new Button();
-                            button.HorizontalAlignment = System.Windows.HorizontalAlignment.Right;
-                            button.Margin = new System.Windows.Thickness(0, 10, 10, 10);
-                            button.Width = 45;
-                            button.Height = 25;
-                            button.Style = (Style)this.FindResource("MaterialDesignFlatButton");
-                            button.Background = button.BorderBrush = new SolidColorBrush(Colors.White);
-                            ShadowAssist.SetShadowDepth(button, ShadowDepth.Depth0);
-                            button.Foreground = (SolidColorBrush)new BrushConverter().ConvertFromString("#DD000000");
-                            button.Padding = new System.Windows.Thickness(0);
+                                Button button = new Button();
+                                button.HorizontalAlignment = System.Windows.HorizontalAlignment.Right;
+                                button.Margin = new System.Windows.Thickness(0, 10, 10, 10);
+                                button.Width = 45;
+                                button.Height = 25;
+                                button.Style = (Style)this.FindResource("MaterialDesignFlatButton");
+                                button.Background = button.BorderBrush = new SolidColorBrush(Colors.White);
+                                ShadowAssist.SetShadowDepth(button, ShadowDepth.Depth0);
+                                button.Foreground = (SolidColorBrush)new BrushConverter().ConvertFromString("#DD000000");
+                                button.Padding = new System.Windows.Thickness(0);
 
-                            PackIcon packIcon = new PackIcon();
-                            packIcon.Kind = PackIconKind.DotsVertical;
-                            packIcon.Width = packIcon.Height = 22;
-                            button.Content = packIcon;
+                                PackIcon packIcon = new PackIcon();
+                                packIcon.Kind = PackIconKind.DotsVertical;
+                                packIcon.Width = packIcon.Height = 22;
+                                button.Content = packIcon;
 
-                            RadioButton radioButton = new RadioButton();
-                            radioButton.Margin = new System.Windows.Thickness(10, 0, 0, 0);
-                            radioButton.HorizontalAlignment = System.Windows.HorizontalAlignment.Left;
-                            radioButton.Width = 25;
-                            radioButton.GroupName = "A";
-                            radioButton.Checked += RadioButton_Checked;
-                            radioButton.Tag = d;
-                            if (MainWindow.ComboBox.Text == d)
-                                radioButton.IsChecked = true;
+                                RadioButton radioButton = new RadioButton();
+                                radioButton.Margin = new System.Windows.Thickness(10, 0, 0, 0);
+                                radioButton.HorizontalAlignment = System.Windows.HorizontalAlignment.Left;
+                                radioButton.Width = 25;
+                                radioButton.GroupName = "A";
+                                radioButton.Checked += RadioButton_Checked;
+                                radioButton.Tag = d;
+                                if (MainWindow.ComboBox.Text == d)
+                                    radioButton.IsChecked = true;
 
-                            Label label = new Label();
-                            label.Content = d;
-                            label.VerticalContentAlignment = System.Windows.VerticalAlignment.Center;
-                            label.FontFamily = new FontFamily("Microsoft YaHei UI Light");
-                            label.FontSize = 14;
-                            label.Margin = new System.Windows.Thickness(75, 0, 90, 0);
+                                Label label = new Label();
+                                label.Content = d;
+                                label.VerticalContentAlignment = System.Windows.VerticalAlignment.Center;
+                                label.FontFamily = new FontFamily("Microsoft YaHei UI Light");
+                                label.FontSize = 14;
+                                label.Margin = new System.Windows.Thickness(75, 0, 90, 0);
 
-                            Grid grid = new Grid();
-                            grid.Height = 45;
-                            grid.Background = new SolidColorBrush(Colors.White);
-                            grid.Margin = new System.Windows.Thickness(5, 5, 5, 0);
-                            if (i == b.Length - 1)
-                                grid.Margin = new System.Windows.Thickness(5, 5, 5, 5);
+                                Grid grid = new Grid();
+                                grid.Height = 45;
+                                grid.Background = new SolidColorBrush(Colors.White);
+                                grid.Margin = new System.Windows.Thickness(5, 5, 5, 0);
+                                if (i == b.Length - 1)
+                                    grid.Margin = new System.Windows.Thickness(5, 5, 5, 5);
 
-                            grid.Children.Add(image);
-                            grid.Children.Add(button);
-                            grid.Children.Add(radioButton);
-                            grid.Children.Add(label);
+                                grid.Children.Add(image);
+                                grid.Children.Add(button);
+                                grid.Children.Add(radioButton);
+                                grid.Children.Add(label);
 
-                            List.Children.Add(grid);
-                        }));
+                                List.Children.Add(grid);
+                            }));
+                        }
                     }
+                }
+                catch(Exception ex)
+                {
+                    this.Dispatcher.BeginInvoke(new Action(async () =>
+                    {
+                        await MainWindow.ShowTip(ex.Message, 3);
+                        await MainWindow.ShowTip("请重新设置游戏目录", 3);
+                    }));
                 }
             });
         }

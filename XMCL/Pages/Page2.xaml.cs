@@ -7,6 +7,7 @@ using WinForm = System.Windows.Forms;
 using System.Threading.Tasks;
 using MySql.Data.MySqlClient;
 using Newtonsoft.Json.Linq;
+using System.Windows.Data;
 
 namespace XMCL.Pages
 {
@@ -26,14 +27,6 @@ namespace XMCL.Pages
         {
             try { this.NavigationService.Navigate(null); } catch { }
         }
-        private void R1_Checked(object sender, RoutedEventArgs e)
-        {
-            TextBox_GamePath.IsEnabled = Button_OpenGame.IsEnabled = false;
-        }
-        private void R2_Checked(object sender, RoutedEventArgs e)
-        {
-            TextBox_GamePath.IsEnabled = Button_OpenGame.IsEnabled = true;
-        }
         private void Button_OpenGame_Click(object sender, RoutedEventArgs e)
         {
             WinForm.FolderBrowserDialog dialog = new WinForm.FolderBrowserDialog();
@@ -49,16 +42,6 @@ namespace XMCL.Pages
             dialog.ShowDialog();
             TextBox_JavaPath.Text = dialog.FileName;
             dialog.Dispose();
-        }
-        private void ToggleButton3_Click(object sender, RoutedEventArgs e)
-        {
-            if (ToggleButton3.IsChecked == true)
-                TextBox_Memory.IsEnabled = false;
-            else TextBox_Memory.IsEnabled = true;
-        }
-        private void ToggleButton3_Checked(object sender, RoutedEventArgs e)
-        {
-            TextBox_Memory.IsEnabled = false;
         }
         private void Toissues_Click(object sender, RoutedEventArgs e)
         {
@@ -121,7 +104,6 @@ namespace XMCL.Pages
                 MainWindow.ShowTip("从远程数据库拉取反馈失败,请重试", 1);
             }
         }
-
         private void ListBoxItem_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             ListBoxItem listBoxItem = (ListBoxItem)sender;
@@ -129,7 +111,6 @@ namespace XMCL.Pages
             SubPage3.id = (int)listBoxItem.Tag;
             Frame.Navigate(new SubPage3());
         }
-
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
             Resources.Remove("PrimaryHueMidBrush");
@@ -219,6 +200,7 @@ namespace XMCL.Pages
             TextBox_Height.Text = (string)Json.Read("Video", "Height");
             TextBox_ServerIP.Text = Settings.ServerIP;
             TextBox_JVM_Value.Text = Settings.Value;
+            TextBox_Width.IsEnabled = !(bool)ToggleButton.IsChecked;
             #endregion
             #region Set2
             if (Settings.DownloadSource == XL.Core.Tools.DownloadSource.Mojang)
@@ -318,7 +300,6 @@ namespace XMCL.Pages
             try { Frame.RemoveBackEntry(); } catch { }
             GC.Collect();
         }
-
         private void RadioButton_Checked(object sender, RoutedEventArgs e)
         {
             RadioButton radioButton = (RadioButton)sender;
@@ -345,5 +326,10 @@ namespace XMCL.Pages
             }
         }
         #endregion
+
+        private void ToggleButton_Click(object sender, RoutedEventArgs e)
+        {
+            TextBox_Width.IsEnabled = !(bool)ToggleButton.IsChecked;
+        }
     }
 }
