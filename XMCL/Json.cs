@@ -21,7 +21,7 @@ namespace XMCL
                 return null;
             }
         }
-        public static void Write(string Section, string Name, string Text )
+        public static void Write(string Section, string Name, JToken jToken )
         {
             if (System.IO.File.Exists(a))
             {
@@ -29,7 +29,7 @@ namespace XMCL
                 try
                 {
                     JObject jObject = JObject.Parse(b);
-                    jObject[Section][Name] = Text;
+                    jObject[Section][Name] = jToken;
                     System.IO.File.WriteAllText(a, jObject.ToString());
                 }
                 catch { }
@@ -123,5 +123,55 @@ namespace XMCL
             jObject["Login"]["Users"] = jArray;
             System.IO.File.WriteAllText(a, jObject.ToString());
         }
+
+        public static JArray ReadPaths()
+        {
+            string txt = System.IO.File.ReadAllText(a);
+            JObject jObject = JObject.Parse(txt);
+            JArray jArray = JArray.Parse(jObject["Files"]["GamePaths"].ToString());
+            return jArray;
+        }
+        public static JToken ReadPath(string Name, string SubName)
+        {
+            string txt = System.IO.File.ReadAllText(a);
+            JObject jObject = JObject.Parse(txt);
+            JArray jArray = JArray.Parse(jObject["Files"]["GamePaths"].ToString());
+            for (int i = 0; i < jArray.Count; i++)
+            {
+                JObject jObject1 = JObject.Parse(jArray[i].ToString());
+                if (jObject1["Name"].ToString() == Name)
+                    return jObject1[SubName];
+            }
+            return null;
+        }
+        public static void AddPath(string Name, string Path, string Icon, bool RelativePath)
+        {
+            string txt = System.IO.File.ReadAllText(a);
+            JObject jObject = JObject.Parse(txt);
+            JArray jArray = JArray.Parse(jObject["Files"]["GamePaths"].ToString());
+            JObject jObject1 = new JObject();
+            jObject1.Add("Name", Name);
+            jObject1.Add("Path", Path);
+            jObject1.Add("Icon", Icon);
+            jObject1.Add("RelativePath", RelativePath);
+            jArray.Add(jObject1);
+            jObject["Files"]["GamePaths"] = jArray;
+            System.IO.File.WriteAllText(a, jObject.ToString());
+        }
+        public static void RemovePath(string Name)
+        {
+            string txt = System.IO.File.ReadAllText(a);
+            JObject jObject = JObject.Parse(txt);
+            JArray jArray = JArray.Parse(jObject["Files"]["GamePaths"].ToString());
+            for (int i = 0; i < jArray.Count; i++)
+            {
+                JToken jToken = jArray[i];
+                if (JObject.Parse(jToken.ToString())["Files"].ToString() == Name)
+                    jArray.Remove(jToken);
+            }
+            jObject["Login"]["GamePaths"] = jArray;
+            System.IO.File.WriteAllText(a, jObject.ToString());
+        }
+
     }
 }

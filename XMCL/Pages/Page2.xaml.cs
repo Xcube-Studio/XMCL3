@@ -27,13 +27,6 @@ namespace XMCL.Pages
         {
             try { this.NavigationService.Navigate(null); } catch { }
         }
-        private void Button_OpenGame_Click(object sender, RoutedEventArgs e)
-        {
-            WinForm.FolderBrowserDialog dialog = new WinForm.FolderBrowserDialog();
-            dialog.ShowDialog();
-            TextBox_GamePath.Text = dialog.SelectedPath;
-            dialog.Dispose();
-        }
         private void Button_OpenJava_Click(object sender, RoutedEventArgs e)
         {
             WinForm.OpenFileDialog dialog = new WinForm.OpenFileDialog();
@@ -190,10 +183,10 @@ namespace XMCL.Pages
                 ToggleButton2.IsChecked = true;
             if (Settings.AutoMemory)
                 ToggleButton3.IsChecked = true;
-            if (Settings.UseDefaultDirectory)
-                R1.IsChecked = true;
-            else R2.IsChecked = true;
-            TextBox_GamePath.Text = (string)Json.Read("Files", "GamePath");
+
+            path.Text = Settings.GamePath;
+            R1.IsChecked = !(bool)Json.ReadPath(Settings.GamePathName, "RelativePath");
+            R2.IsChecked = (bool)Json.ReadPath(Settings.GamePathName, "RelativePath");
             TextBox_JavaPath.Text = Settings.JavaPath;
             TextBox_Memory.Text = Settings.Memory.ToString();
             TextBox_Width.Text = (string)Json.Read("Video", "Width");
@@ -228,23 +221,12 @@ namespace XMCL.Pages
         private void Page_Unloaded(object sender, RoutedEventArgs e)
         {
             #region Set1
-            if (ToggleButton.IsChecked == true)
-                Json.Write("Video", "IsFullScreen", "true");
-            else Json.Write("Video", "IsFullScreen", "false");
-            if (ToggleButton1.IsChecked == true)
-                Json.Write("Game", "Demo", "true");
-            else Json.Write("Game", "Demo", "false");
-            if (ToggleButton2.IsChecked == true)
-                Json.Write("Individualization", "AutoHideLaucher", "true");
-            else Json.Write("Individualization", "AutoHideLaucher", "false");
-            if (ToggleButton3.IsChecked == true)
-                Json.Write("JVM", "AutoMemory", "true");
-            else Json.Write("JVM", "AutoMemory", "false");
-            if (R1.IsChecked == true)
-                Json.Write("Files", "UseDefaultDirectory", "true");
-            if (R2.IsChecked == true)
-                Json.Write("Files", "UseDefaultDirectory", "false");
-            Json.Write("Files", "GamePath", TextBox_GamePath.Text);
+            Json.Write("Video", "IsFullScreen", (bool)ToggleButton.IsChecked);
+            Json.Write("Game", "Demo", (bool)ToggleButton1.IsChecked);
+            Json.Write("Individualization", "AutoHideLaucher", (bool)ToggleButton2.IsChecked);
+            Json.Write("JVM", "AutoMemory", (bool)ToggleButton3.IsChecked);
+            Json.Write("Files", "UseDefaultDirectory", (bool)R1.IsChecked);
+
             Json.Write("Files", "JavaPath", TextBox_JavaPath.Text);
             Json.Write("JVM", "Memory", TextBox_Memory.Text);
             Json.Write("Video", "Width", TextBox_Width.Text);
@@ -254,14 +236,10 @@ namespace XMCL.Pages
             #endregion
             #region Set2
             Json.Write("Files", "DownloadSource", C1.Text);
-            if (ToggleButton4.IsChecked == true)
-                Json.Write("Files", "CompleteResource", "true");
-            else Json.Write("Files", "CompleteResource", "false");
+            Json.Write("Files", "CompleteResource", (bool)ToggleButton4.IsChecked);
             #endregion
             #region Set3
-            if (ToggleButton5.IsChecked == true)
-                Json.Write("Individualization", "AcrylicCard", "true");
-            else Json.Write("Individualization", "AcrylicCard", "false");
+            Json.Write("Individualization", "AcrylicCard", (bool)ToggleButton5.IsChecked);
             Json.Write("Individualization", "Background", TextBox_BackGround.Text);
             #endregion
         }
@@ -330,6 +308,11 @@ namespace XMCL.Pages
         private void ToggleButton_Click(object sender, RoutedEventArgs e)
         {
             TextBox_Width.IsEnabled = !(bool)ToggleButton.IsChecked;
+        }
+
+        private void ToggleButton3_Click(object sender, RoutedEventArgs e)
+        {
+            TextBox_Memory.IsEnabled = !(bool)ToggleButton3.IsChecked;
         }
     }
 }

@@ -14,12 +14,12 @@
         <SolidColorBrush x:Key="PrimaryHueMidBrush" Color="#2196f3"/>
     </Page.Resources>
     <Grid>
-        <Grid.Effect>
-            <DropShadowEffect BlurRadius="13" ShadowDepth="1" Color="Black" Opacity="1"/>
-        </Grid.Effect>
         <Grid>
             <ScrollViewer x:Name="S1" VerticalScrollBarVisibility="Auto" Margin="0,0,0,40" >
                 <StackPanel Orientation="Vertical" >
+                    <StackPanel.Effect>
+                        <DropShadowEffect BlurRadius="13" ShadowDepth="1" Color="Black" Opacity="1"/>
+                    </StackPanel.Effect>
                     <Expander Header="最新版本" Background="White" Margin="20,20,20,0" FontFamily="Microsoft YaHei UI Light">
                         <StackPanel Orientation="Vertical">
                             <StackPanel x:Name="Latest" Orientation="Vertical"/>
@@ -105,8 +105,12 @@
                 </StackPanel.Effect>
             </StackPanel>
         </Grid>
-        <Grid Height="300" Width="500" x:Name="setupGrid" IsVisibleChanged="SetupGrid_IsVisibleChanged" Visibility="Collapsed">
-            <Border Background="White" CornerRadius="1" >
+        <Grid Height="320" Width="520" x:Name="setupGrid" IsVisibleChanged="SetupGrid_IsVisibleChanged" Visibility="Collapsed">
+            <Grid.Effect>
+                <DropShadowEffect BlurRadius="13" ShadowDepth="1" Color="Black" Opacity="1"/>
+            </Grid.Effect>
+
+            <Border Background="White" CornerRadius="1" Margin="10">
                 <Grid>
                     <Label Content="安装游戏" Margin="10,10,10,261" HorizontalAlignment="Left" VerticalAlignment="Top" FontFamily="宋体" FontSize="14"/>
                     <ScrollViewer VerticalScrollBarVisibility="Hidden" Margin="20,40,20,43">
@@ -123,12 +127,13 @@
                                     </Grid>
                                 </StackPanel>
                             </StackPanel>
-                            <StackPanel VerticalAlignment="Top" Orientation="Horizontal">
+                            <StackPanel>
                                 <StackPanel VerticalAlignment="Top" Orientation="Horizontal">
                                     <materialDesign:PackIcon x:Name="icon2" Kind="EllipsisHorizontal" Height="30" Width="20" HorizontalAlignment="Left" VerticalAlignment="Center"/>
                                     <Label x:Name="model" Content="{}{Null}" VerticalAlignment="Center" FontFamily="宋体"/>
                                 </StackPanel>
                                 <StackPanel Margin="30,0,0,0" x:Name="StackPanel1">
+
                                 </StackPanel>
                             </StackPanel>
                             <StackPanel VerticalAlignment="Top" Orientation="Horizontal">

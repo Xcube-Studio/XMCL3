@@ -1,27 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Controls;
-using System.Windows.Forms;
-
+﻿
 namespace XMCL
 {
     public class Settings
     {
-        public static string GamePath
-        {
-            get
-            {
-                if (UseDefaultDirectory)
-                    return Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\.minecraft";
-                else return (string)Json.Read("Files", "GamePath");
-            }
-        }
+        public static string GamePath { get { return (string)Json.ReadPath(GamePathName, "Path"); } }
+        public static string GamePathName { get { return (string)Json.Read("Files", "GamePathName"); } }
         public static string JavaPath { get { return (string)Json.Read("Files", "JavaPath"); } }
         public static bool CompleteResource { get { return (bool)Json.Read("Files", "CompleteResource"); } }
-        public static bool UseDefaultDirectory { get { return (bool)Json.Read("Files", "UseDefaultDirectory"); } }
         public static XL.Core.Tools.DownloadSource DownloadSource 
         { 
             get

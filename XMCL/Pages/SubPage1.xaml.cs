@@ -269,6 +269,7 @@ namespace XMCL.Pages
         {
             if (setupGrid.Visibility == Visibility)
             {
+                model.Content = "安装" + kind;
                 ThreadPool.SetMinThreads(1024, 1024); ThreadPool.SetMaxThreads(1024, 1024);
                 ServicePointManager.DefaultConnectionLimit = 1024;
                 TaskFactory taskFactory = new TaskFactory();
@@ -424,7 +425,7 @@ namespace XMCL.Pages
                             grid.Children.Add(label);
                             StackPanel1.Children.Add(grid);
                         }));
-                        DownloadFile(url, Settings.GamePath + "\\" + Path.GetFileName(url), progressBar, label, grid, Path.GetFileName(url));
+                        DownloadFile(url, Settings.GamePath + "\\" + (string)downloadinfo["FileName"], progressBar, label, grid, (string)downloadinfo["FileName"]);
                     });
                     Process process = new Process();
 

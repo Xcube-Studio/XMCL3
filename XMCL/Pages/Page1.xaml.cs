@@ -3,10 +3,13 @@ using System;
 using System.IO;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Data;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using Newtonsoft.Json.Linq;
+using Ionic.Zip;
 
 namespace XMCL.Pages
 {
@@ -25,10 +28,13 @@ namespace XMCL.Pages
         {
             try { this.NavigationService.Navigate(null); } catch { }
         }
-        private void ListBoxItem_PreviewMouseLeftButton(object sender, MouseButtonEventArgs e)
+
+        private void ListBoxItem_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
+            G1.Visibility = Visibility.Visible; G2.Visibility = Visibility.Collapsed;
             GetList();
         }
+
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
             Resources.Remove("PrimaryHueMidBrush");
@@ -39,6 +45,7 @@ namespace XMCL.Pages
             Resources.Add("PrimaryHueDarkBrush", new SolidColorBrush((System.Windows.Media.Color)System.Windows.Media.ColorConverter.ConvertFromString(Settings.PrimaryHueDarkBrush)));
             GetList();
         }
+
         void GetList()
         {
             List.Children.Clear();
@@ -104,18 +111,21 @@ namespace XMCL.Pages
                                 label.Margin = new System.Windows.Thickness(75, 0, 90, 0);
 
                                 Grid grid = new Grid();
-                                grid.Height = 45;
-                                grid.Background = new SolidColorBrush(Colors.White);
-                                grid.Margin = new System.Windows.Thickness(5, 5, 5, 0);
+
+                                Card card = new Card();
+                                card.Height = 50;
+                                card.Margin = new System.Windows.Thickness(0, 8, 0, 0);
                                 if (i == b.Length - 1)
-                                    grid.Margin = new System.Windows.Thickness(5, 5, 5, 5);
+                                    card.Margin = new System.Windows.Thickness(0, 8, 0, 8);
 
                                 grid.Children.Add(image);
                                 grid.Children.Add(button);
                                 grid.Children.Add(radioButton);
                                 grid.Children.Add(label);
 
-                                List.Children.Add(grid);
+                                card.Content = grid;
+
+                                List.Children.Add(card);
                             }));
                         }
                     }
@@ -129,6 +139,90 @@ namespace XMCL.Pages
                     }));
                 }
             });
+        }
+        void GetList1()
+        {
+            if (Directory.Exists(Settings.GamePath + "\\mods"))
+            {
+                List1.Children.Clear();
+                string[] mods = Directory.GetFiles(Settings.GamePath + "\\mods");
+                foreach (string mod in mods)
+                {
+                    string a = Path.GetExtension(mod).ToLower();
+                    if (Path.GetExtension(mod).ToLower() == ".jar")
+                    { }
+                    else if (Path.GetExtension(mod).ToLower() == ".disabled")
+                    { }
+                    else continue;
+                    try
+                    {
+                        JObject jObject = new JObject(); string info;
+                        ZipFile zipEntries = ZipFile.Read(mod);
+                        if (zipEntries.ContainsEntry("fabric.mod.json"))
+                        {
+                            Stream stream = zipEntries["fabric.mod.json"].OpenReader();
+                            StreamReader streamReader = new StreamReader(stream);
+                            jObject = JObject.Parse(streamReader.ReadToEnd()); stream.Close(); streamReader.Close();
+                            info = "fabric.mod.json";
+                        }
+                        else if (zipEntries.ContainsEntry("pack.mcmeta"))
+                        {
+                            Stream stream = zipEntries["pack.mcmeta"].OpenReader();
+                            StreamReader streamReader = new StreamReader(stream);
+                            jObject = JObject.Parse(streamReader.ReadToEnd()); stream.Close(); streamReader.Close();
+                            info = "pack.mcmeta";
+                        }
+                        else info = "none";
+                        this.Dispatcher.Invoke(new Action(() =>
+                        {
+                            Card card = new Card();
+                            card.Height = 50;
+                            card.Margin = new Thickness(0, 8, 0, 0);
+
+                            Grid grid = new Grid();
+
+                            CheckBox checkBox = new CheckBox();
+                            checkBox.HorizontalAlignment = HorizontalAlignment.Left;
+                            checkBox.VerticalAlignment = VerticalAlignment.Center;
+                            checkBox.Margin = new Thickness(15, 0, 0, 0);
+                            checkBox.Tag = Path.GetFileNameWithoutExtension(mod);
+                            if (Path.GetExtension(mod).ToLower() == ".jar")
+                                checkBox.IsChecked = true;
+
+                            StackPanel stackPanel = new StackPanel();
+                            stackPanel.Margin = new Thickness(50, 8, 50, 8);
+
+                            TextBlock textBlock = new TextBlock();
+                            textBlock.FontSize = 15;
+                            textBlock.Text = Path.GetFileNameWithoutExtension(mod);
+
+                            TextBlock textBlock1 = new TextBlock();
+                            textBlock1.Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FF939393"));
+                            if (info != "none")
+                            {
+                                if (info == "fabric.mod.json")
+                                {
+                                    textBlock1.Text = (string)jObject["name"] + ",版本:" + (string)jObject["version"] + ",作者:";
+                                    JArray jArray = JArray.Parse(jObject["authors"].ToString());
+                                    foreach (JToken jToken in jArray)
+                                        textBlock1.Text += jToken + " ";
+                                }
+                                else if (info == "pack.mcmeta")
+                                    textBlock1.Text = (string)jObject["pack"]["description"];
+                            }
+                            else textBlock1.Text = textBlock.Text;
+
+                            stackPanel.Children.Add(textBlock);
+                            stackPanel.Children.Add(textBlock1);
+                            grid.Children.Add(stackPanel);
+                            grid.Children.Add(checkBox);
+                            card.Content = grid;
+                            List1.Children.Add(card);
+                        }));
+                    }
+                    catch { continue; }
+                }
+            }
         }
 
         private void RadioButton_Checked(object sender, RoutedEventArgs e)
@@ -145,5 +239,15 @@ namespace XMCL.Pages
         {
             MainWindow.Frame1.Navigate(new SubPage1());
         }
+
+        private void R1_Checked(object sender, RoutedEventArgs e)
+        {
+            GetList1();
+        }
+
+        private void ListBoxItem_PreviewMouseLeftButtonDown1(object sender, MouseButtonEventArgs e)
+        {
+            G2.Visibility = Visibility.Visible; G1.Visibility = Visibility.Collapsed;
+        }   
     }
 }

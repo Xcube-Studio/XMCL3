@@ -21,7 +21,7 @@
                     <Border Height="1" Background="#CC000000"/>
                 </StackPanel>
                 <Grid Margin="0,5,0,0">
-                    <ListBoxItem Height="50" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Foreground="#CC000000" FontSize="14" FontFamily="Microsoft YaHei UI Light" PreviewMouseLeftButtonDown="ListBoxItem_PreviewMouseLeftButton">
+                    <ListBoxItem Height="50" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Foreground="#CC000000" FontSize="14" FontFamily="Microsoft YaHei UI Light" PreviewMouseLeftButtonDown="ListBoxItem_PreviewMouseLeftButtonDown">
                         <StackPanel Orientation="Horizontal">
                             <Image SnapsToDevicePixels="True" RenderOptions.BitmapScalingMode="HighQuality" UseLayoutRounding="True" Source="/XMCL;component/Resources/Crafting_Table.png" Width="34" />
                             <Label Content="游戏列表" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
@@ -29,7 +29,7 @@
                     </ListBoxItem>
                 </Grid>
                 <Grid Margin="0,5,0,0">
-                    <ListBoxItem Height="50" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Foreground="#CC000000" FontSize="14" FontFamily="Microsoft YaHei UI Light">
+                    <ListBoxItem Height="50" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Foreground="#CC000000" FontSize="14" FontFamily="Microsoft YaHei UI Light" PreviewMouseLeftButtonDown="ListBoxItem_PreviewMouseLeftButtonDown1">
                         <StackPanel Orientation="Horizontal">
                             <Image SnapsToDevicePixels="True" RenderOptions.BitmapScalingMode="HighQuality" UseLayoutRounding="True" Source="/XMCL;component/Resources/Chest.png" Width="34" />
                             <Label Content="游戏资源" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
@@ -37,7 +37,7 @@
                     </ListBoxItem>
                 </Grid>
                 <StackPanel Margin="10,0,0,0">
-                    <TextBlock Foreground="#CC000000" Margin="0,5,0,0"><Run Text="游戏"/><Run Text="目录"/></TextBlock>
+                    <TextBlock Foreground="#CC000000" Margin="0,5,0,0" FontFamily="宋体"><Run Text="游戏"/><Run Text="目录"/></TextBlock>
                     <Border Height="1" Background="#CC000000"/>
                 </StackPanel>
                 <Grid Margin="0,5,0,0">
@@ -59,26 +59,44 @@
             </StackPanel>
             <Border Background="#7F000000" Width="1" />
         </StackPanel>
-        <Grid Margin="156,0,0,0">
-            <ScrollViewer Margin="10,10,10,39" VerticalScrollBarVisibility="Auto" Visibility="Visible">
-                <StackPanel x:Name="List">
-                    <StackPanel.Effect>
-                        <DropShadowEffect BlurRadius="10" ShadowDepth="0" Color="Black" Opacity="0.50"/>
-                    </StackPanel.Effect>
+        <Grid Margin="156,0,0,0" x:Name="G1" >
+            <ScrollViewer VerticalScrollBarVisibility="Hidden" Visibility="Visible">
+                <StackPanel Margin="10,10,10,39" x:Name="List">
+                    
                 </StackPanel>
             </ScrollViewer>
-            <Grid Margin="0,376,0,0">
+            <Grid VerticalAlignment="Bottom">
                 <Grid.Effect>
                     <DropShadowEffect BlurRadius="10" ShadowDepth="0" Color="Black" Opacity="0.50"/>
                 </Grid.Effect>
-                <Grid Margin="10,5,10,0" Background="{DynamicResource PrimaryHueMidBrush}">
-                    <Button x:Name="ToSubPage1" materialDesign:ShadowAssist.ShadowDepth="Depth0" HorizontalAlignment="Left" VerticalAlignment="Top" Height="34" Background="{DynamicResource PrimaryHueMidBrush}" BorderBrush="{x:Null}" Foreground="White" Click="ToSubPage1_Click" Width="130">
-                        <StackPanel Orientation="Horizontal">
-                            <materialDesign:PackIcon Kind="Add" Height="25" Width="25"/>
-                            <Label Content="安装新版本" Foreground="#DDFFFFFF" Padding="0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                        </StackPanel>
-                    </Button>
-                </Grid>
+                <materialDesign:ColorZone Mode="PrimaryMid">
+                    <StackPanel Orientation="Horizontal">
+                        <Button x:Name="ToSubPage1" Click="ToSubPage1_Click" FontFamily="宋体" BorderBrush="{x:Null}" Foreground="#DDFFFFFF" materialDesign:ShadowAssist.ShadowDepth="Depth0">
+                            <StackPanel Orientation="Horizontal">
+                                <materialDesign:PackIcon Kind="Add" Height="25" Width="25"/>
+                                <Label Content="安装新版本" Foreground="#DDFFFFFF" Padding="0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            </StackPanel>
+                        </Button>
+                    </StackPanel>
+                </materialDesign:ColorZone>
+            </Grid>
+        </Grid>
+        <Grid Margin="156,0,0,0" x:Name="G2" Visibility="Collapsed">
+            <ScrollViewer VerticalScrollBarVisibility="Hidden" Visibility="Visible">
+                <StackPanel Margin="10,10,10,39" x:Name="List1">
+
+                </StackPanel>
+            </ScrollViewer>
+            <Grid VerticalAlignment="Bottom">
+                <Grid.Effect>
+                    <DropShadowEffect BlurRadius="10" ShadowDepth="0" Color="Black" Opacity="0.50"/>
+                </Grid.Effect>
+                <materialDesign:ColorZone Mode="PrimaryMid">
+                    <StackPanel Orientation="Horizontal">
+                        <RadioButton x:Name="R1" Style="{StaticResource MaterialDesignTabRadioButton}" IsChecked="True" Content="模组管理" FontFamily="宋体" Checked="R1_Checked" BorderBrush="{DynamicResource PrimaryHueLightBrush}" Foreground="#DDFFFFFF"/>
+                        <RadioButton Style="{StaticResource MaterialDesignTabRadioButton}" Content="世界/数据包" FontFamily="宋体" BorderBrush="{DynamicResource PrimaryHueLightBrush}" Foreground="#DDFFFFFF"/>
+                    </StackPanel>
+                </materialDesign:ColorZone>
             </Grid>
         </Grid>
     </Grid>

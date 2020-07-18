@@ -48,6 +48,10 @@ namespace XMCL
                 if (vs != null)
                     Json.Write("Files", "JavaPath", vs[0]);
             }
+            if (Json.ReadPaths().Count == 0)
+                Json.AddPath("官方启动器", Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\.minecraft", "Grass_Block", false);
+            if (Settings.GamePathName.Length == 0)
+                Json.Write("Files", "GamePathName", Newtonsoft.Json.Linq.JObject.Parse(Json.ReadPaths()[0].ToString())["Name"].ToString());
         }
         public static string Folder_XMCL = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\.XMCL";
         public static void Themes(string color_str , string color_str1 , string color_str2)

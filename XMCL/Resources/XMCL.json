@@ -1,10 +1,11 @@
 {
   "Files": {
-    "GamePath": "",
+    "GamePathName": "",
+    "VersionSeparate": false,
     "JavaPath": "",
     "CompleteResource": true,
-    "UseDefaultDirectory": true,
-    "DownloadSource": "Mcbbs"
+    "DownloadSource": "Mcbbs",
+    "GamePaths": [ ]
   },
   "JVM": {
     "MoreValueEnabled": true,
@@ -15,7 +16,9 @@
   "Login": {
     "ClientToken": "",
     "Choose": "",
-    "Users": [ ]
+    "Users": [
+      
+    ]
   },
   "Video": {
     "Width": "854",
