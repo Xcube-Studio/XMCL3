@@ -3,7 +3,15 @@ namespace XMCL
 {
     public class Settings
     {
-        public static string GamePath { get { return (string)Json.ReadPath(GamePathName, "Path"); } }
+        public static string GamePath
+        {
+            get
+            {
+                if ((bool)Json.ReadPath(GamePathName, "RelativePath"))
+                    return System.IO.Path.GetFileName((string)Json.ReadPath(GamePathName, "Path"));
+                else return (string)Json.ReadPath(GamePathName, "Path");
+            }
+        }
         public static string GamePathName { get { return (string)Json.Read("Files", "GamePathName"); } }
         public static string JavaPath { get { return (string)Json.Read("Files", "JavaPath"); } }
         public static bool CompleteResource { get { return (bool)Json.Read("Files", "CompleteResource"); } }
