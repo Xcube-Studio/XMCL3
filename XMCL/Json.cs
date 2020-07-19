@@ -166,12 +166,28 @@ namespace XMCL
             for (int i = 0; i < jArray.Count; i++)
             {
                 JToken jToken = jArray[i];
-                if (JObject.Parse(jToken.ToString())["Files"].ToString() == Name)
+                if (JObject.Parse(jToken.ToString())["Name"].ToString() == Name)
                     jArray.Remove(jToken);
             }
-            jObject["Login"]["GamePaths"] = jArray;
+            jObject["Files"]["GamePaths"] = jArray;
             System.IO.File.WriteAllText(a, jObject.ToString());
         }
-
+        public static void ChangePath(string Name, string SubName, string Text)
+        {
+            string txt = System.IO.File.ReadAllText(a);
+            JObject jObject = JObject.Parse(txt);
+            JArray jArray = JArray.Parse(jObject["Files"]["GamePaths"].ToString());
+            JArray jArray1 = new JArray();
+            for (int i = 0; i < jArray.Count; i++)
+            {
+                JToken jToken = jArray[i];
+                JObject jObject1 = (JObject)jToken;
+                if (JObject.Parse(jToken.ToString())["Name"].ToString() == Name)
+                    jObject1[SubName] = Text;
+                jArray1.Add(jObject1);
+            }
+            jObject["Files"]["GamePaths"] = jArray1;
+            System.IO.File.WriteAllText(a, jObject.ToString());
+        }
     }
 }

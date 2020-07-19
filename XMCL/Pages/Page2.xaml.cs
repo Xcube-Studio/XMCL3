@@ -304,12 +304,10 @@ namespace XMCL.Pages
             }
         }
         #endregion
-
         private void ToggleButton_Click(object sender, RoutedEventArgs e)
         {
             TextBox_Width.IsEnabled = !(bool)ToggleButton.IsChecked;
         }
-
         private void ToggleButton3_Click(object sender, RoutedEventArgs e)
         {
             TextBox_Memory.IsEnabled = !(bool)ToggleButton3.IsChecked;

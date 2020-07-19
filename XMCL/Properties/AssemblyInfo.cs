@@ -6,11 +6,11 @@ using System.Windows;
 // 控制。更改这些特性值可修改
 // 与程序集关联的信息。
 [assembly: AssemblyTitle("XMCL")]
-[assembly: AssemblyDescription("xuan2006's Minecraft Laucher")]
+[assembly: AssemblyDescription("XcubeLauncher")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("XMCL")]
-[assembly: AssemblyCopyright("Copyright ©  2020")]
+[assembly: AssemblyProduct("XcubeLauncher")]
+[assembly: AssemblyCopyright("Xcube Studio ©  2020")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -49,5 +49,5 @@ using System.Windows;
 //可以指定所有这些值，也可以使用“生成号”和“修订号”的默认值
 //通过使用 "*"，如下所示:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("3.0.0.24")]
-[assembly: AssemblyFileVersion("3.0.0.24")]
+[assembly: AssemblyVersion("3.1.0.2")]
+[assembly: AssemblyFileVersion("3.1.0.2")]

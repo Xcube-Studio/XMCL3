@@ -41,12 +41,16 @@
                     <Border Height="1" Background="#CC000000"/>
                 </StackPanel>
                 <Grid Margin="0,5,0,0">
-                    <ListBoxItem Height="50" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Foreground="#CC000000" FontSize="14" FontFamily="Microsoft YaHei UI Light">
+                    <Grid>
                         <StackPanel Orientation="Horizontal">
-                            <Image SnapsToDevicePixels="True" RenderOptions.BitmapScalingMode="HighQuality" UseLayoutRounding="True" Source="/XMCL;component/Resources/Bookshelf.png" Width="34" />
-                            <Label Content="{}{Path}" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Width="64"/>
+                            <Image SnapsToDevicePixels="True" RenderOptions.BitmapScalingMode="HighQuality" UseLayoutRounding="True" Source="/XMCL;component/Resources/Bookshelf.png" Width="34" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="28,0,0,0" />
+                            <StackPanel Orientation="Vertical" Height="28" Margin="5,0,0,0" >
+                                <TextBlock x:Name="GPN" Text="官方启动器" FontFamily="Microsoft YaHei UI Light" FontSize="13"/>
+                                <TextBlock x:Name="GP" FontSize="9"/>
+                            </StackPanel>
                         </StackPanel>
-                    </ListBoxItem>
+                    </Grid>
+                    <ListBoxItem Height="50" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Foreground="#CC000000" FontSize="14" FontFamily="Microsoft YaHei UI Light" PreviewMouseLeftButtonDown="ListBoxItem_PreviewMouseLeftButtonDown_1"/>
                 </Grid>
                 <Grid Margin="0,153,0,0">
                     <Button Style="{StaticResource ButtonRevealStyle}" Height="50" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Foreground="#CC000000" FontSize="14" FontFamily="Microsoft YaHei UI Light" Click="Back" Background="Transparent">
@@ -95,6 +99,34 @@
                     <StackPanel Orientation="Horizontal">
                         <RadioButton x:Name="R1" Style="{StaticResource MaterialDesignTabRadioButton}" IsChecked="True" Content="模组管理" FontFamily="宋体" Checked="R1_Checked" BorderBrush="{DynamicResource PrimaryHueLightBrush}" Foreground="#DDFFFFFF"/>
                         <RadioButton Style="{StaticResource MaterialDesignTabRadioButton}" Content="世界/数据包" FontFamily="宋体" BorderBrush="{DynamicResource PrimaryHueLightBrush}" Foreground="#DDFFFFFF"/>
+                    </StackPanel>
+                </materialDesign:ColorZone>
+            </Grid>
+        </Grid>
+        <Grid Margin="156,0,0,0" x:Name="G3" Visibility="Collapsed">
+            <ScrollViewer VerticalScrollBarVisibility="Hidden" Visibility="Visible">
+                <StackPanel Margin="10,10,10,39" x:Name="List2">
+                    
+                </StackPanel>
+            </ScrollViewer>
+            <Grid VerticalAlignment="Bottom">
+                <Grid.Effect>
+                    <DropShadowEffect BlurRadius="10" ShadowDepth="0" Color="Black" Opacity="0.50"/>
+                </Grid.Effect>
+                <materialDesign:ColorZone Mode="PrimaryMid">
+                    <StackPanel Orientation="Horizontal">
+                        <Button x:Name="ToSubPage4" FontFamily="宋体" BorderBrush="{x:Null}" Foreground="#DDFFFFFF" materialDesign:ShadowAssist.ShadowDepth="Depth0" Click="ToSubPage4_Click">
+                            <StackPanel Orientation="Horizontal">
+                                <materialDesign:PackIcon Kind="Add" Height="25" Width="25"/>
+                                <Label Content="新建配置" Foreground="#DDFFFFFF" Padding="0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            </StackPanel>
+                        </Button>
+                        <Button Name="RfGP" FontFamily="宋体" BorderBrush="{x:Null}" Foreground="#DDFFFFFF" materialDesign:ShadowAssist.ShadowDepth="Depth0" Click="RfGP_Click">
+                            <StackPanel Orientation="Horizontal">
+                                <materialDesign:PackIcon Kind="Refresh" Height="25" Width="25"/>
+                                <Label Content="刷新" Foreground="#DDFFFFFF" Padding="0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            </StackPanel>
+                        </Button>
                     </StackPanel>
                 </materialDesign:ColorZone>
             </Grid>

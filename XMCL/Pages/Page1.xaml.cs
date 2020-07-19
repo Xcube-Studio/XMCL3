@@ -3,7 +3,6 @@ using System;
 using System.IO;
 using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Data;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
@@ -28,13 +27,11 @@ namespace XMCL.Pages
         {
             try { this.NavigationService.Navigate(null); } catch { }
         }
-
         private void ListBoxItem_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            G1.Visibility = Visibility.Visible; G2.Visibility = Visibility.Collapsed;
+            G1.Visibility = Visibility.Visible; G2.Visibility = G3.Visibility = Visibility.Collapsed;
             GetList();
         }
-
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
             Resources.Remove("PrimaryHueMidBrush");
@@ -44,8 +41,13 @@ namespace XMCL.Pages
             Resources.Remove("PrimaryHueDarkBrush");
             Resources.Add("PrimaryHueDarkBrush", new SolidColorBrush((System.Windows.Media.Color)System.Windows.Media.ColorConverter.ConvertFromString(Settings.PrimaryHueDarkBrush)));
             GetList();
-        }
+            GetList2();
 
+            GPN.Text = Settings.GamePathName;
+            if (GP.Text.Length > 15)
+                GP.Text = Settings.GamePath.Substring(0, 15) + "..";
+            else GP.Text = Settings.GamePath;
+        }
         void GetList()
         {
             List.Children.Clear();
@@ -98,7 +100,7 @@ namespace XMCL.Pages
                                 radioButton.HorizontalAlignment = System.Windows.HorizontalAlignment.Left;
                                 radioButton.Width = 25;
                                 radioButton.GroupName = "A";
-                                radioButton.Checked += RadioButton_Checked;
+                                radioButton.Checked += Checked1;
                                 radioButton.Tag = d;
                                 if (MainWindow.ComboBox.Text == d)
                                     radioButton.IsChecked = true;
@@ -142,9 +144,9 @@ namespace XMCL.Pages
         }
         void GetList1()
         {
+            List1.Children.Clear();
             if (Directory.Exists(Settings.GamePath + "\\mods"))
             {
-                List1.Children.Clear();
                 string[] mods = Directory.GetFiles(Settings.GamePath + "\\mods");
                 foreach (string mod in mods)
                 {
@@ -185,9 +187,10 @@ namespace XMCL.Pages
                             checkBox.HorizontalAlignment = HorizontalAlignment.Left;
                             checkBox.VerticalAlignment = VerticalAlignment.Center;
                             checkBox.Margin = new Thickness(15, 0, 0, 0);
-                            checkBox.Tag = Path.GetFileNameWithoutExtension(mod);
+                            checkBox.Tag = mod;
                             if (Path.GetExtension(mod).ToLower() == ".jar")
                                 checkBox.IsChecked = true;
+                            checkBox.Click += Checked2;
 
                             StackPanel stackPanel = new StackPanel();
                             stackPanel.Margin = new Thickness(50, 8, 50, 8);
@@ -203,9 +206,12 @@ namespace XMCL.Pages
                                 if (info == "fabric.mod.json")
                                 {
                                     textBlock1.Text = (string)jObject["name"] + ",版本:" + (string)jObject["version"] + ",作者:";
-                                    JArray jArray = JArray.Parse(jObject["authors"].ToString());
-                                    foreach (JToken jToken in jArray)
-                                        textBlock1.Text += jToken + " ";
+                                    try
+                                    {
+                                        JArray jArray = JArray.Parse(jObject["authors"].ToString());
+                                        foreach (JToken jToken in jArray)
+                                            textBlock1.Text += jToken + " ";
+                                    } catch { textBlock1.Text += "null"; }
                                 }
                                 else if (info == "pack.mcmeta")
                                     textBlock1.Text = (string)jObject["pack"]["description"];
@@ -224,30 +230,110 @@ namespace XMCL.Pages
                 }
             }
         }
+        void GetList2()
+        {
+            List2.Children.Clear();
+            JArray jArray = Json.ReadPaths();
+            foreach(JObject jObject in jArray)
+            {
+                this.Dispatcher.Invoke(new Action(() =>
+                {
+                    Card card = new Card();
+                    card.Height = 50;
+                    card.Margin = new Thickness(0, 8, 0, 0);
 
-        private void RadioButton_Checked(object sender, RoutedEventArgs e)
+                    Grid grid = new Grid();
+
+                    Image image = new Image();
+                    image.SnapsToDevicePixels = true;
+                    image.UseLayoutRounding = true;
+                    image.Width = image.Height = 35;
+                    image.Margin = new System.Windows.Thickness(35, 5, 0, 5);
+                    image.HorizontalAlignment = System.Windows.HorizontalAlignment.Left;
+                    RenderOptions.SetBitmapScalingMode(image, BitmapScalingMode.HighQuality);
+                    if ((string)jObject["Icon"] != "Grass_Block")
+                        image.Source = new BitmapImage(new Uri("/XMCL;component/Resources/Furnace.png", UriKind.Relative));
+                    else image.Source = new BitmapImage(new Uri("/XMCL;component/Resources/Grass_Block.png", UriKind.Relative));
+
+                    RadioButton checkBox = new RadioButton();
+                    checkBox.HorizontalAlignment = HorizontalAlignment.Left;
+                    checkBox.VerticalAlignment = VerticalAlignment.Center;
+                    checkBox.Margin = new Thickness(10, 0, 0, 0);
+                    checkBox.Tag = (string)jObject["Name"];
+                    if ((string)jObject["Name"] == Settings.GamePathName)
+                        checkBox.IsChecked = true;
+                    checkBox.GroupName = "GP";
+                    checkBox.Checked += Checked3;
+
+                    StackPanel stackPanel = new StackPanel();
+                    stackPanel.Margin = new Thickness(75, 8, 10, 8);
+
+                    TextBlock textBlock = new TextBlock();
+                    textBlock.FontSize = 15;
+                    textBlock.Text = (string)jObject["Name"];
+
+                    TextBlock textBlock1 = new TextBlock();
+                    textBlock1.Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FF939393"));
+                    textBlock1.Text = (string)jObject["Path"];
+
+                    stackPanel.Children.Add(textBlock);
+                    stackPanel.Children.Add(textBlock1);
+                    grid.Children.Add(image);
+                    grid.Children.Add(stackPanel);
+                    grid.Children.Add(checkBox);
+                    card.Content = grid;
+                    List2.Children.Add(card);
+                }));
+            }
+        }
+        private void Checked3(object sender, RoutedEventArgs e)
+        {
+            Json.Write("Files", "GamePathName", (string)((RadioButton)sender).Tag);
+            GPN.Text = Settings.GamePathName;
+            if (Settings.GamePath.Length > 15)
+                GP.Text = Settings.GamePath.Substring(0, 15) + "..";
+            else GP.Text = Settings.GamePath;
+            GetList1();
+        }
+        private void Checked2(object sender, RoutedEventArgs e)
+        {
+            CheckBox checkBox = (CheckBox)sender;
+            if(!(bool)checkBox.IsChecked)
+                File.Move((string)checkBox.Tag, Path.ChangeExtension((string)checkBox.Tag, ".disabled"));
+            else File.Move((string)checkBox.Tag, Path.ChangeExtension((string)checkBox.Tag, ".jar"));
+        }
+        private void Checked1(object sender, RoutedEventArgs e)
         {
             RadioButton radioButton = (RadioButton)sender;
             foreach(string text in MainWindow.ComboBox.Items)
                 if (text == radioButton.Tag.ToString())
-                {
                     MainWindow.ComboBox.SelectedItem = text;
-                }
         }
-
         private void ToSubPage1_Click(object sender, RoutedEventArgs e)
         {
             MainWindow.Frame1.Navigate(new SubPage1());
         }
-
         private void R1_Checked(object sender, RoutedEventArgs e)
         {
             GetList1();
         }
-
         private void ListBoxItem_PreviewMouseLeftButtonDown1(object sender, MouseButtonEventArgs e)
         {
-            G2.Visibility = Visibility.Visible; G1.Visibility = Visibility.Collapsed;
-        }   
+            GetList1();
+            G2.Visibility = Visibility.Visible; G1.Visibility = G3.Visibility = Visibility.Collapsed;
+        }
+        private void ListBoxItem_PreviewMouseLeftButtonDown_1(object sender, MouseButtonEventArgs e)
+        {
+            GetList2();
+            G1.Visibility = G2.Visibility = Visibility.Collapsed; G3.Visibility = Visibility.Visible;
+        }
+        private void RfGP_Click(object sender, RoutedEventArgs e)
+        {
+            GetList2();
+        }
+        private void ToSubPage4_Click(object sender, RoutedEventArgs e)
+        {
+            MainWindow.Frame1.Navigate(new SubPage4());
+        }
     }
 }

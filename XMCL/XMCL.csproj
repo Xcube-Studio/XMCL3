@@ -129,6 +129,9 @@
     <Compile Include="Pages\SubPage3.xaml.cs">
       <DependentUpon>SubPage3.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Pages\SubPage4.xaml.cs">
+      <DependentUpon>SubPage4.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Settings.cs" />
     <Compile Include="Window1.xaml.cs">
       <DependentUpon>Window1.xaml</DependentUpon>
@@ -169,6 +172,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Pages\SubPage3.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\SubPage4.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

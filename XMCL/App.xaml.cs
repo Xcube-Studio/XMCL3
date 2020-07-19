@@ -14,7 +14,7 @@ namespace XMCL
     /// </summary>
     public partial class App : Application
     {
-        public static string version = "Pre" + System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString();
+        public static string version = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString();
         private void Application_Startup(object sender, StartupEventArgs e)
         {
             Timeline.DesiredFrameRateProperty.OverrideMetadata(
@@ -52,6 +52,7 @@ namespace XMCL
                 Json.AddPath("官方启动器", Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\.minecraft", "Grass_Block", false);
             if (Settings.GamePathName.Length == 0)
                 Json.Write("Files", "GamePathName", Newtonsoft.Json.Linq.JObject.Parse(Json.ReadPaths()[0].ToString())["Name"].ToString());
+            Json.ChangePath("官方启动器", "Path", Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\.minecraft");
         }
         public static string Folder_XMCL = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\.XMCL";
         public static void Themes(string color_str , string color_str1 , string color_str2)
