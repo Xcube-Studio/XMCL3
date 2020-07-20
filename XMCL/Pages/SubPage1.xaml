@@ -127,7 +127,7 @@
                                     </Grid>
                                 </StackPanel>
                             </StackPanel>
-                            <StackPanel>
+                            <StackPanel x:Name="Second">
                                 <StackPanel VerticalAlignment="Top" Orientation="Horizontal">
                                     <materialDesign:PackIcon x:Name="icon2" Kind="EllipsisHorizontal" Height="30" Width="20" HorizontalAlignment="Left" VerticalAlignment="Center"/>
                                     <Label x:Name="model" Content="{}{Null}" VerticalAlignment="Center" FontFamily="宋体"/>
@@ -138,12 +138,12 @@
                             </StackPanel>
                             <StackPanel VerticalAlignment="Top" Orientation="Horizontal">
                                 <materialDesign:PackIcon x:Name="icon3" Kind="EllipsisHorizontal" Height="30" Width="20" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-                                <Label Content="完成" VerticalAlignment="Center" FontFamily="宋体"/>
+                                <Label Content="安装完成" VerticalAlignment="Center" FontFamily="宋体"/>
                             </StackPanel>
                         </StackPanel>
                     </ScrollViewer>
 
-                    <Button Margin="0,0,7,7" Content="取消" HorizontalAlignment="Right" VerticalAlignment="Bottom" Height="29" Width="46" FontFamily="宋体" Background="{x:Null}" Style="{StaticResource MaterialDesignFlatButton}" BorderBrush="{x:Null}" Padding="0" Click="Button_Click"/>
+                    <Button Margin="0,0,7,7" Visibility="Collapsed" Content="完成" x:Name="SetupDone" HorizontalAlignment="Right" VerticalAlignment="Bottom" Height="29" Width="46" FontFamily="宋体" Background="{x:Null}" Style="{StaticResource MaterialDesignFlatButton}" BorderBrush="{x:Null}" Padding="0" Click="SetupDone_Click"/>
                 </Grid>
             </Border>
         </Grid>

@@ -321,6 +321,7 @@ namespace XMCL
                 }));
                 try
                 {
+                    SomethingUseful.DelectDir(App.Folder_XMCL + "\\user\\" + Json.ReadUser(Settings.UUID, "userName"));
                     Skin.GetSkins(Settings.UUID, App.Folder_XMCL);
                 }
                 catch { }
@@ -328,8 +329,8 @@ namespace XMCL
                 {
                     head1.Visibility = head2.Visibility = Visibility.Visible;
                     head_load.Visibility = Visibility.Collapsed;
-                    head1.Source = new BitmapImage(new Uri(App.Folder_XMCL + "\\user\\" + Json.ReadUser(Settings.UUID, "userName") + "\\head1.png"));
-                    head2.Source = new BitmapImage(new Uri(App.Folder_XMCL + "\\user\\" + Json.ReadUser(Settings.UUID, "userName") + "\\head2.png"));
+                    head1.Source = FileToImageSource(App.Folder_XMCL + "\\user\\" + Json.ReadUser(Settings.UUID, "userName") + "\\head1.png");
+                    head2.Source = FileToImageSource(App.Folder_XMCL + "\\user\\" + Json.ReadUser(Settings.UUID, "userName") + "\\head2.png");
                 }));
             });
         }
@@ -370,25 +371,18 @@ namespace XMCL
                 else CPU_.Content = c + "%";
             }));
         }
-        BitmapImage BitmapToBitmapImage(Bitmap bitmap)
+        ImageSource FileToImageSource(string filename)
         {
-            Bitmap bitmapSource = new Bitmap(bitmap.Width, bitmap.Height);
-            int i, j;
-            for (i = 0; i < bitmap.Width; i++)
-                for (j = 0; j < bitmap.Height; j++)
-                {
-                    System.Drawing.Color pixelColor = bitmap.GetPixel(i, j);
-                    System.Drawing.Color newColor = System.Drawing.Color.FromArgb(pixelColor.R, pixelColor.G, pixelColor.B);
-                    bitmapSource.SetPixel(i, j, newColor);
-                }
-            MemoryStream ms = new MemoryStream();
-            bitmapSource.Save(ms, System.Drawing.Imaging.ImageFormat.Bmp);
-            BitmapImage bitmapImage = new BitmapImage();
-            bitmapImage.BeginInit();
-            bitmapImage.StreamSource = new MemoryStream(ms.ToArray());
-            bitmapImage.EndInit();
-
-            return bitmapImage;
+            FileStream fs = File.OpenRead(filename);
+            byte[] Mybyte = new byte[fs.Length];
+            fs.Read(Mybyte, 0, Mybyte.Length);
+            fs.Close();
+            MemoryStream MyMemoryStream = new MemoryStream(Mybyte);//将byte[]数组转化为内存流
+            System.Drawing.Image MyImage = System.Drawing.Image.FromStream(MyMemoryStream);        //将内存流转化为image类型
+            System.Drawing.Bitmap MyBitmap = new System.Drawing.Bitmap(MyImage);                   //将image类型转化为bitmap类型
+            IntPtr MyIntPtr = MyBitmap.GetHbitmap();
+            ImageSource WPFSource = System.Windows.Interop.Imaging.CreateBitmapSourceFromHBitmap(MyIntPtr, IntPtr.Zero, Int32Rect.Empty, BitmapSizeOptions.FromEmptyOptions());
+            return WPFSource;
         }
         private static int intSuijishu(int a, int b)
         {
@@ -479,6 +473,7 @@ namespace XMCL
                 {
                     Task.Run(delegate
                     {
+                        SomethingUseful.DelectDir(App.Folder_XMCL + "\\user\\" + Json.ReadUser(Settings.UUID, "userName"));
                         try { Skin.GetSkins(Settings.UUID, App.Folder_XMCL); } catch { }
                         this.Dispatcher.BeginInvoke(new Action(() =>
                         {

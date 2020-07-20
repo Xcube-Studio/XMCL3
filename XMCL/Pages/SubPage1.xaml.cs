@@ -138,6 +138,7 @@ namespace XMCL.Pages
         }
         private void ListBoxItem_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
+            kind = ((ListBoxItem)sender).Tag.ToString();
             if (((ListBoxItem)sender).Tag.ToString() == "minecraft")
             {
                 ListItemEnable(((ListBoxItem)sender));
@@ -145,7 +146,6 @@ namespace XMCL.Pages
             else
             {
                 mod.Children.Clear();
-                kind = ((ListBoxItem)sender).Tag.ToString();
                 S3.Visibility = Visibility.Visible; S2.Visibility = Visibility.Collapsed;
                 Thread thread;
                 Threads.Add(thread = new Thread(() =>
@@ -269,9 +269,11 @@ namespace XMCL.Pages
         {
             if (setupGrid.Visibility == Visibility)
             {
-                model.Content = "安装" + kind;
-                ThreadPool.SetMinThreads(1024, 1024); ThreadPool.SetMaxThreads(1024, 1024);
-                ServicePointManager.DefaultConnectionLimit = 1024;
+                if (kind != "minecraft")
+                    model.Content = "安装" + kind;
+                else Second.Visibility = Visibility.Collapsed;
+                ThreadPool.SetMinThreads(100, 100); ThreadPool.SetMaxThreads(100, 100);
+                ServicePointManager.DefaultConnectionLimit = 100;
                 TaskFactory taskFactory = new TaskFactory();
                 string filename = string.Format(Settings.GamePath + "\\versions\\{0}\\{1}.json", version, version);
                 string replaceurl = "";
@@ -311,6 +313,7 @@ namespace XMCL.Pages
                 JsonInfo jsonInfo = new JsonInfo(filename);
                 Launcher.JsonInfo = jsonInfo;
                 LaunchInfo launchInfo = new LaunchInfo();
+                launchInfo.Game.Selected_Version = version;
                 launchInfo.Game.ComplementaryResources = true;
                 launchInfo.Game.GamePath = Settings.GamePath;
                 Launcher.LaunchInfo = launchInfo;
@@ -352,7 +355,6 @@ namespace XMCL.Pages
                         }));
                         DownloadFile(url, assetsFile, progressBar, label, grid, System.IO.Path.GetFileName(assetsFile));
                     }
-
                 });
 
                 List<DownloadFile> downloadFiles = new List<DownloadFile>();
@@ -405,7 +407,7 @@ namespace XMCL.Pages
                         url += "/maven/com/mumfrey/liteloader/${version}/liteloader-${version}.jar".Replace("${version}", (string)downloadinfo["info"]["version"]);
                     await taskFactory.StartNew(() =>
                     {
-                        ProgressBar progressBar = null; Label label = null; Grid grid = null;
+                        Grid grid = null; ProgressBar progressBar = null; Label label = null;
                         this.Dispatcher.Invoke(new Action(() =>
                         {
                             progressBar = new ProgressBar();
@@ -426,10 +428,58 @@ namespace XMCL.Pages
                             StackPanel1.Children.Add(grid);
                         }));
                         DownloadFile(url, Settings.GamePath + "\\" + (string)downloadinfo["FileName"], progressBar, label, grid, (string)downloadinfo["FileName"]);
+                        this.Dispatcher.Invoke(new Action(() =>
+                        {
+                            StackPanel1.Children.Remove(grid);
+                        }));
                     });
-                    Process process = new Process();
+                    Grid g = null; ProgressBar p = null; Label l = null;
+                    this.Dispatcher.Invoke(new Action(() =>
+                    {
+                        p = new ProgressBar();
+                        p.IsIndeterminate = true;
+                        p.Height = 4;
+                        p.VerticalAlignment = VerticalAlignment.Bottom;
+                        p.IsIndeterminate = true;
 
+                        l = new Label();
+                        l.Margin = new Thickness(0, 0, 0, 4);
+                        l.FontFamily = new FontFamily("宋体");
+                        l.Content = "运行" + kind;
+
+                        g = new Grid();
+                        g.Margin = new Thickness(0, 0, 0, 2);
+
+                        g.Children.Add(p);
+                        g.Children.Add(l);
+                        StackPanel1.Children.Add(g);
+                    }));
+
+                    Process process = new Process();
+                    process.StartInfo.FileName = Settings.JavaPath;
+                    process.StartInfo.Arguments = "-jar " + Settings.GamePath + "\\" + (string)downloadinfo["FileName"];
+                    await taskFactory.StartNew(() =>
+                    {
+                        process.Start();
+                        process.WaitForExit();
+                        this.Dispatcher.BeginInvoke(new Action(() =>
+                        {
+                            StackPanel1.Children.Remove(g);
+                            icon2.Kind = icon3.Kind = MaterialDesignThemes.Wpf.PackIconKind.Check;
+                            SetupDone.Visibility = Visibility.Visible;
+                        }));
+                    });
                 }
+                else
+                {
+                    await this.Dispatcher.BeginInvoke(new Action(() =>
+                    {
+                        icon2.Kind = icon3.Kind = MaterialDesignThemes.Wpf.PackIconKind.Check;
+                        SetupDone.Visibility = Visibility.Visible;
+                    }));
+                }
+                Launcher.JsonInfo = null;
+                Launcher.LaunchInfo = null;
             }
         }
         public void DownloadFile(string URL, string filename, ProgressBar prog, Label label, Grid grid, string text)
@@ -500,5 +550,10 @@ namespace XMCL.Pages
             }
         }
 
+        private void SetupDone_Click(object sender, RoutedEventArgs e)
+        {
+            setupGrid.Visibility = Visibility.Collapsed;
+            this.NavigationService.Navigate(new Page1());
+        }
     }
 }
