@@ -86,8 +86,8 @@
                             <Image x:Name="Image" Stretch="UniformToFill"/>
                             <Grid Margin="0,184,0,0" Background="#26FFFFFF">
                                 <fw:AcrylicPanel Target="{Binding ElementName=Image}" NoiseOpacity="0.02"/>
-                                <TextBlock x:Name="ImageLabel" Margin="10,29,10,0" Foreground="#E5FFFFFF" TextWrapping="Wrap" TextTrimming="WordEllipsis" FontFamily="宋体"/>
-                                <Label x:Name="ImageLabel1" Margin="0,0,0,37" Background="{x:Null}" FontSize="16" Foreground="White" FontFamily="宋体" VerticalContentAlignment="Bottom"/>
+                                <TextBlock x:Name="ImageLabel" Margin="10,29,10,0" Foreground="#E5FFFFFF" TextWrapping="Wrap" TextTrimming="WordEllipsis" FontFamily="Microsoft YaHei UI Light"/>
+                                <Label x:Name="ImageLabel1" Margin="0,0,0,37" Background="{x:Null}" FontSize="16" Foreground="White" FontFamily="Microsoft YaHei UI Light" VerticalContentAlignment="Bottom"/>
                             </Grid>
                         </Grid>
                     </materialDesign:Card>
