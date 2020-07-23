@@ -44,9 +44,10 @@ namespace XMCL.Pages
             GetList2();
 
             GPN.Text = Settings.GamePathName;
-            if (GP.Text.Length > 15)
-                GP.Text = Settings.GamePath.Substring(0, 15) + "..";
-            else GP.Text = Settings.GamePath;
+            string temp = (string)Json.ReadPath(Settings.GamePathName, "Path");
+            if (temp.Length > 15)
+                GP.Text = temp.Substring(0, 15) + "..";
+            else GP.Text = temp;
         }
         void GetList()
         {
@@ -290,9 +291,10 @@ namespace XMCL.Pages
         {
             Json.Write("Files", "GamePathName", (string)((RadioButton)sender).Tag);
             GPN.Text = Settings.GamePathName;
-            if (Settings.GamePath.Length > 15)
-                GP.Text = Settings.GamePath.Substring(0, 15) + "..";
-            else GP.Text = Settings.GamePath;
+            string temp = (string)Json.ReadPath(Settings.GamePathName, "Path");
+            if (temp.Length > 15)
+                GP.Text = temp.Substring(0, 15) + "..";
+            else GP.Text = temp;
             GetList1();
         }
         private void Checked2(object sender, RoutedEventArgs e)

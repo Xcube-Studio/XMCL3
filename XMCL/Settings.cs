@@ -1,5 +1,4 @@
-﻿
-namespace XMCL
+﻿namespace XMCL
 {
     public class Settings
     {
@@ -8,7 +7,7 @@ namespace XMCL
             get
             {
                 if ((bool)Json.ReadPath(GamePathName, "RelativePath"))
-                    return System.IO.Path.GetFileName((string)Json.ReadPath(GamePathName, "Path"));
+                    return System.IO.Path.GetFullPath((string)Json.ReadPath(GamePathName, "Path"));
                 else return (string)Json.ReadPath(GamePathName, "Path");
             }
         }

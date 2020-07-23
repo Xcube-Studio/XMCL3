@@ -29,6 +29,8 @@ namespace XMCL.Pages
         public SubPage1()
         {
             InitializeComponent();
+            ThreadPool.SetMinThreads(100, 100); ThreadPool.SetMaxThreads(100, 100);
+            ServicePointManager.DefaultConnectionLimit = 100;
             listBoxItems = new ListBoxItem[] { Minecraft, Forge, Optifine, LiteLoader };
             Page = this;
             this.Minecraft.AddHandler(ListBoxItem.MouseLeftButtonDownEvent, new MouseButtonEventHandler(ListBoxItem_MouseLeftButtonDown), true);
@@ -272,8 +274,6 @@ namespace XMCL.Pages
                 if (kind != "minecraft")
                     model.Content = "安装" + kind;
                 else Second.Visibility = Visibility.Collapsed;
-                ThreadPool.SetMinThreads(100, 100); ThreadPool.SetMaxThreads(100, 100);
-                ServicePointManager.DefaultConnectionLimit = 100;
                 TaskFactory taskFactory = new TaskFactory();
                 string filename = string.Format(Settings.GamePath + "\\versions\\{0}\\{1}.json", version, version);
                 string replaceurl = "";
@@ -485,6 +485,7 @@ namespace XMCL.Pages
         public void DownloadFile(string URL, string filename, ProgressBar prog, Label label, Grid grid, string text)
         {
             HttpWebRequest request = (HttpWebRequest)WebRequest.Create(URL);
+            request.Timeout = 30000;
             try
             {
                 request.KeepAlive = false;
