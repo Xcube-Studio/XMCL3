@@ -60,7 +60,7 @@ namespace XMCL
                             }));
                         else this.Dispatcher.BeginInvoke(new Action(() =>
                              {
-                                 MainWindow.ShowTip("登陆失败,请检查密码.[或多次重复被服务器禁止登录]", 1);
+                                 MainWindow.ShowTip("登陆失败,请检查密码.[或多次重复被服务器禁止登录]", 3);
                              })); 
                         this.Dispatcher.BeginInvoke(new Action(() =>
                         {

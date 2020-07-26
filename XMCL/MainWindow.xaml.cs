@@ -477,8 +477,11 @@ namespace XMCL
                         try { Skin.GetSkins(Settings.UUID, App.Folder_XMCL); } catch { }
                         this.Dispatcher.BeginInvoke(new Action(() =>
                         {
-                            head1.Source = new BitmapImage(new Uri(App.Folder_XMCL + "\\user\\" + Json.ReadUser(Settings.UUID, "userName") + "\\head1.png"));
-                            head2.Source = new BitmapImage(new Uri(App.Folder_XMCL + "\\user\\" + Json.ReadUser(Settings.UUID, "userName") + "\\head2.png"));
+                            try
+                            {
+                                head1.Source = new BitmapImage(new Uri(App.Folder_XMCL + "\\user\\" + Json.ReadUser(Settings.UUID, "userName") + "\\head1.png"));
+                                head2.Source = new BitmapImage(new Uri(App.Folder_XMCL + "\\user\\" + Json.ReadUser(Settings.UUID, "userName") + "\\head2.png"));
+                            } catch { }
                         }));
                     });
                 }

@@ -40,9 +40,8 @@ namespace XMCL
                     throw ex;
                 }
             }
-            if (Settings.JavaPath.Length > 0)
-            { }
-            else
+
+            if (Settings.JavaPath == null || Settings.JavaPath.Length == 0)
             {
                 List<string> vs = Java.GetJavaList();
                 if (vs != null)
