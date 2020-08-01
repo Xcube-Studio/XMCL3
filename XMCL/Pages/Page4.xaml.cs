@@ -31,7 +31,9 @@ namespace XMCL.Pages
             Resources.Remove("PrimaryHueDarkBrush");
             Resources.Add("PrimaryHueDarkBrush", new SolidColorBrush((System.Windows.Media.Color)System.Windows.Media.ColorConverter.ConvertFromString(Settings.PrimaryHueDarkBrush)));
             #region Update
+            
             Label1.Content = "检查更新";
+            try {
             await Task.Run(() =>
             {
                 WebClient webClient = new WebClient();
@@ -46,6 +48,8 @@ namespace XMCL.Pages
                     }));
                 webClient.Dispose();
             });
+            }
+            catch { Label1.Content = "检查更新失败"; }
             #endregion
             #region JSON
             Label1.Content = "检查配置文件";

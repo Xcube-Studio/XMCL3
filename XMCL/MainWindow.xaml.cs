@@ -121,6 +121,15 @@ namespace XMCL
                 MainImage.Source = new BitmapImage(new Uri(Settings.Background));
             #endregion
             GC.Collect();
+            if (Settings.BGP)
+            {
+                BGP.Visibility = Visibility.Visible;
+                
+            }
+            else
+            {
+                BGP.Visibility = Visibility.Collapsed;
+            }
         }
         public static Task ShowTip(string text, int second) => ShowTip(new TextBlock() { Text = text, Margin = new Thickness(10), TextWrapping = TextWrapping.Wrap }, second);
         public static Task ShowTip(UIElement uIElement, int second)
@@ -468,5 +477,27 @@ namespace XMCL
             }
         }
 
+        private void BGP_Click(object sender, RoutedEventArgs e)
+        {
+            if(B1.Visibility==Visibility.Hidden)
+            {
+                BGP.ToolTip = "展开";
+                B1.Visibility = Visibility.Visible;
+                B2.Visibility = Visibility.Visible;
+                B3.Visibility = Visibility.Visible;
+                B4.Visibility = Visibility.Visible;
+                seeimage.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                BGP.ToolTip = "收缩";
+                B1.Visibility = Visibility.Hidden;
+                B2.Visibility = Visibility.Hidden;
+                B3.Visibility = Visibility.Hidden;
+                B4.Visibility = Visibility.Hidden;
+                seeimage.Visibility = Visibility.Hidden;
+
+            }
+        }
     }
 }

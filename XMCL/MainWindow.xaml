@@ -1,4 +1,4 @@
-﻿<Window x:Class="XMCL.MainWindow"
+﻿<Window
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft .com/expression/blend/2008"
@@ -6,7 +6,8 @@
         xmlns:local="clr-namespace:XMCL"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:fw="clr-namespace:SourceChord.FluentWPF;assembly=FluentWPF"
-        mc:Ignorable="d"
+        xmlns:d1="http://schemas.microsoft.com/expression/blend/2008" x:Class="XMCL.MainWindow"
+        mc:Ignorable="d d1"
         WindowStyle="None"
         ResizeMode="CanMinimize"
         AllowsTransparency="True"
@@ -18,12 +19,12 @@
 
 
         <BooleanToVisibilityConverter x:Key="booleanToVisibilityConverter" />
-        <Style TargetType="Label">
+        <Style TargetType="{x:Type Label}">
             <Setter Property="Template">
                 <Setter.Value>
-                    <ControlTemplate TargetType="Label">
+                    <ControlTemplate TargetType="{x:Type Label}">
                         <Border Padding="{TemplateBinding Padding}">
-                            <ContentPresenter RecognizesAccessKey="False"></ContentPresenter>
+                            <ContentPresenter RecognizesAccessKey="False"/>
                         </Border>
                     </ControlTemplate>
                 </Setter.Value>
@@ -37,12 +38,21 @@
     <Grid Margin="10" ClipToBounds="True">
         <Image x:Name="MainImage" Source="Resources/BackGround.png" Stretch="UniformToFill">
             <Image.Effect>
-                <BlurEffect Radius="2"></BlurEffect>
+                <BlurEffect Radius="2"/>
             </Image.Effect>
         </Image>
         <GroupBox Style="{DynamicResource MaterialDesignGroupBox}" materialDesign:ShadowAssist.ShadowDepth="Depth3" BorderThickness="2" Background="#00000000">
+            <GroupBox.Header>
+                <TextBlock x:Name="Text_Title" Text="XcubeLauncher" Foreground="White" Margin="20,0,20,0" >
+                    <TextBlock.ToolTip>
+                        <Button Content="Xcube Studio"/>
+                    </TextBlock.ToolTip>
+                </TextBlock>
+            </GroupBox.Header>
             <Grid Margin="-7,-9,-7,-7">
+                <Button x:Name="BGP"  Style="{StaticResource MaterialDesignRaisedButton}" ToolTip="收缩" Margin="0,0,729,400.667" Height="4" FontFamily="Microsoft YaHei UI Light" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="57" RenderTransformOrigin="0.5,0.5" Click="BGP_Click"/>
                 <Grid x:Name="Main">
+
                     <Grid.Effect>
                         <DropShadowEffect BlurRadius="10" ShadowDepth="0" Color="Black" Opacity="0.50"/>
                     </Grid.Effect>
@@ -76,11 +86,9 @@
                         </Grid>
                     </materialDesign:Card>
                     <materialDesign:Card x:Name="B4" Margin="206,122,399,0" Height="163" VerticalAlignment="Top" Background="White">
-                        <Grid x:Name="G4">
-
-                        </Grid>
+                        <Grid x:Name="G4"/>
                     </materialDesign:Card>
-                    <materialDesign:Card Margin="402,35,10,130" Background="#FCFFFFFF" ClipToBounds="True">
+                    <materialDesign:Card Margin="402,35,10,130" Background="#FCFFFFFF" ClipToBounds="True" x:Name="seeimage">
                         <Grid >
                             <ProgressBar x:Name="Image_Loading" Style="{StaticResource MaterialDesignCircularProgressBar}" Value="0" IsIndeterminate="True" HorizontalAlignment="Center" Height="30" Width="30" VerticalAlignment="Center" Foreground="{DynamicResource PrimaryHueMidBrush}"/>
                             <Image x:Name="Image" Stretch="UniformToFill"/>
@@ -101,13 +109,6 @@
                 <Frame x:Name="Frame" Content="{x:Null}" NavigationUIVisibility="Hidden" VerticalAlignment="Stretch" Margin="0,0,0,0" Navigated="Frame_Navigated" d:IsHidden="True" Visibility="Collapsed" Foreground="{x:Null}"/>
                 <materialDesign:Card x:Name="Tip" Visibility="Collapsed" Background="White" Margin="0,10,-230,0" HorizontalAlignment="Right" VerticalAlignment="Top" Width="230" Height="50"/>
             </Grid>
-            <GroupBox.Header>
-                <TextBlock x:Name="Text_Title" Text="XcubeLauncher" Foreground="White" Margin="20,0,20,0" >
-                    <TextBlock.ToolTip>
-                        <Button Content="Xcube Studio"/>
-                    </TextBlock.ToolTip>
-                </TextBlock>
-            </GroupBox.Header>
         </GroupBox>
         <Button Style="{DynamicResource MaterialDesignFlatMidBgButton}" ToolTip="Exit" Margin="0,4,4,0" HorizontalAlignment="Right" VerticalAlignment="Top" Width="48" Height="25" Foreground="White" Click="Button_Close">
             <materialDesign:PackIcon Kind="WindowClose" />
