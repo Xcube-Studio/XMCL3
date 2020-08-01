@@ -32,8 +32,16 @@ namespace XMCL
         public static Card Tip1;
         public static Frame Frame1;
         public static ComboBox ComboBox;
-        Performance performance;
-        Timer timer;
+        public static Performance performance;
+        public static Timer timer;
+        public static Label Label_1;
+        public static Label Label_2;
+        public static System.Windows.Controls.Image Image1;
+        public static System.Windows.Controls.Image Image2;
+        public static Label CPU;
+        public static Label RAM;
+        public static ProgressBar cpu_PB;
+        public static ProgressBar ram_PB;
 
         #region 图形/控件
         public MainWindow()
@@ -44,9 +52,18 @@ namespace XMCL
             ComboBox = C1;
             Frame1 = Frame;
             Tip1 = Tip;
+            Label_1 = Label_Name;
+            Label_2 = Label_Logined;
+            Image1 = head1;
+            Image2 = head2;
+            CPU = CPU_;
+            RAM = RAM_;
+            cpu_PB = CPU_PB;
+            ram_PB = RAM_PB;
             string[] a = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString().Split('.');
             Text_Title.Text += " " + a[0] + "." + a[1] + a[2] + a[3];
             Card_Login.ClipToBounds = true;
+            Frame.Navigate(new Page4());
         }
         private void Window_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
@@ -64,52 +81,8 @@ namespace XMCL
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             this.Activate();
-            #region Update
-            Task.Run(() =>
-            {
-                WebClient webClient = new WebClient();
-                string[] a;
-                if (App.version.Contains("Pre"))
-                    a = Encoding.UTF8.GetString(webClient.DownloadData("http://api.axing6.cn/debug.html")).Split('#');
-                else a = Encoding.UTF8.GetString(webClient.DownloadData("http://api.axing6.cn/api.html")).Split('#');
-                if (a[0] != App.version)
-                    this.Dispatcher.BeginInvoke(new Action(() =>
-                    {
-                        Frame.Visibility = Visibility.Visible;
-                        Frame.Navigate(new Page3());
-                    }));
-                webClient.Dispose();
-            });
-            #endregion
-            #region JSON
-            C1.ItemsSource = SomethingUseful.GetVersions(Settings.GamePath);
-            if (Settings.LatestVerison.Contains(" "))
-            {
-                string[] vs = Settings.LatestVerison.Split(' ');
-                if (vs[0] == Settings.GamePath)
-                {
-                    for (int i = 0; i < C1.Items.Count; i++)
-                    {
-                        if (C1.Items[i].ToString() == vs[1])
-                            C1.SelectedIndex = i;
-                    }
-                }
-            }
-            #endregion
-            #region Login/Iamge
-            Login();
+            #region Iamge
             Image_Change();
-            #endregion
-            #region Timer
-            Task.Run(() =>
-            {
-                performance = new Performance();
-                timer = new Timer();
-                timer.Enabled = true;
-                timer.Interval = 1500;
-                timer.Elapsed += Timer_Elapsed;
-                timer.Start();
-            });
             #endregion
             #region Theme
             #region Acrylic
@@ -212,7 +185,7 @@ namespace XMCL
             else launchInfo.Player.Mode = Player.Authentication.Offline;
 
             XMCLSettings settings = new XMCLSettings();
-            settings.DefaultConnectionLimit = 1024;
+            settings.DefaultConnectionLimit = 1000;
             settings.DownloadSource = Settings.DownloadSource;
             settings.AfterLaunchAction = new Action(delegate
             {
@@ -335,7 +308,7 @@ namespace XMCL
             });
         }
         #endregion
-        private void Timer_Elapsed(object sender, ElapsedEventArgs e)
+        public static void Timer_Elapsed(object sender, ElapsedEventArgs e)
         {
             float cpu = performance.CPU_Utilization();
             float allram = performance.GetTotalPhysicalMemory();
@@ -358,17 +331,17 @@ namespace XMCL
             }
             else stringBuilder.Append(b + "MB");
 
-            this.Dispatcher.BeginInvoke(new Action(() =>
+            Window.Dispatcher.BeginInvoke(new Action(() =>
             {
-                CPU_PB.Value = cpu;
-                RAM_PB.Value = (1 - ram);
-                RAM_.Content = stringBuilder.ToString();
+                cpu_PB.Value = cpu;
+                ram_PB.Value = (1 - ram);
+                RAM.Content = stringBuilder.ToString();
                 if (c.Contains("."))
                 {
                     string[] c1 = c.Split('.');
-                    CPU_.Content = c1[0] + "." + c1[1].Substring(0, 1) + "%";
+                    CPU.Content = c1[0] + "." + c1[1].Substring(0, 1) + "%";
                 }
-                else CPU_.Content = c + "%";
+                else CPU.Content = c + "%";
             }));
         }
         ImageSource FileToImageSource(string filename)
@@ -453,34 +426,34 @@ namespace XMCL
                 Image_Loading.Visibility = Visibility.Collapsed;
             }
         }
-        void Login()
+        public static async void Login()
         {
             if (Json.ReadUsers().Count == 0)
             {
-                Window1.login(this);
+                Window1.login(Window);
                 Login();
             }
-            Label_Name.Content = Json.ReadUser(Settings.UUID, "userName");
+            Label_1.Content = Json.ReadUser(Settings.UUID, "userName");
             if (Json.ReadUser(Settings.UUID, "LoginMode") == "正版")
             {
-                Label_Logined.Content = "正版验证";
+                Label_2.Content = "正版验证";
                 try
                 {
-                    head1.Source = new BitmapImage(new Uri(App.Folder_XMCL + "\\user\\" + Json.ReadUser(Settings.UUID, "userName") + "\\head1.png"));
-                    head2.Source = new BitmapImage(new Uri(App.Folder_XMCL + "\\user\\" + Json.ReadUser(Settings.UUID, "userName") + "\\head2.png"));
+                    Image1.Source = new BitmapImage(new Uri(App.Folder_XMCL + "\\user\\" + Json.ReadUser(Settings.UUID, "userName") + "\\head1.png"));
+                    Image2.Source = new BitmapImage(new Uri(App.Folder_XMCL + "\\user\\" + Json.ReadUser(Settings.UUID, "userName") + "\\head2.png"));
                 }
                 catch
                 {
-                    Task.Run(delegate
+                    await Task.Run(delegate
                     {
                         SomethingUseful.DelectDir(App.Folder_XMCL + "\\user\\" + Json.ReadUser(Settings.UUID, "userName"));
                         try { Skin.GetSkins(Settings.UUID, App.Folder_XMCL); } catch { }
-                        this.Dispatcher.BeginInvoke(new Action(() =>
+                        Window.Dispatcher.BeginInvoke(new Action(() =>
                         {
                             try
                             {
-                                head1.Source = new BitmapImage(new Uri(App.Folder_XMCL + "\\user\\" + Json.ReadUser(Settings.UUID, "userName") + "\\head1.png"));
-                                head2.Source = new BitmapImage(new Uri(App.Folder_XMCL + "\\user\\" + Json.ReadUser(Settings.UUID, "userName") + "\\head2.png"));
+                                Image1.Source = new BitmapImage(new Uri(App.Folder_XMCL + "\\user\\" + Json.ReadUser(Settings.UUID, "userName") + "\\head1.png"));
+                                Image2.Source = new BitmapImage(new Uri(App.Folder_XMCL + "\\user\\" + Json.ReadUser(Settings.UUID, "userName") + "\\head2.png"));
                             } catch { }
                         }));
                     });
@@ -488,9 +461,9 @@ namespace XMCL
             }
             else
             {
-                Label_Logined.Content = "离线验证";
-                head1.Source = new BitmapImage(new Uri(@"pack://application:,,,/XMCL;component/Resources/steve.png"));
-
+                Label_2.Content = "离线验证";
+                Image1.Source = new BitmapImage(new Uri(@"pack://application:,,,/XMCL;component/Resources/steve.png"));
+                Image2.Source = null;
             }
         }
 
