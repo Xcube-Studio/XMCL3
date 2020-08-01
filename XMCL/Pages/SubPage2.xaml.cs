@@ -1,7 +1,7 @@
 ﻿using MySql.Data.MySqlClient;
 using System;
-using System.Windows.Controls;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Media;
 
 namespace XMCL.Pages
@@ -20,7 +20,7 @@ namespace XMCL.Pages
         int state;
         private void ToggleButton_Click(object sender, System.Windows.RoutedEventArgs e)
         {
-            if((bool)state_button.IsChecked)
+            if ((bool)state_button.IsChecked)
             {
                 state_text.Content = "反馈选中：BUG";
                 state = 1;
@@ -56,20 +56,20 @@ namespace XMCL.Pages
                 }
                 Dispatcher.Invoke(new Action(() =>
                 {
-                      sql = "Insert Into issues(id, text,reply,replied_by,_by,state,title)Values('" + id + "','" + text.Text + "','null','null','" + Name1.Text + "','" + state + "','" + Title1.Text + "')";
-                      cmd.CommandText = sql;
+                    sql = "Insert Into issues(id, text,reply,replied_by,_by,state,title)Values('" + id + "','" + text.Text + "','null','null','" + Name1.Text + "','" + state + "','" + Title1.Text + "')";
+                    cmd.CommandText = sql;
                 }));
                 i = Convert.ToInt32(cmd.ExecuteNonQuery());
                 if (i > 0)
                     Dispatcher.BeginInvoke(new Action(() =>
                     {
-                       OK.Visibility = Visibility.Visible;
+                        OK.Visibility = Visibility.Visible;
                         Get.Visibility = Visibility.Collapsed;
                     }));
                 else
                     Dispatcher.BeginInvoke(new Action(() =>
                     {
-                        MainWindow.ShowTip("提交失败",5);
+                        MainWindow.ShowTip("提交失败", 5);
                     }));
             });
         }

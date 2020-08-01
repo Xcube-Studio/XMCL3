@@ -4,8 +4,8 @@ using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Media;
 using System.Windows.Controls;
+using System.Windows.Media;
 
 namespace XMCL.Pages
 {
@@ -33,7 +33,7 @@ namespace XMCL.Pages
                 this.Dispatcher.BeginInvoke(new Action(() =>
                 {
                     ProgressBar1.Visibility = Visibility.Collapsed;
-                    LV.Content += App.version + "    →" + a[0];
+                    LV.Content += App.version + "→" + a[0];
                 }));
             });
             Resources.Remove("PrimaryHueMidBrush");
@@ -46,6 +46,7 @@ namespace XMCL.Pages
         }
         private void RadioButton_Click(object sender, RoutedEventArgs e)
         {
+
             Button_Update.IsChecked = true;
             Button_Update.IsEnabled = false;
             ProgressBar1.Visibility = Visibility.Visible;
@@ -113,5 +114,7 @@ namespace XMCL.Pages
                 App.HasUpdated = true;
             }));
         }
+
+
     }
 }

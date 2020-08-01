@@ -21,7 +21,7 @@ namespace XMCL
                 return null;
             }
         }
-        public static void Write(string Section, string Name, JToken jToken )
+        public static void Write(string Section, string Name, JToken jToken)
         {
             if (System.IO.File.Exists(a))
             {
@@ -76,7 +76,7 @@ namespace XMCL
             jObject["Login"]["Users"] = jArray1;
             System.IO.File.WriteAllText(a, jObject.ToString());
         }
-        public static void AddUsers(string Name, string uuid, string Token, string Mode ,string email)
+        public static void AddUsers(string Name, string uuid, string Token, string Mode, string email)
         {
             string txt = System.IO.File.ReadAllText(a);
             JObject jObject = JObject.Parse(txt);
@@ -88,7 +88,7 @@ namespace XMCL
                 if (JObject.Parse(jToken.ToString())["uuid"].ToString() == uuid)
                     HasSame = true;
             }
-            if(HasSame)
+            if (HasSame)
             {
                 ChangeUser(uuid, "userName", Name);
                 ChangeUser(uuid, "uuid", uuid);
@@ -114,7 +114,7 @@ namespace XMCL
             string txt = System.IO.File.ReadAllText(a);
             JObject jObject = JObject.Parse(txt);
             JArray jArray = JArray.Parse(jObject["Login"]["Users"].ToString());
-            for (int i=0;i<jArray.Count;i++)
+            for (int i = 0; i < jArray.Count; i++)
             {
                 JToken jToken = jArray[i];
                 if (JObject.Parse(jToken.ToString())["uuid"].ToString() == uuid)

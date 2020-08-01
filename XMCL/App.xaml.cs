@@ -22,7 +22,7 @@ namespace XMCL
                );
         }
         public static string Folder_XMCL = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\.XMCL";
-        public static void Themes(string color_str , string color_str1 , string color_str2)
+        public static void Themes(string color_str, string color_str1, string color_str2)
         {
             Json.Write("Individualization", "PrimaryHueMidBrush", color_str);
             Json.Write("Individualization", "PrimaryHueLightBrush", color_str1);

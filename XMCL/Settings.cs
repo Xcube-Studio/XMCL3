@@ -14,18 +14,18 @@
         public static string GamePathName { get { return (string)Json.Read("Files", "GamePathName"); } }
         public static string JavaPath { get { return (string)Json.Read("Files", "JavaPath"); } }
         public static bool CompleteResource { get { return (bool)Json.Read("Files", "CompleteResource"); } }
-        public static XL.Core.Tools.DownloadSource DownloadSource 
-        { 
+        public static XL.Core.Tools.DownloadSource DownloadSource
+        {
             get
             {
-                if (Json.Read("Files", "DownloadSource").ToString() == "Mojang" )
+                if (Json.Read("Files", "DownloadSource").ToString() == "Mojang")
                     return XL.Core.Tools.DownloadSource.Mojang;
                 else if (Json.Read("Files", "DownloadSource").ToString() == "BMCLAPI")
                     return XL.Core.Tools.DownloadSource.BMCPAPI;
                 else if (Json.Read("Files", "DownloadSource").ToString() == "Mcbbs")
                     return XL.Core.Tools.DownloadSource.Mcbbs;
                 else return XL.Core.Tools.DownloadSource.Mojang;
-            } 
+            }
         }
         public static bool MoreValueEnabled { get { return (bool)Json.Read("JVM", "MoreValueEnabled"); } }
         public static string Value { get { return (string)Json.Read("JVM", "Value"); } }

@@ -1,9 +1,9 @@
-﻿using System.Windows.Controls;
-using MySql.Data.MySqlClient;
-using System.Windows;
-using System.Windows.Media;
-using System.Threading.Tasks;
+﻿using MySql.Data.MySqlClient;
 using System;
+using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Media;
 namespace XMCL.Pages
 {
     /// <summary>

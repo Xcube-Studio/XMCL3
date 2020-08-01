@@ -1,20 +1,20 @@
-﻿using System;
+﻿using MaterialDesignThemes.Wpf;
+using Newtonsoft.Json.Linq;
+using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.IO;
+using System.Net;
 using System.Threading;
+using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Media;
 using System.Windows.Controls;
 using System.Windows.Input;
-using XL.Core;
-using XL.Core.Tools;
-using XL.Core.LaunchCore;
-using System.Diagnostics;
-using System.Threading.Tasks;
-using System.IO;
-using Newtonsoft.Json.Linq;
+using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using MaterialDesignThemes.Wpf;
-using System.Net;
+using XL.Core;
+using XL.Core.LaunchCore;
+using XL.Core.Tools;
 
 namespace XMCL.Pages
 {
@@ -54,7 +54,7 @@ namespace XMCL.Pages
         {
             load();
         }
-        string version;string kind;JObject downloadinfo;
+        string version; string kind; JObject downloadinfo;
         void load()
         {
             foreach (Thread thread in Threads.ToArray())
@@ -77,7 +77,7 @@ namespace XMCL.Pages
                         listBoxItem.Content = a[0].Split(',')[0];
                         listBoxItem.Tag = a[0].Split(',')[1];
                         Latest.Children.Add(listBoxItem);
-                        listBoxItem.PreviewMouseLeftButtonDown += ListBoxItem_PreviewMouseLeftButtonDown1; 
+                        listBoxItem.PreviewMouseLeftButtonDown += ListBoxItem_PreviewMouseLeftButtonDown1;
                         listBoxItem1.PreviewMouseLeftButtonDown += ListBoxItem_PreviewMouseLeftButtonDown1;
                         if (ShowSnapshot.IsChecked == true)
                         {
@@ -134,9 +134,9 @@ namespace XMCL.Pages
             if (S1.Visibility == Visibility.Visible)
                 try { this.NavigationService.Navigate(null); version = null; kind = null; } catch { }
             if (S2.Visibility == Visibility.Visible)
-                { S1.Visibility = Visibility.Visible; S2.Visibility = Visibility.Collapsed; S3.Visibility = Visibility.Collapsed; }
+            { S1.Visibility = Visibility.Visible; S2.Visibility = Visibility.Collapsed; S3.Visibility = Visibility.Collapsed; }
             if (S3.Visibility == Visibility.Visible)
-                { S1.Visibility = Visibility.Collapsed; S2.Visibility = Visibility.Visible; S3.Visibility = Visibility.Collapsed; }
+            { S1.Visibility = Visibility.Collapsed; S2.Visibility = Visibility.Visible; S3.Visibility = Visibility.Collapsed; }
         }
         private void ListBoxItem_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {

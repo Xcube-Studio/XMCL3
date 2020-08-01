@@ -177,7 +177,7 @@
                     </Grid>
                 </StackPanel>
             </ScrollViewer>
-            <ScrollViewer x:Name="Set3" Margin="10" VerticalScrollBarVisibility="Hidden" Visibility="Collapsed" d:IsHidden="True" >
+            <ScrollViewer x:Name="Set3" Margin="10" VerticalScrollBarVisibility="Hidden" Visibility="Collapsed" d:IsHidden="True"  >
                 <StackPanel>
                     <StackPanel.Effect>
                         <DropShadowEffect BlurRadius="10" ShadowDepth="0" Color="Black" Opacity="0.50"/>
@@ -207,7 +207,11 @@
                     </Grid>
                     <Grid Margin="5,1.5,5,0">
                         <Label Height="48" Background="White" Content="     背景图片（留空则不启用）" Foreground="Black" VerticalContentAlignment="Center" FontSize="14" FontFamily="Microsoft YaHei UI Light" Margin="0"/>
-                        <TextBox x:Name="TextBox_BackGround" VerticalAlignment="Top" Margin="0,10,10,0" RenderTransformOrigin="0,1" FontFamily="Microsoft YaHei UI Light" HorizontalAlignment="Right" Width="353" Height="28" VerticalContentAlignment="Bottom" HorizontalContentAlignment="Left"  />
+                        <TextBox x:Name="TextBox_BackGround" VerticalAlignment="Top" Margin="0,10,10,0" RenderTransformOrigin="0,1" FontFamily="Microsoft YaHei UI Light" HorizontalAlignment="Right" Width="353" Height="28" VerticalContentAlignment="Bottom" HorizontalContentAlignment="Left"  TextChanged="TextBox_BackGround_TextChanged"/>
+                  </Grid>
+                    <Grid Margin="5,1.5,5,0">
+                        <Label Height="48" Background="White" Content="     彩蛋主题" Foreground="Black" VerticalContentAlignment="Center" FontSize="14" FontFamily="Microsoft YaHei UI Light" Margin="0"/>
+                        <TextBox x:Name="TextBox_Egg" VerticalAlignment="Top" Margin="0,10,10,0" RenderTransformOrigin="0,1" FontFamily="Microsoft YaHei UI Light" HorizontalAlignment="Right" Width="353" Height="28" VerticalContentAlignment="Bottom" HorizontalContentAlignment="Left" TextChanged="TextBox_Egg_TextChanged"  />
                     </Grid>
                 </StackPanel>
             </ScrollViewer>

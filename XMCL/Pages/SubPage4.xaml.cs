@@ -1,18 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using Newtonsoft.Json.Linq;
+using System;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using Newtonsoft.Json.Linq;
 
 namespace XMCL.Pages
 {
@@ -47,8 +38,8 @@ namespace XMCL.Pages
             }
             else
             {
-                JArray jArray = Json.ReadPaths();bool a = false;
-                foreach(JObject jObject in jArray)
+                JArray jArray = Json.ReadPaths(); bool a = false;
+                foreach (JObject jObject in jArray)
                 {
                     if ((string)jObject["Name"] == NameTextBox.Text)
                     {
@@ -84,7 +75,7 @@ namespace XMCL.Pages
                     {
                         TextPath.Text = RelativePath(System.IO.Directory.GetCurrentDirectory(), open.SelectedPath);
                     }
-                    catch { MainWindow.ShowTip("这不是一个有效的相对路径",3); }
+                    catch { MainWindow.ShowTip("这不是一个有效的相对路径", 3); }
                 else
                     TextPath.Text = open.SelectedPath;
             }

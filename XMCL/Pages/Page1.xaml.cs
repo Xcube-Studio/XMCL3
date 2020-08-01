@@ -1,4 +1,6 @@
-﻿using MaterialDesignThemes.Wpf;
+﻿using Ionic.Zip;
+using MaterialDesignThemes.Wpf;
+using Newtonsoft.Json.Linq;
 using System;
 using System.IO;
 using System.Threading.Tasks;
@@ -7,8 +9,6 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using Newtonsoft.Json.Linq;
-using Ionic.Zip;
 
 namespace XMCL.Pages
 {
@@ -133,7 +133,7 @@ namespace XMCL.Pages
                         }
                     }
                 }
-                catch(Exception ex)
+                catch (Exception ex)
                 {
                     this.Dispatcher.BeginInvoke(new Action(async () =>
                     {
@@ -212,7 +212,8 @@ namespace XMCL.Pages
                                         JArray jArray = JArray.Parse(jObject["authors"].ToString());
                                         foreach (JToken jToken in jArray)
                                             textBlock1.Text += jToken + " ";
-                                    } catch { textBlock1.Text += "null"; }
+                                    }
+                                    catch { textBlock1.Text += "null"; }
                                 }
                                 else if (info == "pack.mcmeta")
                                     textBlock1.Text = (string)jObject["pack"]["description"];
@@ -235,7 +236,7 @@ namespace XMCL.Pages
         {
             List2.Children.Clear();
             JArray jArray = Json.ReadPaths();
-            foreach(JObject jObject in jArray)
+            foreach (JObject jObject in jArray)
             {
                 this.Dispatcher.Invoke(new Action(() =>
                 {
@@ -300,14 +301,14 @@ namespace XMCL.Pages
         private void Checked2(object sender, RoutedEventArgs e)
         {
             CheckBox checkBox = (CheckBox)sender;
-            if(!(bool)checkBox.IsChecked)
+            if (!(bool)checkBox.IsChecked)
                 File.Move((string)checkBox.Tag, Path.ChangeExtension((string)checkBox.Tag, ".disabled"));
             else File.Move((string)checkBox.Tag, Path.ChangeExtension((string)checkBox.Tag, ".jar"));
         }
         private void Checked1(object sender, RoutedEventArgs e)
         {
             RadioButton radioButton = (RadioButton)sender;
-            foreach(string text in MainWindow.ComboBox.Items)
+            foreach (string text in MainWindow.ComboBox.Items)
                 if (text == radioButton.Tag.ToString())
                     MainWindow.ComboBox.SelectedItem = text;
         }

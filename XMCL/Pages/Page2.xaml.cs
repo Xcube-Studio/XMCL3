@@ -1,13 +1,14 @@
-﻿using System;
+﻿using MySql.Data.MySqlClient;
+using Newtonsoft.Json.Linq;
+using System;
+using System.Linq;
+using System.Net;
+using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Media;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Media;
 using WinForm = System.Windows.Forms;
-using System.Threading.Tasks;
-using MySql.Data.MySqlClient;
-using Newtonsoft.Json.Linq;
-using System.Windows.Data;
 
 namespace XMCL.Pages
 {
@@ -118,7 +119,7 @@ namespace XMCL.Pages
                 try
                 {
                     Themes.Children.Clear();
-                    JArray jArray = JArray.Parse(System.IO.File.ReadAllText(App.Folder_XMCL + "\\Themes.json",System.Text.Encoding.UTF8));
+                    JArray jArray = JArray.Parse(System.IO.File.ReadAllText(App.Folder_XMCL + "\\Themes.json", System.Text.Encoding.UTF8));
                     foreach (JObject jObject in jArray)
                     {
                         Color color = (Color)ColorConverter.ConvertFromString(jObject["PrimaryHueMidBrush"].ToString());
@@ -213,6 +214,11 @@ namespace XMCL.Pages
                 ToggleButton5.IsChecked = true;
             else ToggleButton5.IsChecked = false;
             TextBox_BackGround.Text = (string)Json.Read("Individualization", "Background");
+
+            if (Json.Read("Individualization", "Background").Contains("Dev"))
+            {
+                TextBox_Egg.Text = "Developer-Black";
+            }
             #endregion
             #region Set5
             MySQL_Loaded();
@@ -289,6 +295,10 @@ namespace XMCL.Pages
             Resources.Add("PrimaryHueLightBrush", new SolidColorBrush((System.Windows.Media.Color)System.Windows.Media.ColorConverter.ConvertFromString(Settings.PrimaryHueLightBrush)));
             Resources.Remove("PrimaryHueDarkBrush");
             Resources.Add("PrimaryHueDarkBrush", new SolidColorBrush((System.Windows.Media.Color)System.Windows.Media.ColorConverter.ConvertFromString(Settings.PrimaryHueDarkBrush)));
+            if (((string)Json.Read("Individualization", "Background")).Contains("Dev") == true)
+            {
+                Json.Write("Individualization", "Background", " ");
+            }
         }
         #region
         private async void TextBlock_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
@@ -297,9 +307,11 @@ namespace XMCL.Pages
             if (egg == 5)
             {
                 await MainWindow.ShowTip("xuan2006：冒泡！沉！\r\n(日常冒泡...)", 2);
-                await MainWindow.ShowTip("xingxing520：快去更新！\r\n(还有不去更新,又有bug!)",2);
+                await MainWindow.ShowTip("xingxing520：快去更新！\r\n(还有不去更新,又有bug!)", 2);
                 await MainWindow.ShowTip("xuan2006：qwq~\r\n(不存在的,咕咕咕)", 2);
                 await MainWindow.ShowTip("gxh2004：吃瓜...\r\n(emmmmmmm)", 2);
+                await MainWindow.ShowTip("恭喜你找到彩蛋！\r\n彩蛋码已复制到剪切板", 2);
+                Clipboard.SetDataObject("Developer-Black");
                 egg = 0;
             }
         }
@@ -311,6 +323,42 @@ namespace XMCL.Pages
         private void ToggleButton3_Click(object sender, RoutedEventArgs e)
         {
             TextBox_Memory.IsEnabled = !(bool)ToggleButton3.IsChecked;
+        }
+
+        private async void TextBox_Egg_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (TextBox_Egg.Text == "Developer-Black")
+            {
+                if (((string)Json.Read("Individualization", "Background")).Contains("Dev") == false)
+                {
+                    await MainWindow.ShowTip("“Developer-Black”主题正在配置中.....", 2);
+                    App.Themes("#212121", "#484848", "#000000");
+                    Resources.Remove("PrimaryHueMidBrush");
+                    Resources.Add("PrimaryHueMidBrush", new SolidColorBrush((System.Windows.Media.Color)System.Windows.Media.ColorConverter.ConvertFromString(Settings.PrimaryHueMidBrush)));
+                    Resources.Remove("PrimaryHueLightBrush");
+                    Resources.Add("PrimaryHueLightBrush", new SolidColorBrush((System.Windows.Media.Color)System.Windows.Media.ColorConverter.ConvertFromString(Settings.PrimaryHueLightBrush)));
+                    Resources.Remove("PrimaryHueDarkBrush");
+                    Resources.Add("PrimaryHueDarkBrush", new SolidColorBrush((System.Windows.Media.Color)System.Windows.Media.ColorConverter.ConvertFromString(Settings.PrimaryHueDarkBrush)));
+                    WebClient web = new WebClient();
+                    Json.Write("Individualization", "PrimaryHueMidBrush", "#212121");
+                    Json.Write("Individualization", "PrimaryHueDarkBrush", "#000000");
+                    Json.Write("Individualization", "PrimaryHueLightBrush", "#484848");
+                    web.DownloadFile("http://106.14.64.250/api/Develop.png", AppDomain.CurrentDomain.BaseDirectory + "\\Developer.png");
+                    TextBox_BackGround.Text = AppDomain.CurrentDomain.BaseDirectory + "\\Developer.png";
+                    Json.Write("Individualization", "Background", TextBox_BackGround.Text);
+                    await MainWindow.ShowTip("“Developer-Black”主题配置完成 \r\n 主题背景请在重启后启用", 2);
+                }
+                else
+                {
+
+                }
+            }
+        }
+
+        private async void TextBox_BackGround_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            Json.Write("Individualization", "Background", TextBox_BackGround.Text);
+            await MainWindow.ShowTip("背景请在重启后启用", 2);
         }
     }
 }

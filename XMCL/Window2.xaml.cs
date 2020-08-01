@@ -1,10 +1,8 @@
-﻿using Newtonsoft.Json.Linq;
-using System;
+﻿using MaterialDesignThemes.Wpf;
+using Newtonsoft.Json.Linq;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Input;
 using System.Windows.Media;
-using MaterialDesignThemes.Wpf;
 
 
 namespace XMCL
@@ -26,7 +24,7 @@ namespace XMCL
         {
             List.Children.Clear();
             JArray jArray = Json.ReadUsers();
-            for (int i=0;i<jArray.Count;i++)
+            for (int i = 0; i < jArray.Count; i++)
             {
                 Button button = new Button();
                 button.HorizontalAlignment = System.Windows.HorizontalAlignment.Right;

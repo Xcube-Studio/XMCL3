@@ -18,7 +18,7 @@
             <DropShadowEffect BlurRadius="10" ShadowDepth="0" Color="Black" Opacity="0.50"/>
         </Grid.Effect>
         <Grid Margin="0,85,0,120" Background="White">
-            <Label Content="更新-XMCL" FontSize="28" FontFamily="Microsoft YaHei UI Light" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="20,10,0,0"/>
+            <Label Content="自动更新" FontSize="28" FontFamily="Microsoft YaHei UI Light" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="20,10,0,0"/>
             <Label x:Name="LV" Content="版本:" FontFamily="Microsoft YaHei UI Light" FontSize="16" Margin="40,54,0,0" HorizontalAlignment="Left" VerticalAlignment="Top"/>
             <RadioButton x:Name="Button_Update" Style="{StaticResource MaterialDesignTabRadioButton}" Margin="703,163,10,15" Content="Update" IsChecked="True" Background="#FF2196F3" BorderBrush="#FF6ec6ff" Foreground="White" FontFamily="Microsoft YaHei UI Light" Click="RadioButton_Click" />
             <ProgressBar x:Name="ProgressBar1" IsIndeterminate="True" Value="0" Height="2" Margin="703,193,10,15" />

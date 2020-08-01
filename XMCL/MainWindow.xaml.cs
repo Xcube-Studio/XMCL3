@@ -1,4 +1,5 @@
 ﻿using MaterialDesignThemes.Wpf;
+using SourceChord.FluentWPF;
 using System;
 using System.Drawing;
 using System.IO;
@@ -7,16 +8,15 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Timers;
 using System.Windows;
-using System.Windows.Data;
 using System.Windows.Controls;
+using System.Windows.Data;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using XL.Core.Tools;
-using XL.Core;
-using XMCL.Pages;
 using System.Windows.Media.Animation;
-using SourceChord.FluentWPF;
+using System.Windows.Media.Imaging;
+using XL.Core;
+using XL.Core.Tools;
+using XMCL.Pages;
 
 namespace XMCL
 {
@@ -117,7 +117,7 @@ namespace XMCL
             Resources.Remove("PrimaryHueDarkBrush");
             Resources.Add("PrimaryHueDarkBrush", new SolidColorBrush((System.Windows.Media.Color)System.Windows.Media.ColorConverter.ConvertFromString(Settings.PrimaryHueDarkBrush)));
             #endregion
-            if(File.Exists(Settings.Background))
+            if (File.Exists(Settings.Background))
                 MainImage.Source = new BitmapImage(new Uri(Settings.Background));
             #endregion
             GC.Collect();
@@ -216,9 +216,9 @@ namespace XMCL
                 catch { }
             });
 
-            Launcher launcher = new Launcher(launchInfo,settings);
+            Launcher launcher = new Launcher(launchInfo, settings);
             launcher.Start(this);
-            
+
         }
         private void C1_DropDownClosed(object sender, EventArgs e)
         {
@@ -454,7 +454,8 @@ namespace XMCL
                             {
                                 Image1.Source = new BitmapImage(new Uri(App.Folder_XMCL + "\\user\\" + Json.ReadUser(Settings.UUID, "userName") + "\\head1.png"));
                                 Image2.Source = new BitmapImage(new Uri(App.Folder_XMCL + "\\user\\" + Json.ReadUser(Settings.UUID, "userName") + "\\head2.png"));
-                            } catch { }
+                            }
+                            catch { }
                         }));
                     });
                 }
