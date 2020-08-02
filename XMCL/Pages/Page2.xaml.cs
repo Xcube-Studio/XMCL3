@@ -176,15 +176,6 @@ namespace XMCL.Pages
             }
 
             #region Set1
-            if (Settings.IsFullScreen)
-                ToggleButton.IsChecked = true;
-            if (Settings.Demo)
-                ToggleButton1.IsChecked = true;
-            if (Settings.AutoHideLaucher)
-                ToggleButton2.IsChecked = true;
-            if (Settings.AutoMemory)
-                ToggleButton3.IsChecked = true;
-
             path.Text = Settings.GamePath;
             R1.IsChecked = !(bool)Json.ReadPath(Settings.GamePathName, "RelativePath");
             R2.IsChecked = (bool)Json.ReadPath(Settings.GamePathName, "RelativePath");
@@ -195,6 +186,10 @@ namespace XMCL.Pages
             TextBox_ServerIP.Text = Settings.ServerIP;
             TextBox_JVM_Value.Text = Settings.Value;
             TextBox_Width.IsEnabled = !(bool)ToggleButton.IsChecked;
+            ToggleButton.IsChecked = Settings.IsFullScreen;
+            ToggleButton1.IsChecked = Settings.Demo;
+            ToggleButton2.IsChecked = Settings.AutoHideLaucher;
+            ToggleButton3.IsChecked = Settings.AutoMemory;
             #endregion
             #region Set2
             if (Settings.DownloadSource == XL.Core.Tools.DownloadSource.Mojang)
@@ -210,22 +205,14 @@ namespace XMCL.Pages
             else ToggleButton4.IsChecked = false;
             #endregion
             #region Set3
-            if (Settings.AcrylicCard)
-                ToggleButton5.IsChecked = true;
-            else ToggleButton5.IsChecked = false;
+            ToggleButton5.IsChecked = Settings.AcrylicCard;
             TextBox_BackGround.Text = (string)Json.Read("Individualization", "Background");
 
             if (((string)Json.Read("Individualization", "Background")).Contains("Dev"))
-            {
                 TextBox_Egg.Text = "Developer-Black";
-            }
-            if (((string)Json.Read("Individualization", "Background")).Contains("Bili"))
-            {
+            else if (((string)Json.Read("Individualization", "Background")).Contains("Bili"))
                 TextBox_Egg.Text = "哔哩哔哩 (゜-゜)つロ 干杯~";
-            }
-            if (Settings.BGP)
-                ToggleButton6.IsChecked = true;
-            else ToggleButton6.IsChecked = false;
+            ToggleButton6.IsChecked = Settings.BGP;
             #endregion
             #region Set5
             MySQL_Loaded();
@@ -362,7 +349,7 @@ namespace XMCL.Pages
                     catch { }
                 }
             }
-            if (TextBox_Egg.Text == "哔哩哔哩 (゜-゜)つロ 干杯~")
+            else if (TextBox_Egg.Text == "哔哩哔哩 (゜-゜)つロ 干杯~")
             {
                 if (((string)Json.Read("Individualization", "Background")).Contains("Bili") == false)
                 {
@@ -383,12 +370,13 @@ namespace XMCL.Pages
                         web.DownloadFile("http://106.14.64.250/api/BiliBili.jpg", AppDomain.CurrentDomain.BaseDirectory + "\\BiliBili.jpg");
                         TextBox_BackGround.Text = AppDomain.CurrentDomain.BaseDirectory + "\\BiliBili.jpg";
                         Json.Write("Individualization", "Background", TextBox_BackGround.Text);
-                        await MainWindow.ShowTip("“哔哩哔哩”主题配置完成 \r\n 主题背景将在重启后生效", 2);
+                        MainWindow.Background.Source = new System.Windows.Media.Imaging.BitmapImage(new Uri(Settings.Background));
+                        await MainWindow.ShowTip("“哔哩哔哩”主题配置完成", 2);
                     }
                     catch { }
                 }
             }
-            if (TextBox_Egg.Text == "")
+            else if (TextBox_Egg.Text == "")
             {
                 TextBox_BackGround.Text = "";
                 Json.Write("Individualization", "Background", " ");

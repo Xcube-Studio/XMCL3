@@ -42,6 +42,7 @@ namespace XMCL
         public static Label RAM;
         public static ProgressBar cpu_PB;
         public static ProgressBar ram_PB;
+        public static System.Windows.Controls.Image Background;
 
         #region 图形/控件
         public MainWindow()
@@ -60,6 +61,7 @@ namespace XMCL
             RAM = RAM_;
             cpu_PB = CPU_PB;
             ram_PB = RAM_PB;
+            Background = MainImage;
             string[] a = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString().Split('.');
             Text_Title.Text += " " + a[0] + "." + a[1] + a[2] + a[3];
             Card_Login.ClipToBounds = true;
@@ -122,14 +124,8 @@ namespace XMCL
             #endregion
             GC.Collect();
             if (Settings.BGP)
-            {
                 BGP.Visibility = Visibility.Visible;
-                
-            }
-            else
-            {
-                BGP.Visibility = Visibility.Collapsed;
-            }
+            else BGP.Visibility = Visibility.Collapsed;
         }
         public static Task ShowTip(string text, int second) => ShowTip(new TextBlock() { Text = text, Margin = new Thickness(10), TextWrapping = TextWrapping.Wrap }, second);
         public static Task ShowTip(UIElement uIElement, int second)

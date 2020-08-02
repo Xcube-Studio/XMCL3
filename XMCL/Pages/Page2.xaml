@@ -77,7 +77,7 @@
             <Border Background="#7F000000" Width="1" d:IsHidden="True" />
         </StackPanel>
         <Grid Margin="156,0,0,0">
-            <ScrollViewer x:Name="Set1" VerticalScrollBarVisibility="Hidden" d:IsHidden="True">
+            <ScrollViewer x:Name="Set1" VerticalScrollBarVisibility="Hidden">
                 <StackPanel Margin="10">
                     <StackPanel.Effect>
                         <DropShadowEffect BlurRadius="10" ShadowDepth="0" Color="Black" Opacity="0.50"/>
@@ -177,7 +177,7 @@
                     </Grid>
                 </StackPanel>
             </ScrollViewer>
-            <ScrollViewer x:Name="Set3" Margin="10" VerticalScrollBarVisibility="Hidden" Visibility="Visible"  >
+            <ScrollViewer x:Name="Set3" Margin="10" VerticalScrollBarVisibility="Hidden" Visibility="Collapsed" d:IsHidden="True"  >
                 <StackPanel>
                     <StackPanel.Effect>
                         <DropShadowEffect BlurRadius="10" ShadowDepth="0" Color="Black" Opacity="0.50"/>
@@ -198,26 +198,26 @@
                                     </Grid>
                                 </Border>
                             </StackPanel>
-
                         </Grid>
                     </Expander>
-                    <Grid Margin="5,0.5,5,0">
-                        <Label Height="48" Background="White" Content="     启用亚力克卡片（Beta）" Foreground="Black" VerticalContentAlignment="Center" FontSize="14" FontFamily="Microsoft YaHei UI Light" Margin="0"/>
-                        <ToggleButton x:Name="ToggleButton5" Style="{StaticResource MaterialDesignSwitchLightToggleButton}" ToolTip="启用亚力克卡片" IsChecked="False" Margin="0,10,10,10" HorizontalAlignment="Right" Width="45" HorizontalContentAlignment="Right" VerticalContentAlignment="Bottom"/>
-                    </Grid>
-                    <Grid Margin="5,0.5,5,0">
-                        <Label Height="48" Background="White" Content="     启用背景化（Beta）" Foreground="Black" VerticalContentAlignment="Center" FontSize="14" FontFamily="Microsoft YaHei UI Light" Margin="0"/>
-                        <ToggleButton x:Name="ToggleButton6" Style="{StaticResource MaterialDesignSwitchLightToggleButton}" ToolTip="启用背景化" IsChecked="False" Margin="0,10,10,10" HorizontalAlignment="Right" Width="45" HorizontalContentAlignment="Right" VerticalContentAlignment="Bottom"/>
-                    </Grid>
-                    <Grid Margin="5,1.5,5,0">
-                        <Label Height="48" Background="White" Content="     背景图片（留空则不启用）" Foreground="Black" VerticalContentAlignment="Center" FontSize="14" FontFamily="Microsoft YaHei UI Light" Margin="0"/>
-                        <TextBox x:Name="TextBox_BackGround" VerticalAlignment="Top" Margin="0,10,10,0" RenderTransformOrigin="0,1" FontFamily="Microsoft YaHei UI Light" HorizontalAlignment="Right" Width="353" Height="28" VerticalContentAlignment="Bottom" HorizontalContentAlignment="Left"  />
-                  </Grid>
-                    <Grid Margin="5,1.5,5,0">
-                        <Label Height="48" Background="White" Content="     彩蛋主题" Foreground="Black" VerticalContentAlignment="Center" FontSize="14" FontFamily="Microsoft YaHei UI Light" Margin="0"/>
-                        <TextBox x:Name="TextBox_Egg" VerticalAlignment="Top" Margin="0,10,10,0" RenderTransformOrigin="0,1" FontFamily="Microsoft YaHei UI Light" HorizontalAlignment="Right" Width="353" Height="28" VerticalContentAlignment="Bottom" HorizontalContentAlignment="Left" TextChanged="TextBox_Egg_TextChanged"  />
-                    </Grid>
-                    
+                    <StackPanel Margin="0,15,0,0">
+                        <Grid Margin="5,0,5,0">
+                            <Label Height="48" Background="White" Content="     启用亚力克卡片（Beta）" Foreground="Black" VerticalContentAlignment="Center" FontSize="14" FontFamily="Microsoft YaHei UI Light" Margin="0"/>
+                            <ToggleButton x:Name="ToggleButton5" Style="{StaticResource MaterialDesignSwitchLightToggleButton}" ToolTip="启用亚力克卡片" IsChecked="False" Margin="0,10,10,10" HorizontalAlignment="Right" Width="45" HorizontalContentAlignment="Right" VerticalContentAlignment="Bottom"/>
+                        </Grid>
+                        <Grid Margin="5,1,5,0">
+                            <Label Height="48" Background="White" Content="     启用背景化（Beta）" Foreground="Black" VerticalContentAlignment="Center" FontSize="14" FontFamily="Microsoft YaHei UI Light" Margin="0"/>
+                            <ToggleButton x:Name="ToggleButton6" Style="{StaticResource MaterialDesignSwitchLightToggleButton}" ToolTip="启用背景化" IsChecked="False" Margin="0,10,10,10" HorizontalAlignment="Right" Width="45" HorizontalContentAlignment="Right" VerticalContentAlignment="Bottom"/>
+                        </Grid>
+                        <Grid Margin="5,1,5,0">
+                            <Label Height="48" Background="White" Content="     背景图片（留空则不启用）" Foreground="Black" VerticalContentAlignment="Center" FontSize="14" FontFamily="Microsoft YaHei UI Light" Margin="0"/>
+                            <TextBox x:Name="TextBox_BackGround" VerticalAlignment="Top" Margin="0,10,10,0" RenderTransformOrigin="0,1" FontFamily="Microsoft YaHei UI Light" HorizontalAlignment="Right" Width="353" Height="28" VerticalContentAlignment="Bottom" HorizontalContentAlignment="Left"  />
+                        </Grid>
+                        <Grid Margin="5,1,5,0">
+                            <Label Height="48" Background="White" Content="     彩蛋主题" Foreground="Black" VerticalContentAlignment="Center" FontSize="14" FontFamily="Microsoft YaHei UI Light" Margin="0"/>
+                            <TextBox x:Name="TextBox_Egg" VerticalAlignment="Top" Margin="0,10,10,0" RenderTransformOrigin="0,1" FontFamily="Microsoft YaHei UI Light" HorizontalAlignment="Right" Width="353" Height="28" VerticalContentAlignment="Bottom" HorizontalContentAlignment="Left" TextChanged="TextBox_Egg_TextChanged"  />
+                        </Grid>
+                    </StackPanel>
                 </StackPanel>
             </ScrollViewer>
             <!--  Visibility="Collapsed"-->
