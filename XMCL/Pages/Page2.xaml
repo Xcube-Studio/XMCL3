@@ -77,7 +77,7 @@
             <Border Background="#7F000000" Width="1" d:IsHidden="True" />
         </StackPanel>
         <Grid Margin="156,0,0,0">
-            <ScrollViewer x:Name="Set1" VerticalScrollBarVisibility="Hidden" d:IsHidden="True">
+            <ScrollViewer x:Name="Set1" VerticalScrollBarVisibility="Visible">
                 <StackPanel Margin="10">
                     <StackPanel.Effect>
                         <DropShadowEffect BlurRadius="10" ShadowDepth="0" Color="Black" Opacity="0.50"/>
@@ -177,7 +177,7 @@
                     </Grid>
                 </StackPanel>
             </ScrollViewer>
-            <ScrollViewer x:Name="Set3" Margin="10" VerticalScrollBarVisibility="Hidden" Visibility="Visible"  >
+            <ScrollViewer x:Name="Set3" Margin="10" VerticalScrollBarVisibility="Hidden" Visibility="Collapsed" d:IsHidden="True"  >
                 <StackPanel>
                     <StackPanel.Effect>
                         <DropShadowEffect BlurRadius="10" ShadowDepth="0" Color="Black" Opacity="0.50"/>
