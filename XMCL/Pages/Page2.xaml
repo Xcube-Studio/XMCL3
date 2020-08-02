@@ -207,7 +207,7 @@
                     </Grid>
                     <Grid Margin="5,0.5,5,0">
                         <Label Height="48" Background="White" Content="     启用背景化（Beta）" Foreground="Black" VerticalContentAlignment="Center" FontSize="14" FontFamily="Microsoft YaHei UI Light" Margin="0"/>
-                        <ToggleButton x:Name="ToggleButton6" Style="{StaticResource MaterialDesignSwitchLightToggleButton}" ToolTip="启用背景化" IsChecked="False" Margin="0,10,10,10" HorizontalAlignment="Right" Width="45" HorizontalContentAlignment="Right" VerticalContentAlignment="Bottom"/>
+                        <ToggleButton x:Name="ToggleButton6" Style="{StaticResource MaterialDesignSwitchLightToggleButton}" ToolTip="启用背景化" IsChecked="False" Margin="0,10,10,10" HorizontalAlignment="Right" Width="45" HorizontalContentAlignment="Right" VerticalContentAlignment="Bottom" />
                     </Grid>
                     <Grid Margin="5,1.5,5,0">
                         <Label Height="48" Background="White" Content="     背景图片（留空则不启用）" Foreground="Black" VerticalContentAlignment="Center" FontSize="14" FontFamily="Microsoft YaHei UI Light" Margin="0"/>

@@ -36,11 +36,8 @@
     </Window.Effect>
 
     <Grid Margin="10" ClipToBounds="True">
-        <Image x:Name="MainImage" Source="Resources/BackGround.png" Stretch="UniformToFill">
-            <Image.Effect>
-                <BlurEffect Radius="2"/>
-            </Image.Effect>
-        </Image>
+        <Image x:Name="MainImage" Source="Resources/BackGround.png" Stretch="UniformToFill"/>
+
         <GroupBox Style="{DynamicResource MaterialDesignGroupBox}" materialDesign:ShadowAssist.ShadowDepth="Depth3" BorderThickness="2" Background="#00000000">
             <GroupBox.Header>
                 <TextBlock x:Name="Text_Title" Text="XcubeLauncher" Foreground="White" Margin="20,0,20,0" >
@@ -50,7 +47,7 @@
                 </TextBlock>
             </GroupBox.Header>
             <Grid Margin="-7,-9,-7,-7">
-                <Button x:Name="BGP"  Style="{StaticResource MaterialDesignRaisedButton}" ToolTip="收缩" Margin="0,0,729,400.667" Height="4" FontFamily="Microsoft YaHei UI Light" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="57" RenderTransformOrigin="0.5,0.5" Click="BGP_Click"/>
+                <Button x:Name="BGP"  Style="{StaticResource MaterialDesignRaisedButton}" ToolTip="收缩" Margin="0,0,728,400.667" Height="4" FontFamily="Microsoft YaHei UI Light" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="57" RenderTransformOrigin="0.5,0.5" Click="BGP_Click"/>
                 <Grid x:Name="Main">
 
                     <Grid.Effect>

@@ -223,6 +223,10 @@ namespace XMCL.Pages
             {
                 TextBox_Egg.Text = "哔哩哔哩 (゜-゜)つロ 干杯~";
             }
+            if (((string)Json.Read("Individualization", "Background")).Contains("MOJANG"))
+            {
+                TextBox_Egg.Text = "MOJANG";
+            }
             if (Settings.BGP)
                 ToggleButton6.IsChecked = true;
             else ToggleButton6.IsChecked = false;
@@ -303,10 +307,6 @@ namespace XMCL.Pages
             Resources.Add("PrimaryHueLightBrush", new SolidColorBrush((System.Windows.Media.Color)System.Windows.Media.ColorConverter.ConvertFromString(Settings.PrimaryHueLightBrush)));
             Resources.Remove("PrimaryHueDarkBrush");
             Resources.Add("PrimaryHueDarkBrush", new SolidColorBrush((System.Windows.Media.Color)System.Windows.Media.ColorConverter.ConvertFromString(Settings.PrimaryHueDarkBrush)));
-            if (((string)Json.Read("Individualization", "Background")).Contains("Dev") == true)
-            {
-                Json.Write("Individualization", "Background", " ");
-            }
         }
         #region
         private async void TextBlock_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
@@ -358,6 +358,7 @@ namespace XMCL.Pages
                         TextBox_BackGround.Text = AppDomain.CurrentDomain.BaseDirectory + "\\Developer.png";
                         Json.Write("Individualization", "Background", TextBox_BackGround.Text);
                         await MainWindow.ShowTip("“Developer-Black”主题配置完成 \r\n 主题背景将在重启后生效", 2);
+                        await MainWindow.ShowTip("若要清除彩蛋主题\r\n请将彩蛋主题框里的文字删除", 2);
                     }
                     catch { }
                 }
@@ -369,7 +370,7 @@ namespace XMCL.Pages
                     try
                     {
                         await MainWindow.ShowTip("“哔哩哔哩”主题正在配置中.....\r\n请不要关闭XL启动器", 2);
-                        App.Themes("#ff9100", "#ffc246", "#c56200");
+                        App.Themes("#ff3d00", "#ff7539", "#c30000");
                         Resources.Remove("PrimaryHueMidBrush");
                         Resources.Add("PrimaryHueMidBrush", new SolidColorBrush((System.Windows.Media.Color)System.Windows.Media.ColorConverter.ConvertFromString(Settings.PrimaryHueMidBrush)));
                         Resources.Remove("PrimaryHueLightBrush");
@@ -377,13 +378,41 @@ namespace XMCL.Pages
                         Resources.Remove("PrimaryHueDarkBrush");
                         Resources.Add("PrimaryHueDarkBrush", new SolidColorBrush((System.Windows.Media.Color)System.Windows.Media.ColorConverter.ConvertFromString(Settings.PrimaryHueDarkBrush)));
                         WebClient web = new WebClient();
-                        Json.Write("Individualization", "PrimaryHueMidBrush", "#ff9100");
-                        Json.Write("Individualization", "PrimaryHueDarkBrush", "#c56200");
-                        Json.Write("Individualization", "PrimaryHueLightBrush", "#ffc246");
+                        Json.Write("Individualization", "PrimaryHueMidBrush", "#ff3d00");
+                        Json.Write("Individualization", "PrimaryHueDarkBrush", "#ff7539");
+                        Json.Write("Individualization", "PrimaryHueLightBrush", "#c30000");
                         web.DownloadFile("http://106.14.64.250/api/BiliBili.jpg", AppDomain.CurrentDomain.BaseDirectory + "\\BiliBili.jpg");
                         TextBox_BackGround.Text = AppDomain.CurrentDomain.BaseDirectory + "\\BiliBili.jpg";
                         Json.Write("Individualization", "Background", TextBox_BackGround.Text);
                         await MainWindow.ShowTip("“哔哩哔哩”主题配置完成 \r\n 主题背景将在重启后生效", 2);
+                         await MainWindow.ShowTip("若要清除彩蛋主题\r\n请将彩蛋主题框里的文字删除", 2);
+                    }
+                    catch { }
+                }
+            }
+            if (TextBox_Egg.Text == "Mojang Studio 跑路了~")
+            {
+                if (((string)Json.Read("Individualization", "Background")).Contains("MOJANG") == false)
+                {
+                    try
+                    {
+                        await MainWindow.ShowTip("“Mojang”主题正在配置中.....\r\n请不要关闭XL启动器", 2);
+                        App.Themes("#d50000", "#ff5131", "#9b0000");
+                        Resources.Remove("PrimaryHueMidBrush");
+                        Resources.Add("PrimaryHueMidBrush", new SolidColorBrush((System.Windows.Media.Color)System.Windows.Media.ColorConverter.ConvertFromString(Settings.PrimaryHueMidBrush)));
+                        Resources.Remove("PrimaryHueLightBrush");
+                        Resources.Add("PrimaryHueLightBrush", new SolidColorBrush((System.Windows.Media.Color)System.Windows.Media.ColorConverter.ConvertFromString(Settings.PrimaryHueLightBrush)));
+                        Resources.Remove("PrimaryHueDarkBrush");
+                        Resources.Add("PrimaryHueDarkBrush", new SolidColorBrush((System.Windows.Media.Color)System.Windows.Media.ColorConverter.ConvertFromString(Settings.PrimaryHueDarkBrush)));
+                        WebClient web = new WebClient();
+                        Json.Write("Individualization", "PrimaryHueMidBrush", "#d50000");
+                        Json.Write("Individualization", "PrimaryHueDarkBrush", "#ff5131");
+                        Json.Write("Individualization", "PrimaryHueLightBrush", "#9b0000");
+                        web.DownloadFile("http://106.14.64.250/api/MOJANG.png", AppDomain.CurrentDomain.BaseDirectory + "\\MOJANG.png");
+                        TextBox_BackGround.Text = AppDomain.CurrentDomain.BaseDirectory + "\\MOJANG.png";
+                        Json.Write("Individualization", "Background", TextBox_BackGround.Text);
+                        await MainWindow.ShowTip("“Mojang”主题配置完成 \r\n 主题背景将在重启后生效", 2);
+                        await MainWindow.ShowTip("若要清除彩蛋主题\r\n请将彩蛋主题框里的文字删除", 2);
                     }
                     catch { }
                 }
@@ -405,6 +434,11 @@ namespace XMCL.Pages
                 Json.Write("Individualization", "PrimaryHueLightBrush", "#0069C0");
                 await MainWindow.ShowTip("已清除彩蛋主题 \r\n 背景将在重启后恢复", 2);
             }
+        }
+
+        private void ToggleButton6_PreviewMouseUp(object sender, MouseButtonEventArgs e)
+        {
+
         }
     }
 }

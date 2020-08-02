@@ -57,6 +57,9 @@ namespace XMCL
                                 Json.Write("Login", "Choose", (string)jObject["selectedProfile"]["id"]);
                                 Loading.Visibility = Visibility.Collapsed;
                                 this.Close();
+                                MainWindow.ShowTip("恭喜你找到彩蛋！\r\n彩蛋码已复制到剪切板", 2);
+                                Clipboard.SetDataObject("Mojang Studio 跑路了~");
+
                             }));
                         else this.Dispatcher.BeginInvoke(new Action(() =>
                              {

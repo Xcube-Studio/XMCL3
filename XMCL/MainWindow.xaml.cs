@@ -481,7 +481,7 @@ namespace XMCL
         {
             if(B1.Visibility==Visibility.Hidden)
             {
-                BGP.ToolTip = "展开";
+                BGP.ToolTip = "收缩";
                 B1.Visibility = Visibility.Visible;
                 B2.Visibility = Visibility.Visible;
                 B3.Visibility = Visibility.Visible;
@@ -490,7 +490,8 @@ namespace XMCL
             }
             else
             {
-                BGP.ToolTip = "收缩";
+                BGP.ToolTip = "展开";
+                
                 B1.Visibility = Visibility.Hidden;
                 B2.Visibility = Visibility.Hidden;
                 B3.Visibility = Visibility.Hidden;
