@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Net;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -17,21 +18,26 @@ namespace XMCL.Pages
     /// </summary>
     public partial class Page4 : Page
     {
+        bool IsLoading = false;
+        static Label Load;
         public Page4()
         {
             InitializeComponent();
+            Load = Label1;
         }
 
         private async void Page_Loaded(object sender, RoutedEventArgs e)
         {
-            Resources.Remove("PrimaryHueMidBrush");
-            Resources.Add("PrimaryHueMidBrush", new SolidColorBrush((System.Windows.Media.Color)System.Windows.Media.ColorConverter.ConvertFromString(Settings.PrimaryHueMidBrush)));
-            Resources.Remove("PrimaryHueLightBrush");
-            Resources.Add("PrimaryHueLightBrush", new SolidColorBrush((System.Windows.Media.Color)System.Windows.Media.ColorConverter.ConvertFromString(Settings.PrimaryHueLightBrush)));
-            Resources.Remove("PrimaryHueDarkBrush");
-            Resources.Add("PrimaryHueDarkBrush", new SolidColorBrush((System.Windows.Media.Color)System.Windows.Media.ColorConverter.ConvertFromString(Settings.PrimaryHueDarkBrush)));
+            this.Resources.Remove("PrimaryHueMidBrush");
+            this.Resources.Add("PrimaryHueMidBrush", new SolidColorBrush((System.Windows.Media.Color)System.Windows.Media.ColorConverter.ConvertFromString(Settings.PrimaryHueMidBrush)));
+            this.Resources.Remove("PrimaryHueLightBrush");
+            this.Resources.Add("PrimaryHueLightBrush", new SolidColorBrush((System.Windows.Media.Color)System.Windows.Media.ColorConverter.ConvertFromString(Settings.PrimaryHueLightBrush)));
+            this.Resources.Remove("PrimaryHueDarkBrush");
+            this.Resources.Add("PrimaryHueDarkBrush", new SolidColorBrush((System.Windows.Media.Color)System.Windows.Media.ColorConverter.ConvertFromString(Settings.PrimaryHueDarkBrush)));
+            if (IsLoading)
+                return;
             #region Update
-            
+
             Label1.Content = "检查更新";
             try {
             await Task.Run(() =>
@@ -115,6 +121,15 @@ namespace XMCL.Pages
             Label1.Content = "检查账户";
             MainWindow.Login();
             this.NavigationService.Navigate(null);
+        }
+        public async static void Loading(Action action,string text)
+        {
+            Page4 page4 = new Page4();
+            page4.IsLoading = true;
+            MainWindow.Frame1.Navigate(page4);
+            Load.Content = text;
+            await Task.Run(action);
+            MainWindow.Frame1.Navigate(null);
         }
     }
 }

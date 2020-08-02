@@ -207,11 +207,6 @@ namespace XMCL.Pages
             #region Set3
             ToggleButton5.IsChecked = Settings.AcrylicCard;
             TextBox_BackGround.Text = (string)Json.Read("Individualization", "Background");
-
-            if (((string)Json.Read("Individualization", "Background")).Contains("Dev"))
-                TextBox_Egg.Text = "Developer-Black";
-            else if (((string)Json.Read("Individualization", "Background")).Contains("Bili"))
-                TextBox_Egg.Text = "哔哩哔哩 (゜-゜)つロ 干杯~";
             ToggleButton6.IsChecked = Settings.BGP;
             #endregion
             #region Set5
@@ -290,10 +285,6 @@ namespace XMCL.Pages
             Resources.Add("PrimaryHueLightBrush", new SolidColorBrush((System.Windows.Media.Color)System.Windows.Media.ColorConverter.ConvertFromString(Settings.PrimaryHueLightBrush)));
             Resources.Remove("PrimaryHueDarkBrush");
             Resources.Add("PrimaryHueDarkBrush", new SolidColorBrush((System.Windows.Media.Color)System.Windows.Media.ColorConverter.ConvertFromString(Settings.PrimaryHueDarkBrush)));
-            if (((string)Json.Read("Individualization", "Background")).Contains("Dev") == true)
-            {
-                Json.Write("Individualization", "Background", " ");
-            }
         }
         #region
         private async void TextBlock_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
@@ -320,78 +311,44 @@ namespace XMCL.Pages
         {
             TextBox_Memory.IsEnabled = !(bool)ToggleButton3.IsChecked;
         }
-
-        private async void TextBox_Egg_TextChanged(object sender, TextChangedEventArgs e)
+        private void TextBox_BackGround_TextChanged(object sender, TextChangedEventArgs e)
         {
-            if (TextBox_Egg.Text == "Developer-Black")
+            JArray jArray = JArray.Parse(XMCL.Properties.Resources.Egg);
+            string Text = TextBox_BackGround.Text;
+            for(int i=0;i<jArray.Count;i++)
             {
-                if (((string)Json.Read("Individualization", "Background")).Contains("Dev") == false)
+                JObject jObject = (JObject)jArray[i];
+                if (Text == (string)jObject["name"])
                 {
-                    try
+                    string[] color = ((string)jObject["Color"]).Split(':');
+                    string Filename = App.Folder_XMCL + "\\" + jObject["File"];
+                    Page4.Loading(new Action(() =>
                     {
-                        await MainWindow.ShowTip("“Developer-Black”主题正在配置中.....\r\n请不要关闭XL启动器", 2);
-                        App.Themes("#212121", "#484848", "#000000");
-                        Resources.Remove("PrimaryHueMidBrush");
-                        Resources.Add("PrimaryHueMidBrush", new SolidColorBrush((System.Windows.Media.Color)System.Windows.Media.ColorConverter.ConvertFromString(Settings.PrimaryHueMidBrush)));
-                        Resources.Remove("PrimaryHueLightBrush");
-                        Resources.Add("PrimaryHueLightBrush", new SolidColorBrush((System.Windows.Media.Color)System.Windows.Media.ColorConverter.ConvertFromString(Settings.PrimaryHueLightBrush)));
-                        Resources.Remove("PrimaryHueDarkBrush");
-                        Resources.Add("PrimaryHueDarkBrush", new SolidColorBrush((System.Windows.Media.Color)System.Windows.Media.ColorConverter.ConvertFromString(Settings.PrimaryHueDarkBrush)));
                         WebClient web = new WebClient();
-                        Json.Write("Individualization", "PrimaryHueMidBrush", "#212121");
-                        Json.Write("Individualization", "PrimaryHueDarkBrush", "#000000");
-                        Json.Write("Individualization", "PrimaryHueLightBrush", "#484848");
-                        web.DownloadFile("http://106.14.64.250/api/Develop.png", AppDomain.CurrentDomain.BaseDirectory + "\\Developer.png");
-                        TextBox_BackGround.Text = AppDomain.CurrentDomain.BaseDirectory + "\\Developer.png";
-                        Json.Write("Individualization", "Background", TextBox_BackGround.Text);
-                        await MainWindow.ShowTip("“Developer-Black”主题配置完成 \r\n 主题背景将在重启后生效", 2);
-                    }
-                    catch { }
+                        try
+                        {
+                            this.Dispatcher.Invoke(new Action(async () =>
+                            {
+                                await MainWindow.ShowTip("彩蛋主题正在配置中.....\r\n请不要关闭XL启动器", 2);
+                            }));
+                            web.DownloadFile((string)jObject["Url"], Filename);
+                            this.Dispatcher.Invoke(new Action(() =>
+                            {
+                                TextBox_BackGround.Text = Filename;
+                                Json.Write("Individualization", "Background", Filename);
+                                MainWindow.Background.Source = new System.Windows.Media.Imaging.BitmapImage(new Uri(Settings.Background));
+                                App.Themes(color[0], color[1], color[2]);
+                            }));
+                        }
+                        catch { }
+                        web.Dispose();
+                        this.Dispatcher.Invoke(new Action(async () =>
+                        {
+                            await MainWindow.ShowTip("彩蛋主题配置完成", 2);
+                        }));
+                    }), "正在更换主题");
                 }
-            }
-            else if (TextBox_Egg.Text == "哔哩哔哩 (゜-゜)つロ 干杯~")
-            {
-                if (((string)Json.Read("Individualization", "Background")).Contains("Bili") == false)
-                {
-                    try
-                    {
-                        await MainWindow.ShowTip("“哔哩哔哩”主题正在配置中.....\r\n请不要关闭XL启动器", 2);
-                        App.Themes("#ff9100", "#ffc246", "#c56200");
-                        Resources.Remove("PrimaryHueMidBrush");
-                        Resources.Add("PrimaryHueMidBrush", new SolidColorBrush((System.Windows.Media.Color)System.Windows.Media.ColorConverter.ConvertFromString(Settings.PrimaryHueMidBrush)));
-                        Resources.Remove("PrimaryHueLightBrush");
-                        Resources.Add("PrimaryHueLightBrush", new SolidColorBrush((System.Windows.Media.Color)System.Windows.Media.ColorConverter.ConvertFromString(Settings.PrimaryHueLightBrush)));
-                        Resources.Remove("PrimaryHueDarkBrush");
-                        Resources.Add("PrimaryHueDarkBrush", new SolidColorBrush((System.Windows.Media.Color)System.Windows.Media.ColorConverter.ConvertFromString(Settings.PrimaryHueDarkBrush)));
-                        WebClient web = new WebClient();
-                        Json.Write("Individualization", "PrimaryHueMidBrush", "#ff9100");
-                        Json.Write("Individualization", "PrimaryHueDarkBrush", "#c56200");
-                        Json.Write("Individualization", "PrimaryHueLightBrush", "#ffc246");
-                        web.DownloadFile("http://106.14.64.250/api/BiliBili.jpg", AppDomain.CurrentDomain.BaseDirectory + "\\BiliBili.jpg");
-                        TextBox_BackGround.Text = AppDomain.CurrentDomain.BaseDirectory + "\\BiliBili.jpg";
-                        Json.Write("Individualization", "Background", TextBox_BackGround.Text);
-                        MainWindow.Background.Source = new System.Windows.Media.Imaging.BitmapImage(new Uri(Settings.Background));
-                        await MainWindow.ShowTip("“哔哩哔哩”主题配置完成", 2);
-                    }
-                    catch { }
-                }
-            }
-            else if (TextBox_Egg.Text == "")
-            {
-                TextBox_BackGround.Text = "";
-                Json.Write("Individualization", "Background", " ");
-                App.Themes("#2196F3", "#6EC6FF", "#0069C0");
-                Resources.Remove("PrimaryHueMidBrush");
-                Resources.Add("PrimaryHueMidBrush", new SolidColorBrush((System.Windows.Media.Color)System.Windows.Media.ColorConverter.ConvertFromString(Settings.PrimaryHueMidBrush)));
-                Resources.Remove("PrimaryHueLightBrush");
-                Resources.Add("PrimaryHueLightBrush", new SolidColorBrush((System.Windows.Media.Color)System.Windows.Media.ColorConverter.ConvertFromString(Settings.PrimaryHueLightBrush)));
-                Resources.Remove("PrimaryHueDarkBrush");
-                Resources.Add("PrimaryHueDarkBrush", new SolidColorBrush((System.Windows.Media.Color)System.Windows.Media.ColorConverter.ConvertFromString(Settings.PrimaryHueDarkBrush)));
-                WebClient web = new WebClient();
-                Json.Write("Individualization", "PrimaryHueMidBrush", "#2196F3");
-                Json.Write("Individualization", "PrimaryHueDarkBrush", "#6EC6FF");
-                Json.Write("Individualization", "PrimaryHueLightBrush", "#0069C0");
-                await MainWindow.ShowTip("已清除彩蛋主题 \r\n 背景将在重启后恢复", 2);
+
             }
         }
     }

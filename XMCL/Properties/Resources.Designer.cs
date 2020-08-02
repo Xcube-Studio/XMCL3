@@ -71,6 +71,32 @@ namespace XMCL.Properties {
         }
         
         /// <summary>
+        ///   查找类似 [
+        ///    {
+        ///        &quot;name&quot;:&quot;Developer-Black&quot;,
+        ///        &quot;Color&quot;:&quot;#212121:#484848:#000000&quot;,
+        ///        &quot;Url&quot;:&quot;http://106.14.64.250/api/Develop.png&quot;,
+        ///        &quot;File&quot;:&quot;Developer.png&quot;
+        ///    },
+        ///    {
+        ///        &quot;name&quot;:&quot;哔哩哔哩 (゜-゜)つロ 干杯~&quot;,
+        ///        &quot;Color&quot;:&quot;#ff9100:#ffc246:#c56200&quot;,
+        ///        &quot;Url&quot;:&quot;http://106.14.64.250/api/BiliBili.jpg&quot;,
+        ///        &quot;File&quot;:&quot;BiliBili.jpg&quot;
+        ///    },
+        ///    {
+        ///        &quot;name&quot;:&quot;Mojang&quot;,
+        ///        &quot;Color&quot;:&quot;#d50000:#ff5131:#9b0000&quot;,
+        ///        &quot;Url&quot;:&quot;http://106.14.64.250/api/MOJANG.png&quot;,
+        ///        &quot;File&quot;: [字符串的其余部分被截断]&quot;; 的本地化字符串。
+        /// </summary>
+        internal static string Egg {
+            get {
+                return ResourceManager.GetString("Egg", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
         internal static System.Drawing.Bitmap steve {

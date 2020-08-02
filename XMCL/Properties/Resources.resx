@@ -121,6 +121,28 @@
   <data name="BackGround" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\BackGround.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="Egg" xml:space="preserve">
+    <value>[
+    {
+        "name":"Developer-Black",
+        "Color":"#212121:#484848:#000000",
+        "Url":"http://106.14.64.250/api/Develop.png",
+        "File":"Developer.png"
+    },
+    {
+        "name":"哔哩哔哩 (゜-゜)つロ 干杯~",
+        "Color":"#ff9100:#ffc246:#c56200",
+        "Url":"http://106.14.64.250/api/BiliBili.jpg",
+        "File":"BiliBili.jpg"
+    },
+    {
+        "name":"Mojang",
+        "Color":"#d50000:#ff5131:#9b0000",
+        "Url":"http://106.14.64.250/api/MOJANG.png",
+        "File":"MOJANG.png"
+    }
+]</value>
+  </data>
   <data name="steve" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\steve.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
