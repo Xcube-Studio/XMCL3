@@ -20,6 +20,23 @@ namespace XMCL
                typeof(Timeline),
                new FrameworkPropertyMetadata { DefaultValue = 65 }
                );
+            if (!Directory.Exists(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\.XMCL"))
+                Directory.CreateDirectory(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\.XMCL");
+            if (!File.Exists(System.IO.Directory.GetCurrentDirectory() + "\\XMCL.json"))
+            {
+                FileStream fs1 = new FileStream(System.Environment.CurrentDirectory + "\\XMCL.json", FileMode.Create, FileAccess.ReadWrite);
+                try
+                {
+                    fs1.Write(XMCL.Properties.Resources.XMCL, 0, XMCL.Properties.Resources.XMCL.Length);
+                    fs1.Flush();
+                    fs1.Close();
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+            }
+
         }
         public static string Folder_XMCL = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\.XMCL";
         public static void Themes(string color_str, string color_str1, string color_str2)
