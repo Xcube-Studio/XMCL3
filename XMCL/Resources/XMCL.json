@@ -31,7 +31,7 @@
     "PrimaryHueDarkBrush": "#0069c0",
     "UseSystemTheme": false,
     "Background": "",
-    "BackgroundPlus": "",
+    "BackgroundPlus": false,
     "AutoHideLaucher": true,
     "AcrylicCard": false
   },
