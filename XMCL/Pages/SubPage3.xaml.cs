@@ -47,14 +47,14 @@ namespace XMCL.Pages
                 title = (string)reader[6];
                 this.Dispatcher.BeginInvoke(new Action(() =>
                 {
-                    Title1.Content = issues;
+                    Title1.Content = title;
                     if (state >= 1 || state < 10)
                         state1.Content = "反馈类型：BUG";
                     else state1.Content = "反馈类型：建议";
                     if (state >= 2 & state < 10 | state > 10)
                     {
                         state2.Content = "已回应";
-                        TextBox1.Text += "回复的反馈: " + by + "     " + "回复的开发者：" + replied_by + "\r\n";
+                        TextBox1.Text += "反馈: " + by + "     " + "回复的开发者：" + replied_by + "\r\n";
 
                         TextBox1.Text += "================正文================" + "\r\n";
                         TextBox1.Text += issues + "\r\n";
@@ -62,7 +62,12 @@ namespace XMCL.Pages
                         TextBox1.Text += reply + "\r\n";
                         TextBox1.Text += "===================================" + "\r\n";
                     }
-                    else state2.Content = "开发者暂未查看";
+                    else
+                    {
+                        state2.Content = "开发者暂未查看"; 
+                        TextBox1.Text += "================正文================" + "\r\n";
+                        TextBox1.Text += issues + "\r\n";
+                    }
                 }));
             });
         }
